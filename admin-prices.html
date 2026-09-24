@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Manage Yoga Prices | ABH Yogaa Studio</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+    <style>
+
+        .admin-price-section {
+            padding: 140px 6% 80px;
+            min-height: 100vh;
+        }
+
+        .admin-price-container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .admin-price-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .admin-price-header h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 48px;
+            color: #596b3d;
+            margin-bottom: 10px;
+        }
+
+        .admin-price-header p {
+            color: #666;
+        }
+
+        .price-table-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .price-table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+        }
+
+        .price-table th {
+            text-align: center;
+            padding: 16px;
+            background: #f5f0e8;
+            color: #596b3d;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .price-table th:first-child {
+            text-align: left;
+        }
+
+        .price-table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .price-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .price-table input {
+            width: 120px;
+            padding: 11px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .price-table input:focus {
+            outline: none;
+            border-color: #8a7535;
+        }
+
+        .mode-title {
+            font-size: 13px;
+            opacity: .75;
+            font-weight: 500;
+        }
+
+        .save-price-btn {
+            margin-top: 25px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    90deg,
+                    #a47b24,
+                    #596b3d
+                );
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .save-price-btn:hover {
+            opacity: .9;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #edf6e8;
+            color: #45652f;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fdecec;
+            color: #a33a3a;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ABH YOGAA STUDIO
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="services.html">
+                    Services
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<section class="admin-price-section">
+
+    <div class="admin-price-container">
+
+        <div class="admin-price-header">
+
+            <h1>
+                Manage Yoga Prices
+            </h1>
+
+            <p>
+                Set separate prices for Online and Offline classes.
+            </p>
+
+        </div>
+
+
+        <div class="price-table-wrapper">
+
+            <table class="price-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Service
+                        </th>
+
+                        <th>
+                            One Day
+                            <div class="mode-title">
+                                Offline
+                            </div>
+                        </th>
+
+                        <th>
+                            One Day
+                            <div class="mode-title">
+                                Online
+                            </div>
+                        </th>
+
+                        <th>
+                            One Month
+                            <div class="mode-title">
+                                Offline
+                            </div>
+                        </th>
+
+                        <th>
+                            One Month
+                            <div class="mode-title">
+                                Online
+                            </div>
+                        </th>
+
+                        <th>
+                            Three Months
+                            <div class="mode-title">
+                                Offline
+                            </div>
+                        </th>
+
+                        <th>
+                            Three Months
+                            <div class="mode-title">
+                                Online
+                            </div>
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="priceTableBody"
+                >
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            style="
+                                text-align:center;
+                                padding:30px;
+                            "
+                        >
+                            Loading prices...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <button
+                type="button"
+                class="save-price-btn"
+                id="savePricesBtn"
+            >
+                Save Prices
+            </button>
+
+
+            <div
+                id="statusMessage"
+                class="status-message"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/supabase-config.js"></script>
+
+<script src="js/admin-prices.js"></script>
+
+
+</body>
+
+</html>

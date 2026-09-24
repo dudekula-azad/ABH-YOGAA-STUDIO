@@ -234,20 +234,46 @@ body{
 
 }
 
-.service-item span{
+/* ================= SERVICE STATUS / ARROW ================= */
 
-    font-size:40px;
-
-    color:#7d5c28;
-
-    transition:.3s;
-
+.service-item > span {
+    font-size: 24px;
+    color: #4b5b35;
+    transition: .3s;
+    flex-shrink: 0;
 }
 
-.service-item:hover span{
+/* Normal service arrow */
+.service-item:not(.service-coming-soon) > span {
+    font-size: 24px;
+}
 
-    transform:translateX(10px);
+/* Hover only moves the arrow */
+.service-item:not(.service-coming-soon):hover > span {
+    transform: translateX(8px);
+}
 
+/* ================= PILATES - COMING SOON ================= */
+
+.service-coming-soon {
+    cursor: default;
+    opacity: 0.75;
+}
+
+.service-coming-soon:hover {
+    transform: none;
+    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    border-color: #eee;
+}
+
+/* Coming Soon text */
+.coming-soon-label {
+    font-size: 14px !important;
+    color: #8b6728 !important;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: none !important;
+    transform: none !important;
 }
 
 /* ================= CONTACT ================= */
@@ -1133,4 +1159,602 @@ body{
     font-size: 12px;
     margin-left: 4px;
     font-weight: 500;
+}
+/* ============================================================
+   DYNAMIC SERVICE IMAGES
+   ============================================================ */
+
+.service-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.service-image {
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #eef3e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.service-image-placeholder {
+    font-size: 36px;
+    color: #4b5b35;
+}
+
+.service-content {
+    flex: 1;
+    min-width: 0;
+    padding: 0 25px;
+}
+
+.service-content h3 {
+    margin-bottom: 8px;
+}
+
+.service-content p {
+    margin: 0;
+}
+
+.service-arrow {
+    font-size: 24px !important;
+    color: #4b5b35 !important;
+    flex-shrink: 0;
+}
+
+.coming-soon-label {
+    font-size: 14px !important;
+    color: #8b6728 !important;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+/* ============================================================
+   INSTRUCTOR ADMIN
+   ============================================================ */
+
+.instructor-admin-section {
+    margin-bottom: 50px;
+}
+
+.instructor-admin-header {
+    margin-bottom: 20px;
+}
+
+.instructor-admin-header h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: #596b3d;
+    font-size: 34px;
+    margin-bottom: 6px;
+}
+
+.instructor-admin-header p {
+    color: #666;
+}
+
+.instructor-admin-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.instructor-admin-card label {
+    display: block;
+    font-weight: 600;
+    color: #596b3d;
+    margin-top: 18px;
+    margin-bottom: 6px;
+}
+
+.instructor-admin-card input[type="text"],
+.instructor-admin-card textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.instructor-admin-card textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.instructor-admin-image {
+    width: 220px;
+    height: 220px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #f5f0e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.instructor-admin-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.instructor-image-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.instructor-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+
+    .instructor-two-column {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .instructor-admin-image {
+        width: 180px;
+        height: 180px;
+    }
+
+}
+/* =====================================================
+   SPECIAL SESSIONS ADMIN
+===================================================== */
+
+.special-sessions-admin-section {
+    margin-bottom: 50px;
+}
+
+.special-sessions-admin-header {
+    margin-bottom: 20px;
+}
+
+.special-sessions-admin-header h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: #596b3d;
+    font-size: 34px;
+    margin-bottom: 6px;
+}
+
+.special-sessions-admin-header p {
+    color: #666;
+}
+
+.special-session-admin-form {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.special-session-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+}
+
+.special-session-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.special-session-form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.special-session-form-group label {
+    font-weight: 600;
+    color: #596b3d;
+    margin-bottom: 7px;
+}
+
+.special-session-form-group input,
+.special-session-form-group textarea,
+.special-session-form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.special-session-form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.special-session-form-group input:focus,
+.special-session-form-group textarea:focus,
+.special-session-form-group select:focus {
+    outline: none;
+    border-color: #596b3d;
+}
+
+.special-session-status-row {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.special-session-status-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.special-session-status-row input {
+    width: auto;
+}
+
+.special-session-admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.special-session-save-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    background: #596b3d;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.special-session-cancel-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    background: #eee;
+    color: #555;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.special-session-save-btn:disabled,
+.special-session-cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.special-sessions-admin-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.special-session-admin-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.special-session-admin-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #f5f0e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.special-session-admin-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.special-session-admin-placeholder {
+    font-size: 55px;
+}
+
+.special-session-admin-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    color: #596b3d;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.special-session-admin-card p {
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.special-session-admin-meta {
+    display: grid;
+    gap: 7px;
+    color: #555;
+    font-size: 14px;
+}
+
+.special-session-admin-card-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.special-session-edit-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 18px;
+    background: #596b3d;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.special-session-delete-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 18px;
+    background: #f5dddd;
+    color: #9b3939;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.special-session-image-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.special-session-image-actions input[type="file"] {
+    flex: 1;
+}
+
+@media (max-width: 800px) {
+
+    .special-session-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .special-session-form-group.full-width {
+        grid-column: auto;
+    }
+
+    .special-sessions-admin-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================================
+   CUSTOMER REVIEW
+========================================= */
+
+.review-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-top: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.06);
+
+}
+
+
+.review-card h2 {
+
+    color: #596b3d;
+
+    margin-bottom: 8px;
+
+}
+
+
+.review-intro {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+
+.review-form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.review-form-group label {
+
+    display: block;
+
+    font-weight: 600;
+
+    color: #596b3d;
+
+    margin-bottom: 7px;
+
+}
+
+
+.review-form-group select,
+.review-form-group textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+}
+
+
+.review-form-group textarea {
+
+    resize: vertical;
+
+}
+
+
+.review-form-group select:focus,
+.review-form-group textarea:focus {
+
+    outline: none;
+
+    border-color: #596b3d;
+
+}
+
+
+.review-submit-btn {
+
+    border: none;
+
+    border-radius: 25px;
+
+    padding: 12px 25px;
+
+    background: #596b3d;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.review-submit-btn:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+}
+
+
+.review-status-message {
+
+    margin-top: 15px;
+
+    font-size: 14px;
+
+}
+/* ================= CONTACT ACTIONS ================= */
+
+.contact-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    margin: 20px auto;
+}
+
+/* Phone */
+
+.contact-actions .contact-item {
+    margin: 0;
+    width: auto;
+    min-width: 260px;
+}
+
+/* WhatsApp */
+
+.whatsapp-contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-width: 260px;
+    padding: 14px 24px;
+
+    background: #25D366;
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    border-radius: 30px;
+
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25);
+
+    transition: all 0.3s ease;
+}
+
+.whatsapp-contact-btn i {
+    font-size: 18px;
+}
+
+.whatsapp-contact-btn:hover {
+    transform: translateY(-3px);
+    background: #20bd5a;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .contact-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .contact-actions .contact-item,
+    .whatsapp-contact-btn {
+        width: 90%;
+        min-width: unset;
+    }
+
 }

@@ -1,0 +1,279 @@
+/* ============================================================
+   ABH YOGAA STUDIO
+   ADMIN BOOKINGS PAGE
+============================================================ */
+
+.admin-bookings-page {
+    width: 92%;
+    max-width: 1500px;
+    margin: 60px auto;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.admin-header h1 {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.admin-header p {
+    font-size: 16px;
+    color: #777;
+}
+
+
+/* ============================================================
+   FILTERS
+============================================================ */
+
+.booking-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.booking-filters div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.booking-filters label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.booking-filters select,
+.booking-filters input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.booking-filters select:focus,
+.booking-filters input:focus {
+    border-color: #8b7a3a;
+}
+
+
+/* ============================================================
+   BOOKINGS CONTAINER
+============================================================ */
+
+.bookings-container {
+    background: #fff;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* ============================================================
+   TABLE
+============================================================ */
+
+#bookingsTable {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1200px;
+}
+
+#bookingsTable thead {
+    background: #f4efe5;
+}
+
+#bookingsTable th {
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#bookingsTable td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+#bookingsTable tbody tr:hover {
+    background: #faf8f3;
+}
+
+#bookingsTable td strong {
+    font-weight: 600;
+}
+
+#bookingsTable small {
+    display: block;
+    margin-top: 4px;
+    color: #888;
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   STATUS BADGES
+============================================================ */
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+
+/* Booking */
+
+.booking-confirmed {
+    background: #e5f4e8;
+    color: #28743c;
+}
+
+.booking-pending {
+    background: #fff3d6;
+    color: #8a6515;
+}
+
+.booking-cancelled {
+    background: #f9e2e2;
+    color: #a33a3a;
+}
+
+
+/* Payment */
+
+.payment-paid {
+    background: #e5f4e8;
+    color: #28743c;
+}
+
+.payment-pending {
+    background: #fff3d6;
+    color: #8a6515;
+}
+
+.payment-failed {
+    background: #f9e2e2;
+    color: #a33a3a;
+}
+
+
+/* ============================================================
+   LOADING / ERROR / EMPTY
+============================================================ */
+
+.loading-message {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+}
+
+.error-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #f9e2e2;
+    color: #a33a3a;
+    border-radius: 8px;
+}
+
+.no-bookings {
+    text-align: center;
+    padding: 45px;
+    color: #777;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 800px) {
+
+    .admin-bookings-page {
+        width: 94%;
+        margin: 30px auto;
+    }
+
+    .admin-header h1 {
+        font-size: 32px;
+    }
+
+    .booking-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .bookings-container {
+        padding: 15px;
+    }
+
+}
+/* ============================================================
+   BOOKING ACTIONS
+============================================================ */
+
+.booking-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 100px;
+}
+
+.booking-action {
+    border: none;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #eee;
+}
+
+.booking-action:hover {
+    opacity: 0.8;
+}
+
+.confirm-booking {
+    background: #dcefdc;
+    color: #276b35;
+}
+
+.cancel-booking {
+    background: #f4dddd;
+    color: #9b3434;
+}
+
+.paid-payment {
+    background: #dcefdc;
+    color: #276b35;
+}
+
+.pending-payment {
+    background: #fff0cf;
+    color: #866318;
+}

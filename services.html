@@ -5,6 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
 
     <title>Choose Your Yoga | ABH Yogaa Studio</title>
 
@@ -296,7 +297,23 @@
 
     </footer>
 
+<script>
+    const selectedPlan = new URLSearchParams(window.location.search).get("plan");
 
+    if (selectedPlan) {
+        const serviceLinks = document.querySelectorAll(
+            '.service-list a.service-item:not(.coming-soon)'
+        );
+
+        serviceLinks.forEach(link => {
+            const url = new URL(link.getAttribute("href"), window.location.href);
+
+            url.searchParams.set("plan", selectedPlan);
+
+            link.href = url.pathname.split("/").pop() + "?" + url.searchParams.toString();
+        });
+    }
+</script>
 </body>
 
 </html>

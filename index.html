@@ -4,17 +4,22 @@
 <head>
 
     <meta charset="UTF-8">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
 
     <title>ABH Yogaa Studio</title>
-
+   
     <link rel="stylesheet" href="css/style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <link rel="stylesheet" href="css/responsive.css">
+
 </head>
 
 <body>
@@ -28,612 +33,2064 @@
             <!-- Empty because logo is already inside hero image -->
             <div class="logo"></div>
 
-            <ul>
+                <ul>
 
-                <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">
+                            Home
+                        </a>
+                    </li>
 
-                <li><a href="#services">Services</a></li>
+                    <li>
+                        <a href="#services">
+                            Services
+                        </a>
+                    </li>
 
-                <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="#contact">
+                            Contact
+                        </a>
+                    </li>
 
-            </ul>
+                    <li>
+                        <a
+                            href="customer-login.html"
+                            id="profileNav"
+                        >
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-login.html" id="adminLoginNav">
+                            Admin Login
+                        </a>
+                    </li>
 
-
+                </ul>
 
         </nav>
 
     </header>
 
+
     <!-- ================= HERO ================= -->
 
     <section class="hero">
 
+    </section>
+
+
+    <!-- ================= OUR SERVICES ================= -->
+
+    <section class="services" id="services">
+
+        <div class="section-title">
+
+            <h2>Our Services</h2>
+
+            <p>
+                Yoga for every body, every mind, every stage of life.
+            </p>
+
+        </div>
+
+
+        <!--
+            SERVICES ARE LOADED DYNAMICALLY FROM SUPABASE.
+
+            Do NOT add individual service cards here.
+            dynamic-services.js will create them.
+        -->
+
+        <div class="service-list" id="dynamicServices">
+
+            <div class="service-loading">
+                Loading services...
+            </div>
+
+        </div>
 
     </section>
 
-    <!-- Dummy Section (Only to enable scrolling for now) -->
 
-<section class="services" id="services">
+    <!-- ================= BOOK YOUR CLASS ================= -->
 
-    <div class="section-title">
-        <h2>Our Services</h2>
-        <p>Yoga for every body, every mind, every stage of life.</p>
-    </div>
+    <section class="book-class" id="book-class">
 
-    <div class="service-list">
+        <div class="section-title">
 
-        <a href="hatha.html" class="service-item">
-            <div>
-                <h3>🧘 Hatha Yoga</h3>
-                <p>Strength, balance & inner harmony.</p>
-            </div>
-            <span>→</span>
-        </a>
+            <h2>Book Your Class</h2>
 
-        <a href="ashtanga.html" class="service-item">
-            <div>
-                <h3>🧘 Ashtanga Yoga</h3>
-                <p>Dynamic, disciplined & energizing.</p>
-            </div>
-            <span>→</span>
-        </a>
+            <p>
+                Choose a plan that works best for you.
+            </p>
 
-        <a href="prenatal.html" class="service-item">
-            <div>
-                <h3>🤰 Prenatal Yoga</h3>
-                <p>Safe & supportive for every stage.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="postnatal.html" class="service-item">
-            <div>
-                <h3>👩‍🍼 Postnatal Yoga</h3>
-                <p>Heal, restore & regain strength.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="fertility.html" class="service-item">
-            <div>
-                <h3>🌸 Fertility Yoga</h3>
-                <p>Holistic support for conception.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="kids.html" class="service-item">
-            <div>
-                <h3>👦 Kids Yoga</h3>
-                <p>Fun, mindful & healthy start.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="garbhsanskar.html" class="service-item">
-            <div>
-                <h3>🤱 Garbhsanskar</h3>
-                <p>Nurturing the bond of mother & baby.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="infant.html" class="service-item">
-            <div>
-                <h3>👶 Infant Massages</h3>
-                <p>Gentle touch for healthy growth.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="breastfeeding.html" class="service-item">
-            <div>
-                <h3>🍼 Breast Feeding Education</h3>
-                <p>Guiding mothers with confidence.</p>
-            </div>
-            <span>→</span>
-        </a>
-
-        <a href="labor.html" class="service-item">
-            <div>
-                <h3>🤰 Labor Management</h3>
-                <p>Prepare, breathe & empower your journey.</p>
-            </div>
-            <span>→</span>
-        </a>
-        <div class="service-item coming-soon">
-            <div>
-                <h3>🧘 Pilates</h3>
-                <p>Coming Soon</p>
-            </div>
-
-            <span class="coming-soon-text">Coming Soon</span>
         </div>
 
-    </div>
 
-</section>
-
-<!-- ================= BOOK YOUR CLASS ================= -->
-
-<section class="book-class" id="book-class">
-
-    <div class="section-title">
-        <h2>Book Your Class</h2>
-        <p>Choose a plan that works best for you.</p>
-    </div>
-
-    <div class="plan-container">
-
-        <!-- ONE DAY PLAN -->
-
-        <a href="services.html?plan=one-day" class="plan-card">
-
-            <div class="plan-icon">
-                <i class="fa-solid fa-calendar-day"></i>
-            </div>
-
-            <div class="plan-content">
-                <h3>One Day Plan</h3>
-
-                <p>
-                    Join us for a single yoga session
-                    and experience the benefits of mindful movement.
-                </p>
-
-                <span class="plan-btn">
-                    Choose One Day Plan →
-                </span>
-            </div>
-
-        </a>
+        <div class="plan-container">
 
 
-        <!-- MONTHLY PLAN -->
+            <!-- ================= ONE DAY PLAN ================= -->
 
-        <a href="services.html?plan=monthly" class="plan-card">
+            <a href="services.html?plan=one_day" class="plan-card">
 
-            <div class="plan-icon">
-                <i class="fa-solid fa-calendar-days"></i>
-            </div>
+                <div class="plan-icon">
 
-            <div class="plan-content">
-                <h3>Monthly Plan</h3>
+                    <i class="fa-solid fa-calendar-day"></i>
 
-                <p>
-                    Build a consistent yoga practice
-                    with our monthly class plans.
-                </p>
+                </div>
 
-                <span class="plan-btn">
-                    Choose Monthly Plan →
-                </span>
-            </div>
 
-        </a>
+                <div class="plan-content">
 
-    </div>
+                    <h3>
+                        One Day Plan
+                    </h3>
 
-</section>
+                    <p>
+                        Join us for a single yoga session
+                        and experience the benefits of mindful movement.
+                    </p>
+
+                    <span class="plan-btn">
+                        Choose One Day Plan →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- ================= MONTHLY PLAN ================= -->
+
+            <a href="services.html?plan=one_month" class="plan-card">
+
+                <div class="plan-icon">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                </div>
+
+
+                <div class="plan-content">
+
+                    <h3>
+                        Monthly Plan
+                    </h3>
+
+                    <p>
+                        Build a consistent yoga practice
+                        with our monthly class plans.
+                    </p>
+
+                    <span class="plan-btn">
+                        Choose Monthly Plan →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- ================= THREE MONTHS PLAN ================= -->
+
+            <a href="services.html?plan=three_months" class="plan-card">
+
+                <div class="plan-icon">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                </div>
+
+
+                <div class="plan-content">
+
+                    <h3>
+                        Three Months Plan
+                    </h3>
+
+                    <p>
+                        Commit to your yoga journey with
+                        our three-month wellness plan.
+                    </p>
+
+                    <span class="plan-btn">
+                        Choose Three Months Plan →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SPECIAL SESSIONS ================= -->
 
 <!-- ================= SPECIAL SESSIONS ================= -->
 
-<section class="special-sessions" id="special-sessions">
+    <section class="special-sessions" id="special-sessions">
 
-    <div class="section-title">
+        <div class="section-title">
 
-        <h2>Special Sessions for Special Days</h2>
+            <h2>
+                Special Sessions for Special Days
+            </h2>
 
-        <p>
-            Celebrate special moments with mindful movement,
-            wellness and meaningful yoga experiences.
-        </p>
+            <p>
+                Celebrate special moments with mindful movement,
+                wellness and meaningful yoga experiences.
+            </p>
 
-    </div>
+        </div>
 
 
-    <div class="special-session-container">
+        <div
+            class="special-session-container"
+            id="homepageSpecialSessions"
+        >
 
-        <!-- SPECIAL SESSION CARD -->
+            <div class="loading-message">
+                Loading special sessions...
+            </div>
 
-        <div class="special-session-card">
+        </div>
 
-            <div class="special-session-image">
+    </section>
 
-                <img
-                    src="assets/images/special-session.jpg"
-                    alt="Special yoga session"
-                >
 
-                <span class="special-badge">
-                    Special Session
-                </span>
+    <!-- ================= WHY CHOOSE US ================= -->
+
+    <section class="why-us">
+
+        <div class="section-title">
+
+            <h2>
+                Why Choose ABH Yogaa Studio?
+            </h2>
+
+            <p>
+                More than yoga. A journey towards a healthier,
+                happier and more balanced lifestyle.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🌿
+                </div>
+
+                <h3>
+                    Certified Instructor
+                </h3>
+
+                <p>
+                    Learn from a qualified yoga instructor with
+                    personalized guidance for every student.
+                </p>
 
             </div>
 
 
-            <div class="special-session-content">
+            <div class="why-card">
 
-                <span class="special-date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    Special Day
-                </span>
+                <div class="why-icon">
+                    🧘
+                </div>
 
                 <h3>
-                    International Yoga Day
+                    Personalized Classes
                 </h3>
 
                 <p>
-                    Join us for a special yoga and wellness
-                    session designed to celebrate the spirit
-                    of yoga, mindfulness and healthy living.
+                    Every session is tailored to suit your
+                    fitness level and wellness goals.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🌸
+                </div>
+
+                <h3>
+                    Peaceful Environment
+                </h3>
+
+                <p>
+                    Practice yoga in a calm,
+                    welcoming and positive atmosphere.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🕒
+                </div>
+
+                <h3>
+                    Flexible Timings
+                </h3>
+
+                <p>
+                    Convenient morning,
+                    evening and weekend batches.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= INSTRUCTOR ================= -->
+
+<!-- ================= INSTRUCTOR ================= -->
+
+    <section class="trainer" id="instructorSection">
+
+        <div class="trainer-container">
+
+            <div class="trainer-image">
+
+                <img
+                    id="homepageInstructorImage"
+                    src=""
+                    alt="Yoga Instructor"
+                    style="display:none;"
+                >
+
+            </div>
+
+
+            <div class="trainer-content">
+
+                <span>
+                    Meet Your Instructor
+                </span>
+
+
+                <h2 id="homepageInstructorTitle">
+                    Guiding You Towards A Healthier Life
+                </h2>
+
+
+                <p id="homepageInstructorDescription">
+                    At ABH Yogaa Studio, every class is conducted with patience,
+                    care and individual attention.
                 </p>
 
 
-                <div class="special-session-details">
+                <div class="trainer-stats">
 
-                    <div>
-                        <i class="fa-regular fa-clock"></i>
-                        <span>Special Timing</span>
+                    <div class="stat">
+
+                        <h3 id="homepageInstructorExperienceValue">
+                            5+
+                        </h3>
+
+                        <p id="homepageInstructorExperienceLabel">
+                            Years Experience
+                        </p>
+
                     </div>
 
-                    <div>
-                        <i class="fa-solid fa-users"></i>
-                        <span>Limited Seats</span>
+
+                    <div class="stat">
+
+                        <h3 id="homepageInstructorStudentsValue">
+                            500+
+                        </h3>
+
+                        <p id="homepageInstructorStudentsLabel">
+                            Happy Students
+                        </p>
+
+                    </div>
+
+
+                    <!-- Existing third statistic remains unchanged -->
+
+                    <div class="stat">
+
+                        <h3>
+                            10+
+                        </h3>
+
+                        <p>
+                            Yoga Programs
+                        </p>
+
                     </div>
 
                 </div>
 
 
-                <a href="services.html" class="special-session-btn">
-                    View Session →
+                <a href="#contact" class="trainer-btn">
+
+                    Book a Free Consultation →
+
                 </a>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
 
-<!-- ================= WHY CHOOSE US ================= -->
+    <!-- ================= SUCCESS STORIES ================= -->
 
-<section class="why-us">
-
-    <div class="section-title">
-
-        <h2>Why Choose ABH Yogaa Studio?</h2>
-
-        <p>
-            More than yoga. A journey towards a healthier,
-            happier and more balanced lifestyle.
-        </p>
-
-    </div>
-
-    <div class="why-grid">
-
-        <div class="why-card">
-
-            <div class="why-icon">🌿</div>
-
-            <h3>Certified Instructor</h3>
-
-            <p>
-                Learn from a qualified yoga instructor with
-                personalized guidance for every student.
-            </p>
-
-        </div>
-
-        <div class="why-card">
-
-            <div class="why-icon">🧘</div>
-
-            <h3>Personalized Classes</h3>
-
-            <p>
-                Every session is tailored to suit your
-                fitness level and wellness goals.
-            </p>
-
-        </div>
-
-        <div class="why-card">
-
-            <div class="why-icon">🌸</div>
-
-            <h3>Peaceful Environment</h3>
-
-            <p>
-                Practice yoga in a calm,
-                welcoming and positive atmosphere.
-            </p>
-
-        </div>
-
-        <div class="why-card">
-
-            <div class="why-icon">🕒</div>
-
-            <h3>Flexible Timings</h3>
-
-            <p>
-                Convenient morning,
-                evening and weekend batches.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- ================= INSTRUCTOR ================= -->
-
-<section class="trainer">
-
-    <div class="trainer-container">
-
-        <div class="trainer-image">
-
-            <img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=900&q=80"
-                 alt="Yoga Instructor">
-
-        </div>
-
-        <div class="trainer-content">
-
-            <span>Meet Your Instructor</span>
-
-            <h2>Guiding You Towards A Healthier Life</h2>
-
-            <p>
-
-                At ABH Yogaa Studio, every class is conducted with
-                patience, care and individual attention. Our mission
-                is to help students build strength, flexibility and
-                confidence while creating a peaceful connection
-                between the body and mind.
-
-            </p>
-
-            <div class="trainer-stats">
-
-                <div class="stat">
-                    <h3>5+</h3>
-                    <p>Years Experience</p>
-                </div>
-
-                <div class="stat">
-                    <h3>500+</h3>
-                    <p>Happy Students</p>
-                </div>
-
-                <div class="stat">
-                    <h3>10+</h3>
-                    <p>Yoga Programs</p>
-                </div>
-
-            </div>
-
-            <a href="#contact" class="trainer-btn">
-
-                Book a Free Consultation →
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
 <!-- ================= SUCCESS STORIES ================= -->
 
-<section class="testimonials">
+<section class="testimonials" id="reviews">
 
     <div class="section-title">
 
-        <h2>What Our Students Say</h2>
+        <h2>
+            What Our Students Say
+        </h2>
 
         <p>
-            Every journey begins with a single step. Here's what our students have shared about their experience.
+            Every journey begins with a single step.
+            Here's what our students have shared about their experience.
         </p>
 
     </div>
 
-    <div class="testimonial-grid">
+
+    <div
+        class="testimonial-grid"
+        id="homepageReviews"
+    >
 
         <div class="testimonial-card">
 
-            <div class="stars">★★★★★</div>
-
             <p>
-                "The classes are peaceful, motivating and suitable even for beginners.
-                I feel healthier and more energetic every day."
+                Loading student reviews...
             </p>
-
-            <h4>— Hatha Yoga Student</h4>
-
-        </div>
-
-        <div class="testimonial-card">
-
-            <div class="stars">★★★★★</div>
-
-            <p>
-                "The instructor explains every posture with patience.
-                The environment is calm and welcoming."
-            </p>
-
-            <h4>— Prenatal Yoga Student</h4>
-
-        </div>
-
-        <div class="testimonial-card">
-
-            <div class="stars">★★★★★</div>
-
-            <p>
-                "My child enjoys every class.
-                It has improved focus, confidence and flexibility."
-            </p>
-
-            <h4>— Parent, Kids Yoga</h4>
 
         </div>
 
     </div>
 
 </section>
+
+
+    <!-- ================= CONTACT ================= -->
 
     <section class="contact" id="contact">
 
         <div class="section-title">
 
-            <h2>Contact Us</h2>
+            <h2>
+                Contact Us
+            </h2>
 
-            <p>We'd love to hear from you.</p>
+            <p>
+                We'd love to hear from you.
+            </p>
 
         </div>
 
+
         <div class="contact-box">
 
-            <div class="contact-item">
-                📞 +91 7207201326
+            <div class="contact-actions">
+
+                <div class="contact-item">
+                    📞 +91 7207201326
+                </div>
+
+                <a
+                    href="https://wa.me/917207201326?text=Hi%20ABH%20Yogaa%20Studio%2C%20I%20would%20like%20to%20know%20more%20about%20your%20yoga%20classes."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="whatsapp-contact-btn"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Chat with us on WhatsApp
+                </a>
+
             </div>
+
 
             <div class="contact-item">
                 ✉️ abhyogaastudio@gmail.com
             </div>
 
+
             <div class="contact-item">
                 📍 Anantapur, Andhra Pradesh
             </div>
+
 
             <div class="contact-item">
                 📷 @abhyogaastudio
             </div>
 
+
         </div>
 
     </section>
+
+
     <!-- ================= FOOTER ================= -->
 
-<footer class="footer">
+    <footer class="footer">
 
-    <div class="footer-container">
+        <div class="footer-container">
 
-        <div class="footer-about">
 
-            <h2>ABH Yogaa Studio</h2>
+            <div class="footer-about">
 
-            <p>
-                Transforming lives through yoga, wellness and mindful living.
-                We believe in creating a healthier, happier and more balanced lifestyle
-                for every individual.
-            </p>
+                <h2>
+                    ABH Yogaa Studio
+                </h2>
+
+                <p>
+                    Transforming lives through yoga, wellness and mindful living.
+                    We believe in creating a healthier, happier and more balanced lifestyle
+                    for every individual.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#services">
+                            Services
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-services">
+
+                <h3>
+                    Our Services
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <a href="hatha.html">
+                            Hatha Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="ashtanga.html">
+                            Ashtanga Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="prenatal.html">
+                            Prenatal Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="postnatal.html">
+                            Postnatal Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="fertility.html">
+                            Fertility Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="kids.html">
+                            Kids Yoga
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="garbhsanskar.html">
+                            Garbh Sanskar
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="infant.html">
+                            Infant Massage
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="breastfeeding.html">
+                            Breastfeeding Education
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="labor.html">
+                            Labor Management
+                        </a>
+                    </li>
+
+                    <li>
+
+                        <span class="footer-coming-soon">
+
+                            Pilates
+
+                            <span>
+                                (Coming Soon)
+                            </span>
+
+                        </span>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-contact">
+
+                <h3>
+                    Contact
+                </h3>
+
+                <p>
+                    📞 +91 7207201326
+                </p>
+
+                <p>
+                    ✉️ abhyogaastudio@gmail.com
+                </p>
+
+                <p>
+                    📍 Anantapur, Andhra Pradesh
+                </p>
+
+                <p>
+                    📷 @abhyogaastudio
+                </p>
+
+            </div>
+
 
         </div>
 
-        <div class="footer-links">
 
-            <h3>Quick Links</h3>
+        <div class="footer-bottom">
 
-            <ul>
-
-                <li><a href="#">Home</a></li>
-
-                <li><a href="#services">Services</a></li>
-
-                <li><a href="#contact">Contact</a></li>
-
-            </ul>
+            © 2026 ABH Yogaa Studio. All Rights Reserved.
 
         </div>
 
-        <div class="footer-services">
+    </footer>
 
-            <h3>Our Services</h3>
 
-        <ul>
+    <!-- =========================================================
+         SUPABASE
+         ========================================================= -->
 
-            <li>
-                <a href="hatha.html">Hatha Yoga</a>
-            </li>
+    <!-- Supabase JS library MUST load first -->
 
-            <li>
-                <a href="ashtanga.html">Ashtanga Yoga</a>
-            </li>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-            <li>
-                <a href="prenatal.html">Prenatal Yoga</a>
-            </li>
 
-            <li>
-                <a href="postnatal.html">Postnatal Yoga</a>
-            </li>
+    <!-- Project configuration -->
 
-            <li>
-                <a href="fertility.html">Fertility Yoga</a>
-            </li>
+    <script src="js/supabase-config.js"></script>
 
-            <li>
-                <a href="kids.html">Kids Yoga</a>
-            </li>
 
-            <li>
-                <a href="garbhsanskar.html">Garbh Sanskar</a>
-            </li>
-
-            <li>
-                <a href="infant.html">Infant Massage</a>
-            </li>
-
-            <li>
-                <a href="breastfeeding.html">Breastfeeding Education</a>
-            </li>
-
-            <li>
-                <a href="labor.html">Labor Management</a>
-            </li>
-
-            <li>
-                <span class="footer-coming-soon">
-                    Pilates <span>(Coming Soon)</span>
-                </span>
-            </li>
-
-        </ul>
-
-        </div>
-
-        <div class="footer-contact">
-
-            <h3>Contact</h3>
-
-            <p>📞 +91 7207201326</p>
-
-            <p>✉️ abhyogaastudio@gmail.com</p>
-
-            <p>📍 Anantapur, Andhra Pradesh</p>
-
-            <p>📷 @abhyogaastudio</p>
-
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        © 2026 ABH Yogaa Studio. All Rights Reserved.
-
-    </div>
-
-</footer>
+    <!-- Existing project JavaScript -->
 
     <script src="js/script.js"></script>
 
+
+    <!-- Dynamic homepage services -->
+
+    <script src="js/dynamic-services.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", updateProfileNavigation);
+
+async function updateProfileNavigation() {
+
+
+    const profileNav = document.getElementById("profileNav");
+
+    if (!profileNav) {
+        return;
+    }
+
+    const db = window.supabaseClient;
+
+    if (!db) {
+        profileNav.href = "customer-login.html";
+        profileNav.innerText = "Profile";
+        return;
+    }
+
+    try {
+
+        const {
+            data: { user }
+        } = await db.auth.getUser();
+
+        if (!user) {
+
+            profileNav.href =
+                "customer-login.html";
+
+            profileNav.innerText =
+                "Profile";
+
+            profileNav.title =
+                "Login or create a customer account";
+
+            return;
+        }
+
+        // ================================
+        // NOT LOGGED IN
+        // ================================
+
+        if (!user) {
+
+            profileNav.href = "customer-login.html";
+            profileNav.innerText = "Profile";
+            profileNav.title = "Login or create a customer account";
+
+            return;
+        }
+
+        // ================================
+        // LOGGED IN
+        // ================================
+
+        profileNav.href = "customer-dashboard.html";
+        profileNav.innerText = "Profile";
+        profileNav.title = "Open your customer profile";
+
+    } catch (error) {
+
+        console.error("Profile navigation error:", error);
+
+        profileNav.href = "customer-login.html";
+        profileNav.innerText = "Profile";
+        profileNav.title = "Login or create a customer account";
+    }
+}
+async function updateAdminNavigation() {
+
+    const adminNav =
+        document.getElementById("adminLoginNav");
+
+    if (!adminNav) {
+        return;
+    }
+
+    const db =
+        window.supabaseClient;
+
+    if (!db) {
+        return;
+    }
+
+    try {
+
+        const {
+            data: {
+                user
+            }
+        } = await db.auth.getUser();
+
+        // Not logged in
+        if (!user) {
+
+            adminNav.href =
+                "admin-login.html";
+
+            return;
+        }
+
+        // Check whether logged-in user is admin
+        const {
+            data: isAdmin,
+            error
+        } = await db.rpc("is_admin");
+
+        if (
+            error ||
+            isAdmin !== true
+        ) {
+
+            adminNav.href =
+                "admin-login.html";
+
+            return;
+        }
+
+        // Admin already logged in
+        adminNav.href =
+            "admin-dashboard.html";
+
+    } catch (error) {
+
+        console.error(
+            "Admin navigation error:",
+            error
+        );
+
+        adminNav.href =
+            "admin-login.html";
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    updateAdminNavigation
+);
+</script>
+<script>
+/* ============================================================
+   HOMEPAGE INSTRUCTOR PROFILE
+   Loads instructor information from Supabase
+   ============================================================ */
+
+async function loadHomepageInstructor() {
+
+    const db = window.supabaseClient;
+
+    if (!db) {
+        console.error("Supabase client is not available.");
+        return;
+    }
+
+    try {
+
+        const { data, error } = await db
+            .from("instructor_profile")
+            .select(`
+                name,
+                title,
+                description,
+                image_url,
+                experience_value,
+                experience_label,
+                students_value,
+                students_label,
+                is_active
+            `)
+            .eq("id", 1)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Homepage instructor loading error:",
+                error
+            );
+
+            return;
+        }
+
+
+        if (!data) {
+
+            console.warn(
+                "Instructor profile was not found."
+            );
+
+            return;
+        }
+
+
+        /* =====================================================
+           ACTIVE / INACTIVE
+           ===================================================== */
+
+        const section =
+            document.getElementById("instructorSection");
+
+        if (!data.is_active) {
+
+            if (section) {
+                section.style.display = "none";
+            }
+
+            return;
+        }
+
+
+        if (section) {
+            section.style.display = "";
+        }
+
+
+        /* =====================================================
+           TITLE
+           ===================================================== */
+
+        const title =
+            document.getElementById(
+                "homepageInstructorTitle"
+            );
+
+        if (title && data.title) {
+            title.textContent = data.title;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        const description =
+            document.getElementById(
+                "homepageInstructorDescription"
+            );
+
+        if (description && data.description) {
+            description.textContent = data.description;
+        }
+
+
+        /* =====================================================
+           EXPERIENCE
+           ===================================================== */
+
+        const experienceValue =
+            document.getElementById(
+                "homepageInstructorExperienceValue"
+            );
+
+        if (
+            experienceValue &&
+            data.experience_value
+        ) {
+            experienceValue.textContent =
+                data.experience_value;
+        }
+
+
+        const experienceLabel =
+            document.getElementById(
+                "homepageInstructorExperienceLabel"
+            );
+
+        if (
+            experienceLabel &&
+            data.experience_label
+        ) {
+            experienceLabel.textContent =
+                data.experience_label;
+        }
+
+
+        /* =====================================================
+           STUDENTS
+           ===================================================== */
+
+        const studentsValue =
+            document.getElementById(
+                "homepageInstructorStudentsValue"
+            );
+
+        if (
+            studentsValue &&
+            data.students_value
+        ) {
+            studentsValue.textContent =
+                data.students_value;
+        }
+
+
+        const studentsLabel =
+            document.getElementById(
+                "homepageInstructorStudentsLabel"
+            );
+
+        if (
+            studentsLabel &&
+            data.students_label
+        ) {
+            studentsLabel.textContent =
+                data.students_label;
+        }
+
+
+        /* =====================================================
+           INSTRUCTOR IMAGE
+           ===================================================== */
+
+        const image =
+            document.getElementById(
+                "homepageInstructorImage"
+            );
+
+        if (image && data.image_url) {
+
+            image.src = data.image_url;
+
+            image.alt =
+                data.name ||
+                "Yoga Instructor";
+
+            image.style.display = "block";
+
+        }
+
+
+        console.log(
+            "Homepage instructor loaded successfully."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected homepage instructor error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   LOAD AFTER SUPABASE IS READY
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadHomepageInstructor
+);
+</script>
+<script>
+/* ============================================================
+   HOMEPAGE SPECIAL SESSIONS
+   Loads active sessions from Supabase
+   ============================================================ */
+
+async function loadHomepageSpecialSessions() {
+
+    const db = window.supabaseClient;
+
+    const section =
+        document.getElementById("special-sessions");
+
+    const container =
+        document.getElementById("homepageSpecialSessions");
+
+
+    if (!db || !container || !section) {
+
+        console.error(
+            "Homepage special sessions: required elements not found."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await db
+            .from("special_sessions")
+            .select(`
+                id,
+                title,
+                description,
+                session_date,
+                start_time,
+                end_time,
+                image_url,
+                price,
+                capacity,
+                is_active
+            `)
+            .eq("is_active", true)
+            .order("session_date", {
+                ascending: true
+            })
+            .order("start_time", {
+                ascending: true
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Homepage special sessions loading error:",
+                error
+            );
+
+            section.style.display = "none";
+
+            return;
+        }
+
+
+        /* =====================================================
+           NO ACTIVE SESSIONS
+        ===================================================== */
+
+        if (!data || data.length === 0) {
+
+            section.style.display = "none";
+
+            return;
+        }
+
+
+        section.style.display = "";
+
+
+        container.innerHTML = "";
+
+
+        /* =====================================================
+           CREATE SESSION CARDS
+        ===================================================== */
+
+        data.forEach(session => {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "special-session-card";
+
+
+            /* =================================================
+               IMAGE
+            ================================================= */
+
+            const imageContainer =
+                document.createElement("div");
+
+            imageContainer.className =
+                "special-session-image";
+
+
+            if (session.image_url) {
+
+                const image =
+                    document.createElement("img");
+
+                image.src =
+                    session.image_url;
+
+                image.alt =
+                    session.title ||
+                    "Special yoga session";
+
+                image.loading =
+                    "lazy";
+
+                imageContainer.appendChild(
+                    image
+                );
+
+            } else {
+
+                const placeholder =
+                    document.createElement("div");
+
+                placeholder.style.width =
+                    "100%";
+
+                placeholder.style.height =
+                    "100%";
+
+                placeholder.style.display =
+                    "flex";
+
+                placeholder.style.alignItems =
+                    "center";
+
+                placeholder.style.justifyContent =
+                    "center";
+
+                placeholder.style.fontSize =
+                    "60px";
+
+                placeholder.style.background =
+                    "#f5f0e8";
+
+                placeholder.textContent =
+                    "🧘";
+
+                imageContainer.appendChild(
+                    placeholder
+                );
+
+            }
+
+
+            /* =================================================
+               BADGE
+            ================================================= */
+
+            const badge =
+                document.createElement("span");
+
+            badge.className =
+                "special-badge";
+
+            badge.textContent =
+                "Special Session";
+
+
+            imageContainer.appendChild(
+                badge
+            );
+
+
+            /* =================================================
+               CONTENT
+            ================================================= */
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "special-session-content";
+
+
+            /* =================================================
+               DATE
+            ================================================= */
+
+            const date =
+                document.createElement("span");
+
+            date.className =
+                "special-date";
+
+
+            const calendarIcon =
+                document.createElement("i");
+
+            calendarIcon.className =
+                "fa-solid fa-calendar-days";
+
+
+            date.appendChild(
+                calendarIcon
+            );
+
+
+            date.appendChild(
+                document.createTextNode(
+                    ` ${formatHomepageSessionDate(
+                        session.session_date
+                    )}`
+                )
+            );
+
+
+            /* =================================================
+               TITLE
+            ================================================= */
+
+            const title =
+                document.createElement("h3");
+
+            title.textContent =
+                session.title ||
+                "Special Yoga Session";
+
+
+            /* =================================================
+               DESCRIPTION
+            ================================================= */
+
+            const description =
+                document.createElement("p");
+
+            description.textContent =
+                session.description ||
+                "";
+
+
+            /* =================================================
+               DETAILS
+            ================================================= */
+
+            const details =
+                document.createElement("div");
+
+            details.className =
+                "special-session-details";
+
+
+            /* TIME */
+
+            const timeRow =
+                document.createElement("div");
+
+
+            const timeIcon =
+                document.createElement("i");
+
+            timeIcon.className =
+                "fa-regular fa-clock";
+
+
+            const timeText =
+                document.createElement("span");
+
+            timeText.textContent =
+                formatHomepageSessionTime(
+                    session.start_time,
+                    session.end_time
+                );
+
+
+            timeRow.appendChild(
+                timeIcon
+            );
+
+            timeRow.appendChild(
+                timeText
+            );
+
+
+            /* CAPACITY */
+
+            const capacityRow =
+                document.createElement("div");
+
+
+            const usersIcon =
+                document.createElement("i");
+
+            usersIcon.className =
+                "fa-solid fa-users";
+
+
+            const capacityText =
+                document.createElement("span");
+
+            capacityText.textContent =
+                `${session.capacity || 0} Seats`;
+
+
+            capacityRow.appendChild(
+                usersIcon
+            );
+
+            capacityRow.appendChild(
+                capacityText
+            );
+
+
+            /* PRICE */
+
+            const priceRow =
+                document.createElement("div");
+
+
+            const priceIcon =
+                document.createElement("i");
+
+            priceIcon.className =
+                "fa-solid fa-indian-rupee-sign";
+
+
+            const priceText =
+                document.createElement("span");
+
+
+            const price =
+                Number(
+                    session.price || 0
+                );
+
+
+            priceText.textContent =
+                price === 0
+                    ? "Free"
+                    : `₹${price}`;
+
+
+            priceRow.appendChild(
+                priceIcon
+            );
+
+            priceRow.appendChild(
+                priceText
+            );
+
+
+            details.appendChild(
+                timeRow
+            );
+
+            details.appendChild(
+                capacityRow
+            );
+
+            details.appendChild(
+                priceRow
+            );
+
+
+            /* =================================================
+            BUTTON
+            ================================================= */
+
+            const button =
+                document.createElement("a");
+
+            button.href = "#";
+
+            button.className =
+                "special-session-btn";
+
+            button.textContent =
+                "View Session →";
+
+
+            button.addEventListener(
+                "click",
+                async (event) => {
+
+                    event.preventDefault();
+
+                    try {
+
+                        const {
+                            data: {
+                                user
+                            },
+                            error
+                        } = await db.auth.getUser();
+
+
+                        if (error) {
+
+                            console.error(
+                                "Special Session login check error:",
+                                error
+                            );
+
+                            alert(
+                                "Please login to view this Special Session."
+                            );
+
+                            window.location.href =
+                                "customer-login.html";
+
+                            return;
+                        }
+
+
+                        /* ==============================
+                        NOT LOGGED IN
+                        ============================== */
+
+                        if (!user) {
+
+                            alert(
+                                "Please login to view this Special Session."
+                            );
+
+                            window.location.href =
+                                "customer-login.html";
+
+                            return;
+                        }
+
+
+                        /* ==============================
+                        LOGGED IN
+                        ============================== */
+
+                        window.location.href =
+                            `special-session.html?id=${session.id}`;
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Special Session access error:",
+                            error
+                        );
+
+                        alert(
+                            "Please login to continue."
+                        );
+
+                        window.location.href =
+                            "customer-login.html";
+
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               BUILD CONTENT
+            ================================================= */
+
+            content.appendChild(
+                date
+            );
+
+            content.appendChild(
+                title
+            );
+
+            content.appendChild(
+                description
+            );
+
+            content.appendChild(
+                details
+            );
+
+            content.appendChild(
+                button
+            );
+
+
+            /* =================================================
+               BUILD CARD
+            ================================================= */
+
+            card.appendChild(
+                imageContainer
+            );
+
+            card.appendChild(
+                content
+            );
+
+
+            container.appendChild(
+                card
+            );
+
+        });
+
+
+        console.log(
+            "Homepage special sessions loaded successfully."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected homepage special sessions error:",
+            error
+        );
+
+        section.style.display = "none";
+
+    }
+
+}
+
+
+/* ============================================================
+   FORMAT DATE
+   ============================================================ */
+
+function formatHomepageSessionDate(
+    date
+) {
+
+    if (!date) {
+
+        return "Special Day";
+
+    }
+
+
+    try {
+
+        const dateObject =
+            new Date(
+                `${date}T00:00:00`
+            );
+
+
+        return dateObject.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        return date;
+
+    }
+
+}
+
+
+/* ============================================================
+   FORMAT TIME
+   ============================================================ */
+
+function formatHomepageSessionTime(
+    startTime,
+    endTime
+) {
+
+    if (!startTime) {
+
+        return "Special Timing";
+
+    }
+
+
+    function formatTime(
+        time
+    ) {
+
+        const parts =
+            time.split(":");
+
+
+        const hours =
+            Number(parts[0]);
+
+
+        const minutes =
+            Number(
+                parts[1] || 0
+            );
+
+
+        const suffix =
+            hours >= 12
+                ? "PM"
+                : "AM";
+
+
+        const displayHour =
+            hours % 12 || 12;
+
+
+        return `${displayHour}:${
+            String(minutes).padStart(2, "0")
+        } ${suffix}`;
+
+    }
+
+
+    const start =
+        formatTime(startTime);
+
+
+    if (!endTime) {
+
+        return start;
+
+    }
+
+
+    return `${start} - ${formatTime(
+        endTime
+    )}`;
+
+}
+
+
+/* ============================================================
+   LOAD AFTER PAGE LOAD
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadHomepageSpecialSessions
+);
+</script>
+<script>
+/* ============================================================
+   HOMEPAGE APPROVED REVIEWS
+   ============================================================ */
+
+async function loadHomepageReviews() {
+
+    const db =
+        window.supabaseClient;
+
+    const section =
+        document.getElementById(
+            "reviews"
+        );
+
+    const container =
+        document.getElementById(
+            "homepageReviews"
+        );
+
+
+    if (
+        !db ||
+        !section ||
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /* =====================================================
+           LOAD APPROVED REVIEWS ONLY
+        ===================================================== */
+
+        const {
+            data: reviews,
+            error
+        } = await db
+
+            .from("reviews")
+
+            .select(`
+                id,
+                service_id,
+                rating,
+                review_text,
+                approved_at,
+                created_at
+            `)
+
+            .eq(
+                "status",
+                "approved"
+            )
+
+            .order(
+                "approved_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "Homepage reviews loading error:",
+                error
+            );
+
+            section.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           NO APPROVED REVIEWS
+        ===================================================== */
+
+        if (
+            !reviews ||
+            reviews.length === 0
+        ) {
+
+            section.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           LOAD SERVICE NAMES
+        ===================================================== */
+
+        const serviceIds =
+            [
+                ...new Set(
+                    reviews
+                        .map(
+                            review =>
+                                review.service_id
+                        )
+                        .filter(Boolean)
+                )
+            ];
+
+
+        let servicesMap = {};
+
+
+        if (
+            serviceIds.length > 0
+        ) {
+
+            const {
+                data: services,
+                error: serviceError
+            } = await db
+
+                .from("services")
+
+                .select(
+                    "id, name"
+                )
+
+                .in(
+                    "id",
+                    serviceIds
+                );
+
+
+            if (
+                serviceError
+            ) {
+
+                console.warn(
+                    "Homepage review services warning:",
+                    serviceError
+                );
+
+            } else {
+
+                (
+                    services ||
+                    []
+                ).forEach(
+                    service => {
+
+                        servicesMap[
+                            service.id
+                        ] = service.name;
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SHOW SECTION
+        ===================================================== */
+
+        section.style.display =
+            "";
+
+
+        container.innerHTML =
+            "";
+
+
+        /* =====================================================
+           CREATE REVIEW CARDS
+        ===================================================== */
+
+        reviews.forEach(
+            review => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "testimonial-card";
+
+
+                /* =============================================
+                   RATING
+                ============================================= */
+
+                const stars =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                stars.className =
+                    "stars";
+
+
+                const rating =
+                    Math.max(
+                        1,
+                        Math.min(
+                            5,
+                            Number(
+                                review.rating ||
+                                0
+                            )
+                        )
+                    );
+
+
+                stars.textContent =
+                    "★".repeat(
+                        rating
+                    ) +
+                    "☆".repeat(
+                        5 - rating
+                    );
+
+
+                /* =============================================
+                   REVIEW TEXT
+                ============================================= */
+
+                const text =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                text.textContent =
+                    `"${review.review_text}"`;
+
+
+                /* =============================================
+                   SERVICE
+                ============================================= */
+
+                const service =
+                    document.createElement(
+                        "h4"
+                    );
+
+
+                const serviceName =
+                    servicesMap[
+                        review.service_id
+                    ] ||
+                    "ABH Yogaa Studio";
+
+
+                service.textContent =
+                    `— ${serviceName} Student`;
+
+
+                /* =============================================
+                   BUILD CARD
+                ============================================= */
+
+                card.appendChild(
+                    stars
+                );
+
+                card.appendChild(
+                    text
+                );
+
+                card.appendChild(
+                    service
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        console.log(
+            "Approved homepage reviews loaded successfully."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected homepage reviews error:",
+            error
+        );
+
+        section.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ============================================================
+   LOAD REVIEWS AFTER PAGE LOAD
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadHomepageReviews
+);
+</script>
 </body>
 
 </html>

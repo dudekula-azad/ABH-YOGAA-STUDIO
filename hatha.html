@@ -5,6 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
 
     <title>Hatha Yoga | ABH Yogaa Studio</title>
 
@@ -207,64 +208,16 @@ Book Your Class
     </div>
 
 </section>
-<!-- ================= CLASS SCHEDULE ================= -->
 
-<section class="schedule reveal">
-
-    <div class="section-heading">
-
-        <span>Weekly Schedule</span>
-
-        <h2>Choose Your Preferred Batch</h2>
-
-    </div>
-
-    <div class="schedule-container">
-
-        <div class="schedule-card">
-
-            <h3>🌅 Morning Batch</h3>
-
-            <div class="time">06:00 AM – 07:00 AM</div>
-
-            <div class="time">07:30 AM – 08:30 AM</div>
-
-            <p>Perfect for starting your day with energy and focus.</p>
-
-        </div>
-
-        <div class="schedule-card">
-
-            <h3>🌇 Evening Batch</h3>
-
-            <div class="time">05:30 PM – 06:30 PM</div>
-
-            <div class="time">07:00 PM – 08:00 PM</div>
-
-            <p>Relax your body and release stress after work.</p>
-
-        </div>
-
-        <div class="schedule-card">
-
-            <h3>🌿 Weekend Special</h3>
-
-            <div class="time">Saturday</div>
-
-            <div class="time">Sunday</div>
-
-            <p>Long guided sessions with meditation and relaxation.</p>
-
-        </div>
-
-    </div>
-
-</section>
 <!-- ================= BOOK CLASS ================= -->
 
 <!-- ================= BOOK CLASS ================= -->
 
-<section class="booking reveal" id="book">
+<section
+    class="booking reveal"
+    id="book"
+    data-service-slug="hatha-yoga"
+>
 
     <div class="booking-container">
 
@@ -321,14 +274,70 @@ Book Your Class
 
                 </div>
 
-                <div class="input-group">
-                    <label>Preferred Batch</label>
+                <!-- PLAN -->
+                <div class="input-group" id="planGroup">
 
-                    <select id="batch">
-                        <option>Morning</option>
-                        <option>Evening</option>
-                        <option>Weekend</option>
+                    <label>Choose Plan</label>
+
+                    <select id="plan">
+                        <option value="">Select Plan</option>
+                        <option value="one_day">One Day</option>
+                        <option value="one_month">One Month</option>
+                        <option value="three_months">Three Months</option>
                     </select>
+
+                </div>
+
+
+                <!-- ONE DAY DATE -->
+                <div class="input-group" id="oneDayDateGroup" style="display:none;">
+
+                    <label>Choose Class Date</label>
+
+                    <select id="oneDayDate">
+
+                        <option value="">Select Date</option>
+
+                        <option value="today">Today</option>
+
+                        <option value="tomorrow">Tomorrow</option>
+
+                    </select>
+
+                </div>
+                <div
+                    class="input-group"
+                    id="availableSlotsGroup"
+                    style="display:none;"
+                >
+
+                    <label>Available Slots</label>
+
+                    <div id="availableSlots"></div>
+
+                </div>
+
+                <!-- MEMBERSHIP START DATE -->
+                <div class="input-group" id="startDateGroup" style="display:none;">
+
+                    <label>Start Date</label>
+
+                    <input
+                        type="date"
+                        id="startDate">
+
+                </div>
+
+
+                <!-- MEMBERSHIP END DATE -->
+                <div class="input-group" id="endDateGroup" style="display:none;">
+
+                    <label>End Date</label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                        readonly>
 
                 </div>
                 <div class="input-group">
@@ -401,8 +410,23 @@ Book Your Class
                     </div>
 
                     <div class="summary-row">
-                        <span>Batch</span>
-                        <strong id="summaryBatch"></strong>
+                        <span>Plan</span>
+                        <strong id="summaryPlan"></strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Class Date</span>
+                        <strong id="summaryClassDate"></strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Start Date</span>
+                        <strong id="summaryStartDate"></strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>End Date</span>
+                        <strong id="summaryEndDate"></strong>
                     </div>
 
                     <div class="summary-row">
@@ -419,9 +443,8 @@ Book Your Class
 
                     <div class="summary-row total">
 
-                        <span>Monthly Fee</span>
-
-                        <strong>₹999</strong>
+                        <span>Plan Amount</span>
+                        <strong id="summaryAmount">₹0</strong>
 
                     </div>
 
@@ -513,29 +536,15 @@ Book Your Class
         </label>
 
             
-            <div class="payment-total">
-
+        <div class="payment-total">
             <span>Total Amount</span>
+            <h1 id="paymentAmount">₹0</h1>
+            <p>🔒 Your payment is encrypted and secure.</p>
+        </div>
 
-            <h1>₹999</h1>
-
-            <p>
-
-            🔒 Your payment is encrypted and secure.
-
-            </p>
-
-            </div>
-
-            <button
-            id="payNowBtn"
-            class="payment-btn">
-
-            Pay ₹999 →
-
-            </button>
-
-            </div>
+        <button id="payNowBtn" class="payment-btn">
+            Pay <span id="payAmount">₹0</span> →
+        </button>
 
             <!-- ================= PAYMENT SUCCESS ================= -->
 
@@ -613,6 +622,9 @@ Book Your Class
 
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="js/script.js"></script>
 
 </body>

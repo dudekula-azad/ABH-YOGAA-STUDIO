@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Admin Dashboard | ABH Yogaa Studio</title>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f6f2ea;
+
+            color: #333;
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+
+            height: 100vh;
+
+            background: #71663a;
+
+            color: white;
+
+            padding: 30px 20px;
+
+            z-index: 10;
+
+        }
+
+
+        .logo {
+
+            font-family: Georgia, serif;
+
+            font-size: 23px;
+
+            line-height: 1.2;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .admin-label {
+
+            font-size: 12px;
+
+            opacity: 0.75;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .nav-link {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 13px 15px;
+
+            margin-bottom: 7px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .nav-link:hover {
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.12
+            );
+
+        }
+
+
+        .nav-link.active {
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.18
+            );
+
+        }
+
+
+        .logout-btn {
+
+            position: absolute;
+
+            left: 20px;
+
+            bottom: 25px;
+
+            width: calc(100% - 40px);
+
+            padding: 12px;
+
+            border: 1px solid rgba(
+                255,
+                255,
+                255,
+                0.4
+            );
+
+            background: transparent;
+
+            color: white;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.1
+            );
+
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main {
+
+            margin-left: 240px;
+
+            min-height: 100vh;
+
+            padding: 35px;
+
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .topbar h1 {
+
+            margin: 0;
+
+            font-family: Georgia, serif;
+
+            font-weight: 500;
+
+            font-size: 32px;
+
+        }
+
+
+        .admin-info {
+
+            background: white;
+
+            padding: 10px 16px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+           ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 23px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.06
+                );
+
+        }
+
+
+        .stat-title {
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .stat-value {
+
+            font-size: 30px;
+
+            font-weight: 600;
+
+            color: #71663a;
+
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+           ===================================================== */
+
+        .section {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.06
+                );
+
+        }
+
+
+        .section h2 {
+
+            margin-top: 0;
+
+            font-family: Georgia, serif;
+
+            font-weight: 500;
+
+        }
+
+
+        .actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 15px;
+
+        }
+
+
+        .action-card {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: #333;
+
+            border: 1px solid #e4dfd4;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .action-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+
+        }
+
+
+        .action-icon {
+
+            font-size: 27px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .action-title {
+
+            font-weight: 600;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .action-description {
+
+            font-size: 12px;
+
+            color: #777;
+
+        }
+
+
+        /* =====================================================
+           BOOKINGS
+           ===================================================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            text-align: left;
+
+            background: #f5f1e9;
+
+            padding: 13px;
+
+            font-size: 12px;
+
+            color: #666;
+
+        }
+
+
+        td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #eee;
+
+            font-size: 13px;
+
+        }
+
+
+        .status {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+
+        }
+
+
+        .status-confirmed {
+
+            background: #e5f4e8;
+
+            color: #28743c;
+
+        }
+
+
+        .status-pending {
+
+            background: #fff4d8;
+
+            color: #856b16;
+
+        }
+
+
+        .status-cancelled {
+
+            background: #f9e1e1;
+
+            color: #9b3030;
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #888;
+
+        }
+
+
+        .loading {
+
+            color: #777;
+
+            padding: 20px 0;
+
+        }
+
+
+        .error {
+
+            color: #a33a3a;
+
+            padding: 15px 0;
+
+        }
+
+
+        /* =====================================================
+           NOTIFICATION
+           ===================================================== */
+
+        .notification-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            background: #f8f5ed;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+        }
+
+
+        .notification-icon {
+
+            font-size: 25px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (
+            max-width: 1000px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+
+            .actions {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
+
+            .logout-btn {
+
+                position: static;
+
+                width: 100%;
+
+                margin-top: 20px;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                padding: 20px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .topbar {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        ABH Yogaa<br>
+        Studio
+
+    </div>
+
+
+    <div class="admin-label">
+
+        ADMIN PANEL
+
+    </div>
+
+
+    <a
+        href="admin-dashboard.html"
+        class="nav-link active"
+    >
+        📊 Dashboard
+    </a>
+
+
+    <a
+        href="admin-bookings.html"
+        class="nav-link"
+    >
+        📋 Bookings
+    </a>
+
+
+    <a
+        href="admin-slots.html"
+        class="nav-link"
+    >
+        📅 Class Slots
+    </a>
+
+
+    <a
+        href="admin-services.html"
+        class="nav-link"
+    >
+        🧘 Services
+    </a>
+
+
+    <a
+        href="admin-prices.html"
+        class="nav-link"
+    >
+        💰 Plans & Prices
+    </a>
+
+
+    <a
+        href="index.html"
+        class="nav-link"
+        target="_blank"
+    >
+        🌐 View Website
+    </a>
+
+
+    <button
+        id="logoutBtn"
+        class="logout-btn"
+    >
+        🚪 Logout
+    </button>
+
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="main">
+
+
+    <div class="topbar">
+
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <div
+                style="
+                    color:#777;
+                    margin-top:6px;
+                    font-size:14px;
+                "
+            >
+                Welcome back, Administrator
+            </div>
+
+        </div>
+
+
+        <div
+            class="admin-info"
+            id="adminEmail"
+        >
+            Loading...
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+         ===================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Total Bookings
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalBookings"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Today's Bookings
+            </div>
+
+            <div
+                class="stat-value"
+                id="todayBookings"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Active Class Slots
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeSlots"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Total Revenue
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalRevenue"
+            >
+                ₹0
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         QUICK MANAGEMENT
+         ===================================================== -->
+
+    <section class="section">
+
+
+        <h2>
+            Quick Management
+        </h2>
+
+
+        <div class="actions">
+
+
+            <a
+                href="admin-bookings.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    📋
+                </div>
+
+                <div class="action-title">
+                    Manage Bookings
+                </div>
+
+                <div class="action-description">
+                    View and manage customer bookings.
+                </div>
+
+            </a>
+
+
+            <a
+                href="admin-slots.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    📅
+                </div>
+
+                <div class="action-title">
+                    Manage Class Slots
+                </div>
+
+                <div class="action-description">
+                    Create and manage available class slots.
+                </div>
+
+            </a>
+
+
+            <a
+                href="admin-services.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    🧘
+                </div>
+
+                <div class="action-title">
+                    Manage Services
+                </div>
+
+                <div class="action-description">
+                    Manage all yoga and wellness services.
+                </div>
+
+            </a>
+
+
+            <a
+                href="admin-prices.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    💰
+                </div>
+
+                <div class="action-title">
+                    Plans & Prices
+                </div>
+
+                <div class="action-description">
+                    Manage plans and service pricing.
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+<!-- =====================================================
+     TODAY'S ATTENDANCE
+     ===================================================== -->
+
+<section class="section">
+
+    <h2>
+        Today's Attendance
+    </h2>
+
+    <div
+        style="
+            color:#777;
+            font-size:13px;
+            margin-bottom:18px;
+        "
+    >
+        Attendance summary for today's membership classes.
+    </div>
+
+    <div
+        id="attendanceDashboard"
+    >
+        <div class="loading">
+            Loading today's attendance...
+        </div>
+    </div>
+
+</section>
+
+    <!-- =====================================================
+         RECENT BOOKINGS
+         ===================================================== -->
+
+    <section class="section">
+
+
+        <h2>
+            Recent Bookings
+        </h2>
+
+
+        <div
+            id="bookingsLoading"
+            class="loading"
+        >
+            Loading bookings...
+        </div>
+
+
+        <div
+            class="table-wrapper"
+            id="bookingsTableWrapper"
+            style="display:none;"
+        >
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Booking
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+                        <th>Type</th>
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Payment
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="recentBookings">
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+        <div
+            id="bookingsError"
+            class="error"
+            style="display:none;"
+        ></div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NOTIFICATIONS
+         ===================================================== -->
+
+    <section class="section">
+
+
+        <h2>
+            Notifications
+        </h2>
+
+
+        <div class="notification-box">
+
+
+            <div class="notification-icon">
+                🔔
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Notification system
+                </strong>
+
+                <div
+                    style="
+                        color:#777;
+                        margin-top:5px;
+                        font-size:13px;
+                    "
+                >
+                    Email and WhatsApp notifications will be connected here.
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+    
+
+
+</main>
+
+
+
+<script src="js/admin-dashboard.js"></script>
+
+
+</body>
+
+</html>

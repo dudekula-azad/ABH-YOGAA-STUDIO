@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Customer Login | ABH Yogaa Studio</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f3eb;
+            font-family: Poppins, sans-serif;
+        }
+
+        .customer-box {
+            width: 90%;
+            max-width: 460px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.10);
+        }
+
+        .customer-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .customer-header h1 {
+            font-family: Georgia, serif;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #596b3d;
+        }
+
+        .customer-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .customer-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg,#a47b24,#596b3d);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .customer-btn:hover {
+            opacity: .9;
+        }
+
+        .switch-btn {
+            width: 100%;
+            border: none;
+            background: none;
+            color: #596b3d;
+            cursor: pointer;
+            margin-top: 18px;
+            font-weight: 600;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: #a33a3a;
+        }
+
+        .success {
+            color: #28743c;
+        }
+
+        .admin-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="customer-box">
+
+    <div class="customer-header">
+        <h1>ABH Yogaa Studio</h1>
+        <p id="formTitle">Customer Login</p>
+    </div>
+
+    <form id="customerForm">
+
+        <div
+            class="form-group"
+            id="nameGroup"
+            style="display:none;"
+        >
+            <label for="fullName">Full Name</label>
+
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Enter your full name"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+        </div>
+
+        <div
+            class="form-group"
+            id="phoneGroup"
+            style="display:none;"
+        >
+            <label for="phone">Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                minlength="6"
+                required
+            >
+        </div>
+
+        <button
+            type="submit"
+            class="customer-btn"
+            id="submitBtn"
+        >
+            Login
+        </button>
+
+    </form>
+
+    <button
+        type="button"
+        class="switch-btn"
+        id="switchBtn"
+    >
+        Don't have an account? Sign Up
+    </button>
+
+    <div id="message"></div>
+
+    <a
+        href="admin-login.html"
+        class="admin-link"
+    >
+        Administrator Login
+    </a>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+
+<script>
+// ============================================================
+// CHECK EXISTING CUSTOMER SESSION
+// ============================================================
+
+(async function checkExistingCustomerSession() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await window.supabaseClient
+            .auth
+            .getSession();
+
+        if (error) {
+
+            console.error(
+                "Customer session check error:",
+                error
+            );
+
+            return;
+
+        }
+
+        if (data?.session?.user) {
+
+            console.log(
+                "Customer already logged in:",
+                data.session.user.email
+            );
+
+            window.location.replace(
+                "customer-dashboard.html"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Existing customer session check failed:",
+            error
+        );
+
+    }
+
+})();
+let signupMode = false;
+
+const form =
+    document.getElementById("customerForm");
+
+const formTitle =
+    document.getElementById("formTitle");
+
+const nameGroup =
+    document.getElementById("nameGroup");
+
+const phoneGroup =
+    document.getElementById("phoneGroup");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const switchBtn =
+    document.getElementById("switchBtn");
+
+const message =
+    document.getElementById("message");
+
+
+/* ================================
+   SWITCH LOGIN / SIGNUP
+================================ */
+
+switchBtn.addEventListener(
+    "click",
+    () => {
+
+        signupMode =
+            !signupMode;
+
+        if (signupMode) {
+
+            formTitle.innerText =
+                "Create Customer Account";
+
+            nameGroup.style.display =
+                "block";
+
+            phoneGroup.style.display =
+                "block";
+
+            submitBtn.innerText =
+                "Create Account";
+
+            switchBtn.innerText =
+                "Already have an account? Login";
+
+        } else {
+
+            formTitle.innerText =
+                "Customer Login";
+
+            nameGroup.style.display =
+                "none";
+
+            phoneGroup.style.display =
+                "none";
+
+            submitBtn.innerText =
+                "Login";
+
+            switchBtn.innerText =
+                "Don't have an account? Sign Up";
+        }
+
+        message.innerText = "";
+    }
+);
+
+
+/* ================================
+   LOGIN / SIGNUP
+================================ */
+
+form.addEventListener(
+    "submit",
+    async function(e) {
+
+        e.preventDefault();
+
+        message.innerText = "";
+        submitBtn.disabled = true;
+
+        try {
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+            if (signupMode) {
+
+                const fullName =
+                    document
+                        .getElementById("fullName")
+                        .value
+                        .trim();
+
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
+
+                if (!fullName) {
+                    throw new Error(
+                        "Please enter your full name."
+                    );
+                }
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.supabaseClient
+                        .auth
+                        .signUp({
+                            email,
+                            password,
+                            options: {
+                                data: {
+                                    full_name:
+                                        fullName,
+                                    phone:
+                                        phone
+                                }
+                            }
+                        });
+
+                if (error) {
+                    throw error;
+                }
+
+                if (data.session) {
+
+                    await saveCustomerProfile(
+                        data.user,
+                        fullName,
+                        phone
+                    );
+
+                    message.className =
+                        "success";
+
+                    message.innerText =
+                        "Account created. Redirecting...";
+
+                    setTimeout(
+                        () => {
+                            window.location.href =
+                                "customer-dashboard.html";
+                        },
+                        500
+                    );
+
+                } else {
+
+                    message.className =
+                        "success";
+
+                    message.innerText =
+                        "Account created. Please verify your email, then login.";
+                }
+
+            } else {
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.supabaseClient
+                        .auth
+                        .signInWithPassword({
+                            email,
+                            password
+                        });
+
+                if (error) {
+                    throw error;
+                }
+
+                await saveCustomerProfile(
+                    data.user,
+                    data.user.user_metadata?.full_name || "",
+                    data.user.user_metadata?.phone || ""
+                );
+
+                message.className =
+                    "success";
+
+                message.innerText =
+                    "Login successful. Redirecting...";
+
+                setTimeout(
+                    () => {
+                        window.location.href =
+                            "customer-dashboard.html";
+                    },
+                    500
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Customer authentication error:",
+                error
+            );
+
+            message.className =
+                "error";
+
+            message.innerText =
+                error.message ||
+                "Authentication failed.";
+
+        } finally {
+
+            submitBtn.disabled =
+                false;
+        }
+    }
+);
+
+
+/* ================================
+   SAVE CUSTOMER PROFILE
+================================ */
+
+async function saveCustomerProfile(
+    user,
+    fullName,
+    phone
+) {
+
+    if (!user || !user.email) {
+        return;
+    }
+
+    const {
+        data: existing,
+        error: findError
+    } =
+        await window.supabaseClient
+            .from("customers")
+            .select("id")
+            .eq("email", user.email)
+            .maybeSingle();
+
+    if (findError) {
+        throw findError;
+    }
+
+    if (existing) {
+
+        const {
+            error
+        } =
+            await window.supabaseClient
+                .from("customers")
+                .update({
+                    full_name:
+                        fullName ||
+                        undefined,
+                    phone:
+                        phone ||
+                        undefined
+                })
+                .eq(
+                    "id",
+                    existing.id
+                );
+
+        if (error) {
+            throw error;
+        }
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await window.supabaseClient
+            .from("customers")
+            .insert({
+                full_name:
+                    fullName ||
+                    "Customer",
+                email:
+                    user.email,
+                phone:
+                    phone || null
+            });
+
+    if (error) {
+        throw error;
+    }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Admin Login | ABH Yogaa Studio</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f3eb;
+        }
+
+        .admin-login {
+            width: 90%;
+            max-width: 430px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.10);
+        }
+
+        .admin-login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-login-header h1 {
+            font-family: Georgia, serif;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .admin-login-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .login-group {
+            margin-bottom: 20px;
+        }
+
+        .login-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .login-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .login-group input:focus {
+            border-color: #8a7535;
+        }
+
+        #loginBtn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            background: #7d713e;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #loginBtn:hover {
+            opacity: 0.9;
+        }
+
+        #loginMessage {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .login-error {
+            color: #a33a3a;
+        }
+
+        .login-success {
+            color: #28743c;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-login">
+
+
+    <div class="admin-login-header">
+
+        <h1>
+            ABH Yogaa Studio
+        </h1>
+
+        <p>
+            Administrator Login
+        </p>
+
+    </div>
+
+
+    <form id="adminLoginForm">
+
+
+        <div class="login-group">
+
+            <label for="adminEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="adminEmail"
+                placeholder="Enter admin email"
+                required
+            >
+
+        </div>
+
+
+        <div class="login-group">
+
+            <label for="adminPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Enter password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            id="loginBtn"
+        >
+            Login
+        </button>
+
+
+        <div id="loginMessage"></div>
+
+
+    </form>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase-config.js"></script>
+
+<script src="js/admin-login.js"></script>
+
+
+</body>
+
+</html>

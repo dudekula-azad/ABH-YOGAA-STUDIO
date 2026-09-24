@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>My Dashboard | ABH Yogaa Studio</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #f7f3eb;
+            font-family: Poppins, sans-serif;
+            color: #333;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+            padding: 90px 5% 60px;
+        }
+
+        .dashboard-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .dashboard-header h1 {
+            font-family: Georgia, serif;
+            color: #596b3d;
+            font-size: 42px;
+            margin: 0 0 8px;
+        }
+
+        .dashboard-header p {
+            color: #777;
+            margin: 0;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.07);
+        }
+
+        .dashboard-card h2 {
+            color: #596b3d;
+            font-family: Georgia, serif;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* PROFILE */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .profile-item {
+            padding: 15px;
+            background: #f8f5ee;
+            border-radius: 10px;
+        }
+
+        .profile-item strong {
+            display: block;
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        /* MEMBERSHIPS */
+
+        .membership-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .membership-item {
+            background: #f8f5ee;
+            border: 1px solid #ebe4d7;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .membership-item h3 {
+            margin: 0 0 12px;
+            color: #596b3d;
+            font-family: Georgia, serif;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .membership-detail {
+            font-size: 14px;
+        }
+
+        .membership-detail strong {
+            color: #777;
+            margin-right: 5px;
+        }
+
+        .active-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #e5f4e9;
+            color: #23733a;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* DAILY MEMBERSHIP */
+
+        #dailyMembershipSection {
+            display: none;
+        }
+
+        .daily-intro {
+            color: #777;
+            margin-top: -8px;
+            margin-bottom: 20px;
+        }
+
+        #dailyMembershipSlots {
+            display: grid;
+            gap: 14px;
+        }
+
+        .daily-slot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px;
+            border: 1px solid #e7e1d4;
+            border-radius: 12px;
+            background: #faf9f5;
+        }
+
+        .daily-slot-info strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #596b3d;
+            font-size: 17px;
+        }
+
+        .daily-slot-time {
+            font-weight: 600;
+        }
+
+        .daily-slot-mode {
+            display: inline-block;
+            margin-left: 10px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .select-slot-btn,
+        .join-class-btn {
+            border: none;
+            padding: 11px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #596b3d;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .select-slot-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .selected-session {
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8f6f0;
+        }
+
+        .selected-session h3 {
+            margin-top: 0;
+            color: #596b3d;
+            font-family: Georgia, serif;
+        }
+
+        .offline-note {
+            color: #777;
+        }
+
+        /* BOOKINGS */
+
+        .booking-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        .booking-table th,
+        .booking-table td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .booking-table th {
+            background: #f5f0e8;
+            color: #596b3d;
+        }
+
+        .status {
+            font-weight: 600;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .logout-btn,
+        .home-btn {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .home-btn {
+            background: #596b3d;
+        }
+
+        .logout-btn {
+            background: #a33a3a;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:700px) {
+
+            .dashboard {
+                padding: 70px 4% 40px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 32px;
+            }
+
+            .profile-grid,
+            .membership-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-slot {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .select-slot-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<section class="dashboard">
+
+    <div class="dashboard-container">
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <div class="dashboard-header">
+
+            <h1>
+                My Dashboard
+            </h1>
+
+            <p>
+                Welcome back to ABH Yogaa Studio
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROFILE
+        ====================================================== -->
+
+        <div class="dashboard-card">
+
+            <h2>
+                My Profile
+            </h2>
+
+            <div class="profile-grid">
+
+
+                <div class="profile-item">
+
+                    <strong>
+                        Full Name
+                    </strong>
+
+                    <span id="profileName">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <span id="profileEmail">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <strong>
+                        Phone
+                    </strong>
+
+                    <span id="profilePhone">
+                        —
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <strong>
+                        Account
+                    </strong>
+
+                    <span>
+                        Customer
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             MY MEMBERSHIPS
+        ====================================================== -->
+
+        <div
+            class="dashboard-card"
+            id="membershipSection"
+        >
+
+            <h2>
+                My Memberships
+            </h2>
+
+            <div id="membershipsContainer">
+
+                <div class="empty">
+                    Loading memberships...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TOMORROW'S MEMBERSHIP CLASS
+        ====================================================== -->
+
+        <div
+            class="dashboard-card"
+            id="dailyMembershipSection"
+            style="display:none;"
+        >
+
+            <h2>
+                Tomorrow's Class
+            </h2>
+
+            <p
+                class="daily-intro"
+                id="dailyMembershipMessage"
+            >
+                Checking available slots...
+            </p>
+
+            <div id="dailyMembershipSlots"></div>
+
+        </div>
+
+
+        <!-- =====================================================
+             ONE DAY BOOKINGS
+        ====================================================== -->
+
+        <div class="dashboard-card">
+
+            <h2>
+                My One-Day Bookings
+            </h2>
+
+            <div id="bookingsContainer">
+
+                Loading bookings...
+
+            </div>
+
+        </div>
+
+<!-- =========================================
+     WRITE A REVIEW
+========================================= -->
+
+        <div class="review-card">
+
+            <h2>
+                Write a Review
+            </h2>
+
+            <p class="review-intro">
+                Share your experience with ABH Yogaa Studio.
+                Your review will be published after admin verification.
+            </p>
+
+
+            <form id="customerReviewForm">
+
+
+                <!-- SERVICE -->
+
+                <div class="review-form-group">
+
+                    <label for="reviewService">
+                        Service
+                    </label>
+
+                    <select
+                        id="reviewService"
+                        required
+                    >
+
+                        <option value="">
+                            Select a service
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RATING -->
+
+                <div class="review-form-group">
+
+                    <label for="reviewRating">
+                        Rating
+                    </label>
+
+                    <select
+                        id="reviewRating"
+                        required
+                    >
+
+                        <option value="">
+                            Select rating
+                        </option>
+
+                        <option value="5">
+                            ★★★★★ — 5 Stars
+                        </option>
+
+                        <option value="4">
+                            ★★★★☆ — 4 Stars
+                        </option>
+
+                        <option value="3">
+                            ★★★☆☆ — 3 Stars
+                        </option>
+
+                        <option value="2">
+                            ★★☆☆☆ — 2 Stars
+                        </option>
+
+                        <option value="1">
+                            ★☆☆☆☆ — 1 Star
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- REVIEW -->
+
+                <div class="review-form-group">
+
+                    <label for="reviewText">
+                        Your Review
+                    </label>
+
+                    <textarea
+                        id="reviewText"
+                        rows="5"
+                        maxlength="1000"
+                        placeholder="Tell us about your experience..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    id="submitReviewBtn"
+                    class="review-submit-btn"
+                >
+                    Submit Review
+                </button>
+
+
+                <div
+                    id="reviewStatusMessage"
+                    class="review-status-message"
+                ></div>
+
+            </form>
+
+        </div>
+        <!-- =====================================================
+             ACTIONS
+        ====================================================== -->
+
+        <div class="actions">
+
+            <button
+                class="home-btn"
+                type="button"
+                id="homeBtn"
+            >
+                Back to Home
+            </button>
+
+
+            <button
+                class="logout-btn"
+                type="button"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+    src="js/supabase-config.js"
+></script>
+
+
+<!-- =========================================================
+     CUSTOMER DASHBOARD JS
+========================================================== -->
+
+<script
+    src="js/customer-dashboard.js"
+></script>
+
+
+</body>
+
+</html>

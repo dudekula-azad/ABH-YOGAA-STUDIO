@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Special Session | ABH Yogaa Studio</title>
+
+
+    <!-- ======================================================
+         EXISTING STYLES
+    ======================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+
+    <!-- ======================================================
+         FONT AWESOME
+    ======================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+
+    <!-- ======================================================
+         PAGE STYLES
+    ======================================================= -->
+
+    <style>
+
+        body {
+
+            background:
+                #f8f5ef;
+
+        }
+
+
+        .special-session-page {
+
+            max-width:
+                1100px;
+
+            margin:
+                120px auto 70px;
+
+            padding:
+                0 20px;
+
+        }
+
+
+        .special-session-detail-card {
+
+            background:
+                white;
+
+            border-radius:
+                24px;
+
+            overflow:
+                hidden;
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,0.08);
+
+        }
+
+
+        .special-session-hero {
+
+            width:
+                100%;
+
+            height:
+                430px;
+
+            background:
+                #f5f0e8;
+
+            position:
+                relative;
+
+        }
+
+
+        .special-session-hero img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            object-fit:
+                cover;
+
+        }
+
+
+        .special-session-placeholder {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                90px;
+
+        }
+
+
+        .special-session-detail-content {
+
+            padding:
+                40px;
+
+        }
+
+
+        .special-session-badge {
+
+            display:
+                inline-block;
+
+            background:
+                #596b3d;
+
+            color:
+                white;
+
+            padding:
+                7px 15px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .special-session-detail-content h1 {
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            color:
+                #596b3d;
+
+            font-size:
+                48px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .special-session-description {
+
+            color:
+                #666;
+
+            line-height:
+                1.8;
+
+            font-size:
+                16px;
+
+            margin-bottom:
+                30px;
+
+            white-space:
+                pre-line;
+
+        }
+
+
+        .special-session-info-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                15px;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .special-session-info {
+
+            background:
+                #faf8f3;
+
+            border-radius:
+                12px;
+
+            padding:
+                18px;
+
+        }
+
+
+        .special-session-info i {
+
+            color:
+                #596b3d;
+
+            margin-right:
+                7px;
+
+        }
+
+
+        .special-session-info strong {
+
+            display:
+                block;
+
+            color:
+                #596b3d;
+
+            margin-top:
+                8px;
+
+        }
+
+
+        .special-session-booking {
+
+            background:
+                #f8f5ef;
+
+            border-radius:
+                18px;
+
+            padding:
+                30px;
+
+            margin-top:
+                25px;
+
+        }
+
+
+        .special-session-booking h2 {
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            color:
+                #596b3d;
+
+            font-size:
+                32px;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .special-booking-group {
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .special-booking-group label {
+
+            display:
+                block;
+
+            font-weight:
+                600;
+
+            color:
+                #596b3d;
+
+            margin-bottom:
+                7px;
+
+        }
+
+
+        .special-booking-group input {
+
+            width:
+                100%;
+
+            box-sizing:
+                border-box;
+
+            padding:
+                12px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius:
+                8px;
+
+            font-family:
+                inherit;
+
+        }
+
+
+        .special-booking-group input:focus {
+
+            outline:
+                none;
+
+            border-color:
+                #596b3d;
+
+        }
+
+
+        .special-booking-summary {
+
+            background:
+                white;
+
+            border-radius:
+                12px;
+
+            padding:
+                20px;
+
+            margin:
+                20px 0;
+
+        }
+
+
+        .special-booking-summary-row {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            padding:
+                8px 0;
+
+        }
+
+
+        .special-booking-summary-row strong {
+
+            color:
+                #596b3d;
+
+        }
+
+
+        .special-pay-btn {
+
+            width:
+                100%;
+
+            border:
+                none;
+
+            border-radius:
+                30px;
+
+            padding:
+                14px 20px;
+
+            background:
+                #596b3d;
+
+            color:
+                white;
+
+            font-size:
+                16px;
+
+            font-weight:
+                700;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .special-pay-btn:hover {
+
+            opacity:
+                0.92;
+
+        }
+
+
+        .special-pay-btn:disabled {
+
+            opacity:
+                0.6;
+
+            cursor:
+                not-allowed;
+
+        }
+
+
+        .special-status {
+
+            margin-top:
+                15px;
+
+            padding:
+                10px;
+
+            border-radius:
+                8px;
+
+            display:
+                none;
+
+        }
+
+
+        .special-status.success {
+
+            display:
+                block;
+
+            background:
+                #edf6e8;
+
+            color:
+                #45652f;
+
+        }
+
+
+        .special-status.error {
+
+            display:
+                block;
+
+            background:
+                #fdecec;
+
+            color:
+                #a33a3a;
+
+        }
+
+
+        .special-login-message {
+
+            background:
+                #fff3d6;
+
+            color:
+                #805d18;
+
+            padding:
+                18px;
+
+            border-radius:
+                12px;
+
+            margin-top:
+                20px;
+
+        }
+
+
+        .special-login-message a {
+
+            color:
+                #596b3d;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .special-loading {
+
+            text-align:
+                center;
+
+            padding:
+                100px 20px;
+
+            color:
+                #666;
+
+        }
+
+
+        .special-error {
+
+            text-align:
+                center;
+
+            padding:
+                100px 20px;
+
+            color:
+                #a33a3a;
+
+        }
+
+
+        .booking-success {
+
+            text-align:
+                center;
+
+            padding:
+                20px;
+
+        }
+
+
+        .booking-success-icon {
+
+            font-size:
+                60px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .booking-success h2 {
+
+            color:
+                #596b3d;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .special-session-page {
+
+                margin-top:
+                    100px;
+
+            }
+
+
+            .special-session-hero {
+
+                height:
+                    280px;
+
+            }
+
+
+            .special-session-detail-content {
+
+                padding:
+                    25px;
+
+            }
+
+
+            .special-session-detail-content h1 {
+
+                font-size:
+                    38px;
+
+            }
+
+
+            .special-session-info-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .special-session-info-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="index.html" class="logo">
+                ABH YOGAA STUDIO
+            </a>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#specialBookingArea">
+                        Book
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <!-- ======================================================
+         MAIN PAGE
+    ======================================================= -->
+
+    <main
+        class="special-session-page"
+    >
+
+        <div
+            id="specialSessionContainer"
+            class="special-loading"
+        >
+
+            Loading special session...
+
+        </div>
+
+    </main>
+
+
+    <!-- ======================================================
+         SUPABASE LIBRARY
+    ======================================================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- ======================================================
+         YOUR SUPABASE CONFIG
+    ======================================================= -->
+
+    <script
+        src="js/supabase-config.js"
+    ></script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <!-- ======================================================
+         SPECIAL SESSION LOGIC
+    ======================================================= -->
+
+    <script>
+
+        /* =====================================================
+           GLOBAL VARIABLES
+        ===================================================== */
+
+        let specialSession =
+            null;
+
+
+        let currentCustomer =
+            null;
+
+
+        let bookingProcessing =
+            false;
+
+
+        /* =====================================================
+           GET SESSION ID FROM URL
+        ===================================================== */
+
+        function getSpecialSessionId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            return params.get(
+                "id"
+            );
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value ?? ""
+            )
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* =====================================================
+           FORMAT DATE
+        ===================================================== */
+
+        function formatDate(
+            value
+        ) {
+
+            if (!value) {
+
+                return "Special Day";
+
+            }
+
+
+            try {
+
+                return new Date(
+                    `${value}T00:00:00`
+                ).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day:
+                            "2-digit",
+
+                        month:
+                            "long",
+
+                        year:
+                            "numeric"
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                return value;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORMAT TIME
+        ===================================================== */
+
+        function formatTime(
+            value
+        ) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            const parts =
+                value.split(":");
+
+
+            const hour =
+                Number(
+                    parts[0]
+                );
+
+
+            const minute =
+                Number(
+                    parts[1] || 0
+                );
+
+
+            const suffix =
+                hour >= 12
+                    ? "PM"
+                    : "AM";
+
+
+            const displayHour =
+                hour % 12 || 12;
+
+
+            return `${displayHour}:${
+                String(
+                    minute
+                ).padStart(
+                    2,
+                    "0"
+                )
+            } ${suffix}`;
+
+        }
+
+
+        /* =====================================================
+           SHOW STATUS
+        ===================================================== */
+
+        function showStatus(
+            message,
+            type
+        ) {
+
+            const element =
+                document.getElementById(
+                    "specialStatus"
+                );
+
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                message;
+
+
+            element.className =
+                `special-status ${type}`;
+
+        }
+
+
+        /* =====================================================
+           LOAD SPECIAL SESSION
+        ===================================================== */
+
+        async function loadSpecialSession() {
+
+            const container =
+                document.getElementById(
+                    "specialSessionContainer"
+                );
+
+
+            const sessionId =
+                getSpecialSessionId();
+
+
+            if (!sessionId) {
+
+                container.className =
+                    "special-error";
+
+
+                container.innerHTML = `
+
+                    <h2>
+                        Special Session Not Found
+                    </h2>
+
+                    <p>
+                        No special session was selected.
+                    </p>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } = await window.supabaseClient
+
+                    .from(
+                        "special_sessions"
+                    )
+
+                    .select(`
+
+                        id,
+                        title,
+                        description,
+                        session_date,
+                        start_time,
+                        end_time,
+                        image_url,
+                        price,
+                        capacity,
+                        is_active
+
+                    `)
+
+                    .eq(
+                        "id",
+                        sessionId
+                    )
+
+                    .eq(
+                        "is_active",
+                        true
+                    )
+
+                    .maybeSingle();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (!data) {
+
+                    container.className =
+                        "special-error";
+
+
+                    container.innerHTML = `
+
+                        <h2>
+                            Special Session Not Available
+                        </h2>
+
+                        <p>
+                            This session is no longer available.
+                        </p>
+
+                    `;
+
+
+                    return;
+
+                }
+
+
+                specialSession =
+                    data;
+
+
+                await renderSpecialSession();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Special session loading error:",
+                    error
+                );
+
+
+                container.className =
+                    "special-error";
+
+
+                container.innerHTML = `
+
+                    <h2>
+                        Unable to Load Session
+                    </h2>
+
+                    <p>
+                        Please refresh and try again.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           GET CURRENT CUSTOMER
+        ===================================================== */
+
+        async function getCurrentCustomer() {
+
+            const {
+                data: {
+                    user
+                },
+                error: authError
+            } = await window.supabaseClient
+                .auth
+                .getUser();
+
+
+            if (
+                authError ||
+                !user
+            ) {
+
+                return null;
+
+            }
+
+
+            const {
+                data: customer,
+                error
+            } = await window.supabaseClient
+
+                .from(
+                    "customers"
+                )
+
+                .select(`
+
+                    id,
+                    full_name,
+                    phone,
+                    email
+
+                `)
+
+                .eq(
+                    "email",
+                    user.email
+                )
+
+                .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "Customer loading error:",
+                    error
+                );
+
+
+                return null;
+
+            }
+
+
+            return customer || null;
+
+        }
+
+
+        /* =====================================================
+           GET BOOKED SEATS
+           
+           NOTE:
+           This is only for display.
+           The actual booking capacity is protected
+           by the PostgreSQL RPC.
+        ===================================================== */
+
+        async function getBookedSeats() {
+
+            /*
+             * Customer RLS only allows customers to see
+             * their own bookings.
+             *
+             * Therefore this function is only a best-effort
+             * display count.
+             *
+             * The final capacity decision happens inside:
+             *
+             * create_special_session_booking()
+             */
+
+            const {
+                count,
+                error
+            } = await window.supabaseClient
+
+                .from(
+                    "special_session_bookings"
+                )
+
+                .select(
+                    "id",
+                    {
+                        count:
+                            "exact",
+
+                        head:
+                            true
+                    }
+                )
+
+                .eq(
+                    "special_session_id",
+                    specialSession.id
+                )
+
+                .in(
+                    "booking_status",
+                    [
+                        "pending",
+                        "confirmed"
+                    ]
+                );
+
+
+            if (error) {
+
+                console.warn(
+                    "Seat display count unavailable:",
+                    error
+                );
+
+
+                return 0;
+
+            }
+
+
+            return count || 0;
+
+        }
+
+
+        /* =====================================================
+           RENDER SPECIAL SESSION
+        ===================================================== */
+
+        async function renderSpecialSession() {
+
+            const container =
+                document.getElementById(
+                    "specialSessionContainer"
+                );
+
+
+            const bookedSeats =
+                await getBookedSeats();
+
+
+            const capacity =
+                Number(
+                    specialSession.capacity || 0
+                );
+
+
+            const remainingSeats =
+                Math.max(
+                    0,
+                    capacity -
+                    bookedSeats
+                );
+
+
+            const price =
+                Number(
+                    specialSession.price || 0
+                );
+
+
+            let imageHTML;
+
+
+            if (
+                specialSession.image_url
+            ) {
+
+                imageHTML = `
+
+                    <img
+                        src="${escapeHTML(
+                            specialSession.image_url
+                        )}"
+                        alt="${escapeHTML(
+                            specialSession.title ||
+                            "Special Session"
+                        )}"
+                    >
+
+                `;
+
+            }
+
+            else {
+
+                imageHTML = `
+
+                    <div
+                        class="special-session-placeholder"
+                    >
+                        🧘
+                    </div>
+
+                `;
+
+            }
+
+
+            container.className =
+                "";
+
+
+            container.innerHTML = `
+
+                <div
+                    class="special-session-detail-card"
+                >
+
+                    <!-- =====================================
+                         IMAGE
+                    ====================================== -->
+
+                    <div
+                        class="special-session-hero"
+                    >
+
+                        ${imageHTML}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         CONTENT
+                    ====================================== -->
+
+                    <div
+                        class="special-session-detail-content"
+                    >
+
+                        <span
+                            class="special-session-badge"
+                        >
+
+                            Special Session
+
+                        </span>
+
+
+                        <h1>
+
+                            ${escapeHTML(
+                                specialSession.title ||
+                                "Special Yoga Session"
+                            )}
+
+                        </h1>
+
+
+                        <div
+                            class="special-session-description"
+                        >
+
+                            ${escapeHTML(
+                                specialSession.description ||
+                                "Join us for a special yoga experience."
+                            )}
+
+                        </div>
+
+
+                        <!-- =================================
+                             INFORMATION
+                        ================================== -->
+
+                        <div
+                            class="special-session-info-grid"
+                        >
+
+                            <div
+                                class="special-session-info"
+                            >
+
+                                <i
+                                    class="fa-solid fa-calendar-days"
+                                ></i>
+
+                                Date
+
+                                <strong>
+
+                                    ${formatDate(
+                                        specialSession.session_date
+                                    )}
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="special-session-info"
+                            >
+
+                                <i
+                                    class="fa-regular fa-clock"
+                                ></i>
+
+                                Time
+
+                                <strong>
+
+                                    ${formatTime(
+                                        specialSession.start_time
+                                    )}
+
+                                    ${
+                                        specialSession.end_time
+
+                                        ? " - " +
+                                          formatTime(
+                                              specialSession.end_time
+                                          )
+
+                                        : ""
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="special-session-info"
+                            >
+
+                                <i
+                                    class="fa-solid fa-users"
+                                ></i>
+
+                                Seats
+
+                                <strong>
+
+                                    ${
+                                        capacity > 0
+
+                                        ? `${remainingSeats} remaining`
+
+                                        : "Limited Seats"
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="special-session-info"
+                            >
+
+                                <i
+                                    class="fa-solid fa-indian-rupee-sign"
+                                ></i>
+
+                                Price
+
+                                <strong>
+
+                                    ${
+                                        price === 0
+
+                                        ? "Free"
+
+                                        : "₹" +
+                                          price.toFixed(2)
+                                    }
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             BOOKING AREA
+                        ================================== -->
+
+                        ${
+                            capacity > 0 &&
+                            remainingSeats <= 0
+
+                            ? `
+
+                                <div
+                                    class="special-login-message"
+                                >
+
+                                    This Special Session is
+                                    currently fully booked.
+
+                                </div>
+
+                            `
+
+                            : `
+
+                                <div
+                                    id="specialBookingArea"
+                                    class="special-session-booking"
+                                >
+
+                                    <h2>
+                                        Book This Special Session
+                                    </h2>
+
+
+                                    <div
+                                        id="specialBookingContent"
+                                    >
+
+                                        Loading booking details...
+
+                                    </div>
+
+                                </div>
+
+                            `
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            if (
+                capacity <= 0 ||
+                remainingSeats > 0
+            ) {
+
+                await loadBookingForm();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOAD BOOKING FORM
+        ===================================================== */
+
+        async function loadBookingForm() {
+
+            const area =
+                document.getElementById(
+                    "specialBookingContent"
+                );
+
+
+            if (!area) {
+
+                return;
+
+            }
+
+
+            currentCustomer =
+                await getCurrentCustomer();
+
+
+            if (!currentCustomer) {
+
+                area.innerHTML = `
+
+                    <div
+                        class="special-login-message"
+                    >
+
+                        Please
+
+                        <a
+                            href="customer-login.html"
+                        >
+                            login
+                        </a>
+
+                        as a customer before booking
+                        this Special Session.
+
+                    </div>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            const price =
+                Number(
+                    specialSession.price || 0
+                );
+
+
+            area.innerHTML = `
+
+                <form
+                    id="specialBookingForm"
+                >
+
+                    <!-- =================================
+                         NAME
+                    ================================== -->
+
+                    <div
+                        class="special-booking-group"
+                    >
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="specialCustomerName"
+                            value="${escapeHTML(
+                                currentCustomer.full_name ||
+                                ""
+                            )}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================
+                         PHONE
+                    ================================== -->
+
+                    <div
+                        class="special-booking-group"
+                    >
+
+                        <label>
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="specialCustomerPhone"
+                            value="${escapeHTML(
+                                currentCustomer.phone ||
+                                ""
+                            )}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================
+                         EMAIL
+                    ================================== -->
+
+                    <div
+                        class="special-booking-group"
+                    >
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="specialCustomerEmail"
+                            value="${escapeHTML(
+                                currentCustomer.email ||
+                                ""
+                            )}"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <!-- =================================
+                         SUMMARY
+                    ================================== -->
+
+                    <div
+                        class="special-booking-summary"
+                    >
+
+                        <div
+                            class="special-booking-summary-row"
+                        >
+
+                            <span>
+                                Session
+                            </span>
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    specialSession.title
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="special-booking-summary-row"
+                        >
+
+                            <span>
+                                Date
+                            </span>
+
+                            <strong>
+
+                                ${formatDate(
+                                    specialSession.session_date
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="special-booking-summary-row"
+                        >
+
+                            <span>
+                                Time
+                            </span>
+
+                            <strong>
+
+                                ${formatTime(
+                                    specialSession.start_time
+                                )}
+
+                                ${
+                                    specialSession.end_time
+
+                                    ? " - " +
+                                      formatTime(
+                                          specialSession.end_time
+                                      )
+
+                                    : ""
+                                }
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="special-booking-summary-row"
+                        >
+
+                            <span>
+                                Amount
+                            </span>
+
+                            <strong>
+
+                                ${
+                                    price === 0
+
+                                    ? "Free"
+
+                                    : "₹" +
+                                      price.toFixed(2)
+                                }
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         PAYMENT BUTTON
+                    ================================== -->
+
+                    <button
+                        type="submit"
+                        id="specialPayBtn"
+                        class="special-pay-btn"
+                    >
+
+                        ${
+                            price === 0
+
+                            ? "Confirm Booking"
+
+                            : `Pay ₹${price.toFixed(2)}
+                               & Confirm Booking`
+                        }
+
+                    </button>
+
+
+                    <!-- =================================
+                         STATUS
+                    ================================== -->
+
+                    <div
+                        id="specialStatus"
+                        class="special-status"
+                    ></div>
+
+                </form>
+
+            `;
+
+
+            document
+                .getElementById(
+                    "specialBookingForm"
+                )
+                .addEventListener(
+                    "submit",
+                    processSpecialBooking
+                );
+
+        }
+
+
+        /* =====================================================
+           PROCESS SPECIAL BOOKING
+           
+           IMPORTANT:
+           Capacity is finally checked inside PostgreSQL RPC.
+        ===================================================== */
+
+async function processSpecialBooking(event) {
+
+    event.preventDefault();
+
+    if (bookingProcessing) {
+        return;
+    }
+
+    bookingProcessing = true;
+
+    const button =
+        document.getElementById(
+            "specialPayBtn"
+        );
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.textContent =
+            "Processing...";
+
+    }
+
+    try {
+
+        // ========================================================
+        // CHECK SUPABASE
+        // ========================================================
+
+        if (!window.supabaseClient) {
+
+            throw new Error(
+                "Supabase connection is not available."
+            );
+
+        }
+
+
+        // ========================================================
+        // CHECK RAZORPAY
+        // ========================================================
+
+        if (typeof Razorpay !== "function") {
+
+            throw new Error(
+                "Razorpay Checkout is not loaded."
+            );
+
+        }
+
+
+        // ========================================================
+        // AUTHENTICATION
+        // ========================================================
+
+        const {
+            data: {
+                user
+            },
+            error: authError
+        } =
+            await window.supabaseClient
+                .auth
+                .getUser();
+
+
+        if (
+            authError ||
+            !user
+        ) {
+
+            throw new Error(
+                "Please login before booking."
+            );
+
+        }
+
+
+        // ========================================================
+        // GET CUSTOMER
+        // ========================================================
+
+        currentCustomer =
+            await getCurrentCustomer();
+
+
+        if (!currentCustomer) {
+
+            throw new Error(
+                "Customer profile not found."
+            );
+
+        }
+
+
+        // ========================================================
+        // GET LATEST SPECIAL SESSION
+        // ========================================================
+
+        const {
+            data: session,
+            error: sessionError
+        } =
+            await window.supabaseClient
+                .from(
+                    "special_sessions"
+                )
+                .select(`
+                    id,
+                    title,
+                    price,
+                    capacity,
+                    is_active
+                `)
+                .eq(
+                    "id",
+                    specialSession.id
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .maybeSingle();
+
+
+        if (sessionError) {
+
+            throw sessionError;
+
+        }
+
+
+        if (!session) {
+
+            throw new Error(
+                "This Special Session is no longer available."
+            );
+
+        }
+
+
+        // ========================================================
+        // PRICE
+        //
+        // Price is read from the database.
+        // Browser amount is NOT trusted by the backend.
+        // ========================================================
+
+        const amount =
+            Number(
+                session.price || 0
+            );
+
+
+        if (
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ) {
+
+            throw new Error(
+                "Invalid Special Session price."
+            );
+
+        }
+
+
+        // ========================================================
+        // GET CURRENT AUTH SESSION
+        // ========================================================
+
+        const {
+            data: {
+                session: authSession
+            }
+        } =
+            await window.supabaseClient
+                .auth
+                .getSession();
+
+
+        if (!authSession) {
+
+            throw new Error(
+                "Your login session has expired. Please login again."
+            );
+
+        }
+
+
+        // ========================================================
+        // CREATE RAZORPAY ORDER
+        //
+        // IMPORTANT:
+        // Use Supabase Functions SDK directly.
+        // Do NOT use window.SUPABASE_URL.
+        // ========================================================
+
+        const {
+            data: orderData,
+            error: orderError
+        } =
+            await window.supabaseClient
+                .functions
+                .invoke(
+                    "hyper-worker",
+                    {
+                        body: {
+
+                            payment_type:
+                                "special_session",
+
+                            special_session_id:
+                                session.id
+
+                        }
+                    }
+                );
+
+
+        // ========================================================
+        // HANDLE ORDER ERROR
+        // ========================================================
+
+        if (orderError) {
+
+            console.error(
+                "Special session order error:",
+                orderError
+            );
+
+            let errorMessage =
+                "Unable to create payment order.";
+
+            if (
+                orderError.context
+            ) {
+
+                try {
+
+                    const responseText =
+                        await orderError
+                            .context
+                            .text();
+
+                    if (responseText) {
+
+                        try {
+
+                            const parsed =
+                                JSON.parse(
+                                    responseText
+                                );
+
+                            if (
+                                parsed &&
+                                parsed.error
+                            ) {
+
+                                errorMessage =
+                                    parsed.error;
+
+                            }
+
+                        }
+
+                        catch (_) {
+
+                            if (
+                                responseText.trim()
+                            ) {
+
+                                errorMessage =
+                                    responseText;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                catch (_) {
+
+                    // Keep default error message
+
+                }
+
+            }
+
+            throw new Error(
+                errorMessage
+            );
+
+        }
+
+
+        // ========================================================
+        // VALIDATE ORDER RESPONSE
+        // ========================================================
+
+        if (
+            !orderData ||
+            !orderData.success ||
+            !orderData.order_id ||
+            !orderData.payment_intent_id ||
+            !orderData.amount ||
+            !orderData.key_id
+        ) {
+
+            console.error(
+                "Invalid order response:",
+                orderData
+            );
+
+            throw new Error(
+                "Invalid Razorpay order response."
+            );
+
+        }
+
+
+        // ========================================================
+        // RAZORPAY CHECKOUT OPTIONS
+        // ========================================================
+
+        const options = {
+
+            key:
+                orderData.key_id,
+
+            amount:
+                orderData.amount,
+
+            currency:
+                orderData.currency ||
+                "INR",
+
+            name:
+                "ABH Yogaa Studio",
+
+            description:
+                session.title,
+
+            order_id:
+                orderData.order_id,
+
+            prefill: {
+
+                name:
+                    currentCustomer.full_name ||
+                    "",
+
+                email:
+                    currentCustomer.email ||
+                    user.email ||
+                    "",
+
+                contact:
+                    currentCustomer.phone ||
+                    ""
+
+            },
+
+            theme: {
+
+                color:
+                    "#7b5e3b"
+
+            },
+
+
+            // ====================================================
+            // PAYMENT SUCCESS
+            // ====================================================
+
+            handler:
+                async function (
+                    razorpayResponse
+                ) {
+
+                    try {
+
+                        console.log(
+                            "SPECIAL SESSION RAZORPAY RESPONSE:",
+                            razorpayResponse
+                        );
+
+
+                        // =========================================
+                        // VERIFY PAYMENT SERVER-SIDE
+                        // =========================================
+
+                        const {
+                            data: verifyData,
+                            error: verifyError
+                        } =
+                            await window.supabaseClient
+                                .functions
+                                .invoke(
+                                    "hyper-responder",
+                                    {
+                                        body: {
+
+                                            payment_intent_id:
+                                                orderData
+                                                    .payment_intent_id,
+
+                                            razorpay_payment_id:
+                                                razorpayResponse
+                                                    .razorpay_payment_id,
+
+                                            razorpay_signature:
+                                                razorpayResponse
+                                                    .razorpay_signature
+
+                                        }
+                                    }
+                                );
+
+
+                        if (verifyError) {
+
+                            console.error(
+                                "Payment verification error:",
+                                verifyError
+                            );
+
+                            throw verifyError;
+
+                        }
+
+
+                        if (
+                            !verifyData ||
+                            !verifyData.success
+                        ) {
+
+                            throw new Error(
+                                verifyData?.error ||
+                                "Payment verification failed."
+                            );
+
+                        }
+
+
+                        // =========================================
+                        // GET FINALIZATION RESULT
+                        // =========================================
+
+                        const finalization =
+                            verifyData.finalization ||
+                            {};
+
+
+                        const specialBookingId =
+                            finalization
+                                .special_session_booking_id;
+
+
+                        if (!specialBookingId) {
+
+                            throw new Error(
+                                "Payment was verified, but the Special Session booking was not finalized."
+                            );
+
+                        }
+
+
+                        // =========================================
+                        // SHOW SUCCESS
+                        // =========================================
+
+                        const bookingArea =
+                            document.getElementById(
+                                "specialBookingArea"
+                            );
+
+
+                        if (bookingArea) {
+
+                            bookingArea.innerHTML = `
+
+                                <div
+                                    class="booking-success"
+                                >
+
+                                    <div
+                                        class="booking-success-icon"
+                                    >
+                                        ✓
+                                    </div>
+
+
+                                    <h2>
+                                        Booking Confirmed!
+                                    </h2>
+
+
+                                    <p>
+                                        Your Special Session has
+                                        been booked successfully.
+                                    </p>
+
+
+                                    <div
+                                        class="special-booking-summary"
+                                    >
+
+                                        <div
+                                            class="special-booking-summary-row"
+                                        >
+
+                                            <span>
+                                                Session
+                                            </span>
+
+                                            <strong>
+                                                ${escapeHTML(
+                                                    session.title
+                                                )}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div
+                                            class="special-booking-summary-row"
+                                        >
+
+                                            <span>
+                                                Payment
+                                            </span>
+
+                                            <strong>
+                                                Paid
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div
+                                            class="special-booking-summary-row"
+                                        >
+
+                                            <span>
+                                                Booking ID
+                                            </span>
+
+                                            <strong>
+                                                #${specialBookingId}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+
+
+                        console.log(
+                            "SPECIAL SESSION BOOKING SUCCESS:",
+                            finalization
+                        );
+
+
+                        bookingProcessing =
+                            false;
+
+                    }
+
+
+                    catch (error) {
+
+                        console.error(
+                            "Special Session payment verification error:",
+                            error
+                        );
+
+
+                        showStatus(
+                            error.message ||
+                            "Payment verification failed. Please contact support if money was deducted.",
+                            "error"
+                        );
+
+
+                        if (button) {
+
+                            button.disabled =
+                                false;
+
+                            button.textContent =
+                                `Pay ₹${amount.toFixed(2)} & Confirm Booking`;
+
+                        }
+
+
+                        bookingProcessing =
+                            false;
+
+                    }
+
+                },
+
+
+            // ====================================================
+            // CHECKOUT CLOSED
+            // ====================================================
+
+            modal: {
+
+                ondismiss:
+                    function () {
+
+                        console.log(
+                            "Special Session Razorpay checkout dismissed."
+                        );
+
+
+                        showStatus(
+                            "Payment cancelled. You can try again.",
+                            "error"
+                        );
+
+
+                        if (button) {
+
+                            button.disabled =
+                                false;
+
+                            button.textContent =
+                                `Pay ₹${amount.toFixed(2)} & Confirm Booking`;
+
+                        }
+
+
+                        bookingProcessing =
+                            false;
+
+                    }
+
+            }
+
+        };
+
+
+        // ========================================================
+        // OPEN RAZORPAY
+        // ========================================================
+
+        const razorpay =
+            new Razorpay(
+                options
+            );
+
+
+        // ========================================================
+        // PAYMENT FAILURE
+        // ========================================================
+
+        razorpay.on(
+            "payment.failed",
+            function (
+                response
+            ) {
+
+                console.error(
+                    "Special Session payment failed:",
+                    response
+                );
+
+
+                showStatus(
+                    "Payment failed. No booking was confirmed. Please try again.",
+                    "error"
+                );
+
+
+                if (button) {
+
+                    button.disabled =
+                        false;
+
+                    button.textContent =
+                        `Pay ₹${amount.toFixed(2)} & Confirm Booking`;
+
+                }
+
+
+                bookingProcessing =
+                    false;
+
+            }
+        );
+
+
+        // ========================================================
+        // OPEN CHECKOUT
+        // ========================================================
+
+        razorpay.open();
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Special Session booking error:",
+            error
+        );
+
+
+        showStatus(
+            error.message ||
+            "Unable to start payment. Please try again.",
+            "error"
+        );
+
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                `Pay ₹${Number(
+                    specialSession?.price || 0
+                ).toFixed(2)} & Confirm Booking`;
+
+        }
+
+
+        bookingProcessing =
+            false;
+
+    }
+
+}
+
+
+        /* =====================================================
+           START PAGE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadSpecialSession();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

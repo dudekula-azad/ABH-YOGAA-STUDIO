@@ -644,3 +644,1478 @@ font-size:34px;
     }
 
 }
+/* =========================================================
+   ABH YOGAA STUDIO — CLEAN PREMIUM MOBILE
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    /* ---------- GLOBAL ---------- */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    /* ---------- NAVBAR ---------- */
+
+    nav,
+    .navbar {
+        padding: 12px 16px;
+    }
+
+    nav ul,
+    .navbar ul {
+        justify-content: center;
+        gap: 8px 14px;
+        flex-wrap: wrap;
+    }
+
+    nav a,
+    .navbar a {
+        font-size: 13px;
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+        min-height: 390px;
+        height: 58vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        width: 90%;
+        max-width: 520px;
+        padding: 20px 16px;
+    }
+
+    .overlay h1 {
+        font-size: clamp(30px, 7vw, 42px);
+        line-height: 1.1;
+        margin-bottom: 12px;
+    }
+
+    .overlay p {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 18px;
+    }
+
+    .overlay a {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    /* ---------- SECTIONS ---------- */
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .footer,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        padding: 45px 16px;
+    }
+
+    .section-title,
+    .section-heading {
+        margin-bottom: 25px;
+    }
+
+    .section-title h2,
+    .section-heading h2 {
+        font-size: 27px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+    .section-title p,
+    .section-heading p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* =====================================================
+       COMPACT CARDS
+    ===================================================== */
+
+    .service-list,
+    .why-grid,
+    .benefit-grid,
+    .testimonial-grid,
+    .schedule-container,
+    .join-list,
+    .plan-container {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .service-item,
+    .why-card,
+    .benefit-card,
+    .testimonial-card,
+    .schedule-card,
+    .plan-card {
+        width: 100%;
+        min-width: 0;
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .service-item h3,
+    .why-card h3,
+    .benefit-card h3,
+    .schedule-card h3 {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .service-item p,
+    .why-card p,
+    .benefit-card p,
+    .testimonial-card p,
+    .schedule-card p {
+        font-size: 13px;
+        line-height: 1.55;
+        margin-bottom: 8px;
+    }
+
+    /* smaller icons */
+
+    .icon,
+    .why-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    /* ---------- SERVICE PAGE ---------- */
+
+    .about-container,
+    .join-container,
+    .booking-container,
+    .trainer-container {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .about-image,
+    .about-content,
+    .join-content,
+    .booking-left,
+    .booking-right,
+    .trainer-image,
+    .trainer-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Compact service images */
+
+    .about-image img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 14px;
+    }
+
+    .trainer-image img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 14px;
+    }
+
+    .about-content h2,
+    .join-content h2,
+    .booking-left h2,
+    .trainer-content h2 {
+        font-size: 27px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+
+    .about-content p,
+    .join-content p,
+    .booking-left p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    /* ---------- BUTTONS ---------- */
+
+    .book-btn,
+    .continue-btn,
+    .payment-btn,
+    .trainer-btn,
+    .create-service-btn,
+    .special-session-btn {
+        min-height: 44px;
+        padding: 10px 18px;
+        font-size: 13px;
+        border-radius: 24px;
+    }
+
+    /* ---------- BOOKING ---------- */
+
+    .booking-right {
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .input-group {
+        margin-bottom: 14px;
+    }
+
+    .input-group label {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        width: 100%;
+        min-height: 42px;
+        padding: 9px 11px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .input-group textarea {
+        min-height: 90px;
+    }
+
+    /* ---------- SUMMARY ---------- */
+
+    .summary-card,
+    .payment-section,
+    .success-card {
+        width: 100%;
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .summary-row {
+        gap: 6px;
+        padding: 8px 0;
+    }
+
+    .summary-row span,
+    .summary-row strong {
+        font-size: 13px;
+    }
+
+    /* ---------- PAYMENT ---------- */
+
+    .payment-card {
+        min-height: 62px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .payment-left h3 {
+        font-size: 14px;
+        margin-bottom: 3px;
+    }
+
+    .payment-left p {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .payment-total {
+        padding: 14px 0;
+    }
+
+    .payment-total h1 {
+        font-size: 32px;
+    }
+
+    /* ---------- SPECIAL SESSIONS ---------- */
+
+    .special-session-card {
+        width: 100%;
+        grid-template-columns: 1fr;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .special-session-image {
+        width: 100%;
+        height: 190px;
+        min-height: 0;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .special-session-content {
+        padding: 18px 16px;
+    }
+
+    .special-session-content h3 {
+        font-size: 22px;
+        line-height: 1.2;
+        margin-bottom: 7px;
+    }
+
+    .special-session-content p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .special-session-details {
+        gap: 7px;
+        margin: 10px 0;
+    }
+
+    /* ---------- CONTACT ---------- */
+
+    .contact-actions {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .contact-actions .contact-item,
+    .contact-actions .whatsapp-contact-btn {
+        width: 100%;
+        min-width: 0;
+        padding: 11px 16px;
+        font-size: 13px;
+    }
+
+    /* ---------- TRAINER ---------- */
+
+    .trainer-stats {
+        gap: 8px;
+    }
+
+    .stat {
+        min-width: 90px;
+        padding: 10px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+
+    /* =====================================================
+       CUSTOMER DASHBOARD
+    ===================================================== */
+
+    .dashboard-container,
+    .customer-dashboard,
+    .dashboard-content,
+    .profile-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-container {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .dashboard-card,
+    .profile-card,
+    .booking-card,
+    .membership-card,
+    .review-card {
+        width: 100%;
+        min-width: 0;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    /* =====================================================
+       ADMIN
+    ===================================================== */
+
+    .admin-container,
+    .admin-content,
+    .admin-services-container,
+    .admin-slots-container,
+    .admin-bookings-container,
+    .admin-prices-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+    }
+
+    .admin-main,
+    .admin-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Admin cards */
+
+    .add-service-wrapper,
+    .instructor-admin-section,
+    .special-session-admin-section,
+    .reviews-admin-section {
+        width: 100%;
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+
+    .admin-services-header {
+        margin-bottom: 25px;
+    }
+
+    .admin-services-header h1 {
+        font-size: 32px;
+    }
+
+    /* Admin forms */
+
+    .add-service-form,
+    .form-grid,
+    .admin-form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    /* Admin tables */
+
+    .table-wrapper,
+    .table-container,
+    .admin-table-wrapper,
+    .bookings-table-wrapper,
+    .slots-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    th,
+    td {
+        padding: 9px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    /* ---------- MODALS ---------- */
+
+    .modal,
+    .popup,
+    .modal-content,
+    .members-modal,
+    .members-popup {
+        width: calc(100% - 28px);
+        max-width: 420px;
+        max-height: 88vh;
+        overflow-y: auto;
+        border-radius: 14px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media screen and (max-width: 480px) {
+
+    nav,
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    nav a,
+    .navbar a {
+        font-size: 12px;
+    }
+
+    .hero {
+        min-height: 340px;
+        height: 52vh;
+    }
+
+    .overlay {
+        width: 92%;
+        padding: 18px 14px;
+    }
+
+    .overlay h1 {
+        font-size: 29px;
+    }
+
+    .overlay p {
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .footer,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        padding: 38px 13px;
+    }
+
+    .section-title h2,
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .service-item,
+    .why-card,
+    .benefit-card,
+    .testimonial-card {
+        padding: 16px 14px;
+    }
+
+    .service-item h3,
+    .why-card h3,
+    .benefit-card h3 {
+        font-size: 19px;
+    }
+
+    .service-item p,
+    .why-card p,
+    .benefit-card p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .about-image img {
+        height: 200px;
+    }
+
+    .trainer-image img {
+        height: 220px;
+    }
+
+    .special-session-image {
+        height: 170px;
+    }
+
+    .special-session-content h3 {
+        font-size: 20px;
+    }
+
+    .special-session-content p {
+        font-size: 12px;
+    }
+
+    .booking-right,
+    .summary-card,
+    .payment-section,
+    .success-card {
+        padding: 15px 13px;
+    }
+
+    .continue-btn,
+    .payment-btn,
+    .book-btn,
+    .trainer-btn {
+        width: 100%;
+    }
+}
+/* =========================================================
+   ABH YOGAA STUDIO — CLEAN TABLET RESPONSIVENESS
+   769px - 1024px
+========================================================= */
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+    /* ================= GLOBAL ================= */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    nav,
+    .navbar {
+        width: 100%;
+        padding: 15px 30px;
+    }
+
+    nav ul,
+    .navbar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px 24px;
+    }
+
+    nav a,
+    .navbar a {
+        font-size: 14px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+        width: 100%;
+        min-height: 500px;
+        height: 65vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        width: 80%;
+        max-width: 720px;
+        padding: 30px;
+    }
+
+    .overlay h1 {
+        font-size: clamp(40px, 5vw, 58px);
+        line-height: 1.1;
+    }
+
+    .overlay p {
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    /* ================= SECTIONS ================= */
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .footer,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        padding: 65px 35px;
+    }
+
+    .section-title,
+    .section-heading {
+        margin-bottom: 35px;
+    }
+
+    .section-title h2,
+    .section-heading h2 {
+        font-size: 36px;
+        line-height: 1.2;
+    }
+
+    .section-title p,
+    .section-heading p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* ================= CARDS ================= */
+
+    .service-list,
+    .why-grid,
+    .benefit-grid,
+    .testimonial-grid,
+    .schedule-container,
+    .plan-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .service-item,
+    .why-card,
+    .benefit-card,
+    .testimonial-card,
+    .schedule-card,
+    .plan-card {
+        min-width: 0;
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
+
+    .service-item h3,
+    .why-card h3,
+    .benefit-card h3,
+    .schedule-card h3 {
+        font-size: 22px;
+    }
+
+    .service-item p,
+    .why-card p,
+    .benefit-card p,
+    .testimonial-card p,
+    .schedule-card p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* ================= SERVICE PAGES ================= */
+
+    .about-container,
+    .join-container,
+    .booking-container,
+    .trainer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+        align-items: center;
+    }
+
+    .about-image,
+    .about-content,
+    .join-content,
+    .booking-left,
+    .booking-right,
+    .trainer-image,
+    .trainer-content {
+        min-width: 0;
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 330px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .trainer-image img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .about-content h2,
+    .join-content h2,
+    .booking-left h2,
+    .trainer-content h2 {
+        font-size: 36px;
+        line-height: 1.2;
+    }
+
+    .about-content p,
+    .join-content p,
+    .booking-left p {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    /* ================= BOOKING ================= */
+
+    .booking-right {
+        padding: 25px;
+        border-radius: 16px;
+    }
+
+    .input-group {
+        margin-bottom: 16px;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        width: 100%;
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    /* ================= SUMMARY ================= */
+
+    .summary-card,
+    .payment-section,
+    .success-card {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 25px;
+        border-radius: 16px;
+    }
+
+    .summary-row {
+        gap: 15px;
+    }
+
+    /* ================= PAYMENT ================= */
+
+    .payment-card {
+        padding: 15px 18px;
+        min-height: 68px;
+    }
+
+    .payment-left h3 {
+        font-size: 15px;
+    }
+
+    .payment-left p {
+        font-size: 12px;
+    }
+
+    /* ================= SPECIAL SESSIONS ================= */
+
+    .special-session-card {
+        width: 100%;
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+        grid-template-columns: 40% 60%;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .special-session-image {
+        width: 100%;
+        height: 100%;
+        min-height: 250px;
+        object-fit: cover;
+    }
+
+    .special-session-content {
+        padding: 25px;
+    }
+
+    .special-session-content h3 {
+        font-size: 27px;
+        line-height: 1.2;
+    }
+
+    .special-session-content p {
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    /* ================= CONTACT ================= */
+
+    .contact-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .contact-actions .contact-item,
+    .contact-actions .whatsapp-contact-btn {
+        min-width: 220px;
+        max-width: 300px;
+    }
+
+    /* ================= TRAINER ================= */
+
+    .trainer-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .stat {
+        min-width: 110px;
+    }
+
+    /* =====================================================
+       CUSTOMER DASHBOARD
+    ===================================================== */
+
+    .dashboard-container,
+    .customer-dashboard,
+    .dashboard-content,
+    .profile-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-container {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .dashboard-card,
+    .profile-card,
+    .booking-card,
+    .membership-card,
+    .review-card {
+        min-width: 0;
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    /* =====================================================
+       ADMIN
+    ===================================================== */
+
+    .admin-container,
+    .admin-content,
+    .admin-services-container,
+    .admin-slots-container,
+    .admin-bookings-container,
+    .admin-prices-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* Admin forms */
+
+    .add-service-form,
+    .form-grid,
+    .admin-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px 20px;
+    }
+
+    /* Admin cards */
+
+    .add-service-wrapper,
+    .instructor-admin-section,
+    .special-session-admin-section,
+    .reviews-admin-section {
+        padding: 25px;
+        border-radius: 16px;
+    }
+
+    /* Admin tables */
+
+    .table-wrapper,
+    .table-container,
+    .admin-table-wrapper,
+    .bookings-table-wrapper,
+    .slots-table-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    th,
+    td {
+        padding: 10px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* Admin buttons */
+
+    .admin-actions,
+    .action-buttons,
+    .filter-buttons,
+    .admin-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* ================= MODALS ================= */
+
+    .modal,
+    .popup,
+    .modal-content,
+    .members-modal,
+    .members-popup {
+        width: min(90%, 700px);
+        max-height: 88vh;
+        overflow-y: auto;
+        border-radius: 16px;
+    }
+}
+/* =========================================================
+   ABH YOGAA STUDIO — CLEAN LAPTOP / DESKTOP
+   1025px+
+========================================================= */
+
+@media screen and (min-width: 1025px) {
+
+    /* ================= GLOBAL ================= */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    /* ================= MAIN CONTENT WIDTH ================= */
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        width: 100%;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .overlay h1 {
+        line-height: 1.1;
+    }
+
+    .overlay p {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+    }
+
+    /* ================= SECTION HEADINGS ================= */
+
+    .section-title,
+    .section-heading {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-title h2,
+    .section-heading h2 {
+        line-height: 1.15;
+    }
+
+    /* ================= SERVICE / BENEFIT CARDS ================= */
+
+    .service-list,
+    .why-grid,
+    .benefit-grid,
+    .testimonial-grid,
+    .schedule-container,
+    .plan-container {
+        width: 100%;
+        max-width: 1250px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 22px;
+    }
+
+    .service-item,
+    .why-card,
+    .benefit-card,
+    .testimonial-card,
+    .schedule-card,
+    .plan-card {
+        min-width: 0;
+        border-radius: 16px;
+    }
+
+    /* Keep cards visually compact */
+
+    .service-item {
+        padding: 25px 22px;
+    }
+
+    .why-card,
+    .benefit-card {
+        padding: 24px 22px;
+    }
+
+    .testimonial-card {
+        padding: 24px;
+    }
+
+    /* ================= SERVICE PAGES ================= */
+
+    .about-container,
+    .join-container,
+    .booking-container,
+    .trainer-container {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 55px;
+    }
+
+    .about-image img {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+
+    .trainer-image img {
+        width: 100%;
+        max-height: 520px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 18px;
+    }
+
+    .about-content,
+    .join-content,
+    .trainer-content {
+        max-width: 600px;
+    }
+
+    .about-content p,
+    .join-content p,
+    .trainer-content p {
+        line-height: 1.8;
+    }
+
+    /* ================= BOOKING ================= */
+
+    .booking-container {
+        max-width: 1150px;
+    }
+
+    .booking-left,
+    .booking-right {
+        min-width: 0;
+    }
+
+    .booking-right {
+        padding: 30px;
+        border-radius: 18px;
+    }
+
+    .input-group {
+        margin-bottom: 18px;
+    }
+
+    /* ================= SUMMARY ================= */
+
+    .summary-card,
+    .payment-section,
+    .success-card {
+        width: 100%;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 18px;
+    }
+
+    /* ================= PAYMENT ================= */
+
+    .payment-card {
+        padding: 16px 20px;
+        border-radius: 12px;
+    }
+
+    /* ================= SPECIAL SESSIONS ================= */
+
+    .special-session-card {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+    .special-session-image {
+        width: 100%;
+        height: 100%;
+        min-height: 320px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .special-session-content {
+        padding: 35px;
+    }
+
+    .special-session-content h3 {
+        line-height: 1.15;
+    }
+
+    /* ================= CONTACT ================= */
+
+    .contact-actions {
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ================= TRAINER ================= */
+
+    .trainer-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    /* ================= CUSTOMER DASHBOARD ================= */
+
+    .dashboard-container,
+    .customer-dashboard,
+    .dashboard-content,
+    .profile-container {
+        width: 100%;
+        max-width: 1250px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dashboard-card,
+    .profile-card,
+    .booking-card,
+    .membership-card,
+    .review-card {
+        min-width: 0;
+        border-radius: 16px;
+    }
+
+    /* ================= ADMIN ================= */
+
+    .admin-container,
+    .admin-content,
+    .admin-services-container,
+    .admin-slots-container,
+    .admin-bookings-container,
+    .admin-prices-container {
+        width: 100%;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 0;
+    }
+
+    .admin-services-header h1 {
+        line-height: 1.1;
+    }
+
+    .add-service-wrapper,
+    .instructor-admin-section,
+    .special-session-admin-section,
+    .reviews-admin-section {
+        border-radius: 18px;
+    }
+
+    /* ================= ADMIN TABLES ================= */
+
+    .table-wrapper,
+    .table-container,
+    .admin-table-wrapper,
+    .bookings-table-wrapper,
+    .slots-table-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 11px 14px;
+    }
+
+    /* ================= MODALS ================= */
+
+    .modal,
+    .popup,
+    .modal-content,
+    .members-modal,
+    .members-popup {
+        max-width: 850px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 18px;
+    }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1440px+
+========================================================= */
+
+@media screen and (min-width: 1440px) {
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        max-width: 1500px;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+
+    .service-list,
+    .why-grid,
+    .benefit-grid,
+    .testimonial-grid,
+    .schedule-container,
+    .plan-container {
+        max-width: 1350px;
+        gap: 25px;
+    }
+
+    .about-container,
+    .join-container,
+    .booking-container,
+    .trainer-container {
+        max-width: 1300px;
+    }
+
+    .dashboard-container,
+    .customer-dashboard,
+    .dashboard-content,
+    .profile-container {
+        max-width: 1350px;
+    }
+
+    .admin-container,
+    .admin-content,
+    .admin-services-container,
+    .admin-slots-container,
+    .admin-bookings-container,
+    .admin-prices-container {
+        max-width: 1500px;
+    }
+}
+
+
+/* =========================================================
+   FULL HD
+   1920px+
+========================================================= */
+
+@media screen and (min-width: 1920px) {
+
+    .services,
+    .why-us,
+    .trainer,
+    .testimonials,
+    .contact,
+    .about,
+    .benefits,
+    .join-section,
+    .schedule,
+    .booking,
+    .special-sessions {
+        max-width: 1600px;
+    }
+
+    .service-list,
+    .why-grid,
+    .benefit-grid,
+    .testimonial-grid,
+    .schedule-container,
+    .plan-container {
+        max-width: 1450px;
+    }
+
+    .about-container,
+    .join-container,
+    .booking-container,
+    .trainer-container {
+        max-width: 1400px;
+    }
+
+    .dashboard-container,
+    .customer-dashboard,
+    .dashboard-content,
+    .profile-container {
+        max-width: 1450px;
+    }
+
+    .admin-container,
+    .admin-content,
+    .admin-services-container,
+    .admin-slots-container,
+    .admin-bookings-container,
+    .admin-prices-container {
+        max-width: 1600px;
+    }
+}

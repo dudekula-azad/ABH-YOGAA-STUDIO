@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Manage Services | ABH Yogaa Studio</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        .admin-services-section {
+            padding: 140px 6% 80px;
+            min-height: 100vh;
+        }
+
+        .admin-services-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .admin-services-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .admin-services-header h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 48px;
+            color: #596b3d;
+            margin-bottom: 10px;
+        }
+
+        .admin-services-header p {
+            color: #666;
+        }
+
+        /* =====================================================
+           ADD NEW SERVICE
+        ===================================================== */
+
+        .add-service-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .add-service-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 32px;
+            color: #596b3d;
+            margin-bottom: 8px;
+        }
+
+        .add-service-subtitle {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .add-service-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 25px;
+        }
+
+        .add-service-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .add-service-form .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .add-service-form label {
+            font-weight: 600;
+            color: #596b3d;
+            margin-bottom: 7px;
+        }
+
+        .add-service-form input,
+        .add-service-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .add-service-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .add-service-form input:focus,
+        .add-service-form textarea:focus {
+            outline: none;
+            border-color: #596b3d;
+        }
+
+        .add-service-status-row {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .add-service-status-row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .add-service-status-row input {
+            width: auto;
+        }
+
+        .create-service-btn {
+            border: none;
+            border-radius: 25px;
+            padding: 13px 25px;
+            background: #596b3d;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .create-service-btn:hover {
+            opacity: 0.9;
+        }
+
+        .create-service-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* =====================================================
+           EXISTING SERVICE GRID
+        ===================================================== */
+
+        .services-admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .service-admin-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .service-image-preview {
+            width: 100%;
+            height: 220px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #f5f0e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .service-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-image-placeholder {
+            font-size: 60px;
+        }
+
+        .service-admin-card h2 {
+            font-family: "Cormorant Garamond", serif;
+            color: #596b3d;
+            margin-bottom: 8px;
+        }
+
+        .service-admin-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .service-admin-card label {
+            display: block;
+            font-weight: 600;
+            color: #596b3d;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        .service-admin-card input,
+        .service-admin-card textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .service-admin-card textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .service-admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .admin-btn {
+            border: none;
+            border-radius: 25px;
+            padding: 11px 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .upload-btn {
+            background: linear-gradient(90deg, #a47b24, #596b3d);
+            color: white;
+        }
+
+        .remove-btn {
+            background: #f5dddd;
+            color: #9b3939;
+        }
+
+        .save-btn {
+            background: #596b3d;
+            color: white;
+        }
+
+        .admin-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .service-status-row {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .service-status-row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .service-status-row input {
+            width: auto;
+        }
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-message {
+            margin-bottom: 30px;
+            padding: 14px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #edf6e8;
+            color: #45652f;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fdecec;
+            color: #a33a3a;
+        }
+
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+/* =====================================================
+   CUSTOMER REVIEWS ADMIN
+===================================================== */
+
+.reviews-admin-section {
+    margin-bottom: 50px;
+}
+
+.reviews-admin-header {
+    margin-bottom: 20px;
+}
+
+.reviews-admin-header h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: #596b3d;
+    font-size: 34px;
+    margin-bottom: 6px;
+}
+
+.reviews-admin-header p {
+    color: #666;
+}
+
+.reviews-admin-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.review-admin-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.review-admin-card.pending {
+    border-left: 5px solid #d7a33d;
+}
+
+.review-admin-card.approved {
+    border-left: 5px solid #5f7d45;
+}
+
+.review-admin-card.rejected {
+    border-left: 5px solid #a33a3a;
+}
+
+.review-admin-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.review-admin-customer {
+    font-weight: 700;
+    color: #596b3d;
+    font-size: 17px;
+}
+
+.review-admin-service {
+    color: #777;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.review-admin-rating {
+    color: #d39a22;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.review-admin-text {
+    color: #555;
+    line-height: 1.7;
+    background: #faf8f3;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.review-admin-meta {
+    display: grid;
+    gap: 7px;
+    color: #777;
+    font-size: 13px;
+}
+
+.review-admin-status {
+    display: inline-block;
+    width: fit-content;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.review-admin-status.pending {
+    background: #fff3d6;
+    color: #9a6b13;
+}
+
+.review-admin-status.approved {
+    background: #edf6e8;
+    color: #45652f;
+}
+
+.review-admin-status.rejected {
+    background: #fdecec;
+    color: #a33a3a;
+}
+
+.review-admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.review-approve-btn,
+.review-reject-btn,
+.review-delete-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.review-approve-btn {
+    background: #596b3d;
+    color: white;
+}
+
+.review-reject-btn {
+    background: #fff0d8;
+    color: #94651a;
+}
+
+.review-delete-btn {
+    background: #f5dddd;
+    color: #9b3939;
+}
+
+.review-approve-btn:disabled,
+.review-reject-btn:disabled,
+.review-delete-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.reviews-filter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.reviews-filter-btn {
+    border: 1px solid #ddd;
+    background: white;
+    color: #596b3d;
+    border-radius: 25px;
+    padding: 9px 18px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.reviews-filter-btn.active {
+    background: #596b3d;
+    color: white;
+    border-color: #596b3d;
+}
+
+.reviews-empty-message {
+    background: white;
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    color: #777;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 800px) {
+
+    .reviews-admin-list {
+        grid-template-columns: 1fr;
+    }
+
+    .review-admin-header-row {
+        flex-direction: column;
+    }
+
+}
+        @media (max-width: 800px) {
+
+            .services-admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .add-service-form {
+                grid-template-columns: 1fr;
+            }
+
+            .add-service-form .full-width {
+                grid-column: auto;
+            }
+
+            .admin-services-header h1 {
+                font-size: 38px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                ABH YOGAA STUDIO
+            </div>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="services.html">Services</a>
+                </li>
+
+                <li>
+                    <a href="admin-prices.html">Prices</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <section class="admin-services-section">
+
+        <div class="admin-services-container">
+
+            <div class="admin-services-header">
+
+                <h1>Manage Services</h1>
+
+                <p>
+                    Manage service images, descriptions and availability.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATUS MESSAGE
+            ================================================= -->
+
+            <div
+                id="statusMessage"
+                class="status-message">
+            </div>
+            <!-- ============================================================
+                MEET YOUR INSTRUCTOR
+                ============================================================ -->
+
+            <section class="instructor-admin-section">
+
+                <div class="instructor-admin-header">
+
+                    <h2>Meet Your Instructor</h2>
+
+                    <p>
+                        Manage the instructor information displayed on the homepage.
+                    </p>
+
+                </div>
+
+
+                <div class="instructor-admin-card">
+
+                    <!-- IMAGE -->
+
+                    <div class="instructor-admin-image">
+
+                        <img
+                            id="instructorImagePreview"
+                            src=""
+                            alt="Instructor Preview"
+                            style="display:none;"
+                        >
+
+                        <div
+                            id="instructorImagePlaceholder"
+                            class="service-image-placeholder"
+                        >
+                            🧘
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE CONTROLS -->
+
+                    <div class="instructor-image-actions">
+
+                        <input
+                            type="file"
+                            id="instructorImage"
+                            accept="image/jpeg,image/png,image/webp,image/avif"
+                        >
+
+                        <button
+                            type="button"
+                            class="admin-btn upload-btn"
+                            id="uploadInstructorImageBtn"
+                        >
+                            Upload Image
+                        </button>
+
+                        <button
+                            type="button"
+                            class="admin-btn remove-btn"
+                            id="removeInstructorImageBtn"
+                            disabled
+                        >
+                            Remove Image
+                        </button>
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <label for="instructorName">
+                        Instructor Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="instructorName"
+                        placeholder="Enter instructor name"
+                    >
+
+
+                    <!-- TITLE -->
+
+                    <label for="instructorTitle">
+                        Instructor Heading
+                    </label>
+
+                    <input
+                        type="text"
+                        id="instructorTitle"
+                        placeholder="Enter instructor heading"
+                    >
+
+
+                    <!-- DESCRIPTION -->
+
+                    <label for="instructorDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="instructorDescription"
+                        placeholder="Enter instructor description"
+                    ></textarea>
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="instructor-two-column">
+
+                        <div>
+
+                            <label for="instructorExperienceValue">
+                                Experience Value
+                            </label>
+
+                            <input
+                                type="text"
+                                id="instructorExperienceValue"
+                                placeholder="Example: 5+"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label for="instructorExperienceLabel">
+                                Experience Label
+                            </label>
+
+                            <input
+                                type="text"
+                                id="instructorExperienceLabel"
+                                placeholder="Example: Years Experience"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STUDENTS -->
+
+                    <div class="instructor-two-column">
+
+                        <div>
+
+                            <label for="instructorStudentsValue">
+                                Students Value
+                            </label>
+
+                            <input
+                                type="text"
+                                id="instructorStudentsValue"
+                                placeholder="Example: 500+"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label for="instructorStudentsLabel">
+                                Students Label
+                            </label>
+
+                            <input
+                                type="text"
+                                id="instructorStudentsLabel"
+                                placeholder="Example: Happy Students"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIVE -->
+
+                    <div class="service-status-row">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="instructorActive"
+                                checked
+                            >
+
+                            Active
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- SAVE -->
+
+                    <div class="service-admin-actions">
+
+                        <button
+                            type="button"
+                            class="admin-btn save-btn"
+                            id="saveInstructorBtn"
+                        >
+                            Save Instructor
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="instructorStatusMessage"
+                        class="status-message"
+                    ></div>
+
+                </div>
+
+            </section>
+<!-- ============================================================
+     SPECIAL SESSIONS
+============================================================ -->
+
+<section class="special-sessions-admin-section">
+
+    <div class="special-sessions-admin-header">
+
+        <h2>
+            Special Sessions for Special Days
+        </h2>
+
+        <p>
+            Create and manage special yoga sessions shown on the homepage.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================================
+         SPECIAL SESSION FORM
+    ========================================================= -->
+
+    <div class="special-session-admin-form">
+
+        <form id="specialSessionForm">
+
+            <input
+                type="hidden"
+                id="specialSessionId"
+                value=""
+            >
+
+
+            <div class="special-session-form-grid">
+
+
+                <!-- TITLE -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionTitle">
+                        Session Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="specialSessionTitle"
+                        placeholder="Example: International Yoga Day"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DATE -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionDate">
+                        Session Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="specialSessionDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- START TIME -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionStartTime">
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="specialSessionStartTime"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- END TIME -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionEndTime">
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="specialSessionEndTime"
+                    >
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionPrice">
+                        Price (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="specialSessionPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="Example: 500"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CAPACITY -->
+
+                <div class="special-session-form-group">
+
+                    <label for="specialSessionCapacity">
+                        Capacity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="specialSessionCapacity"
+                        min="1"
+                        placeholder="Example: 30"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="special-session-form-group full-width">
+
+                    <label for="specialSessionDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="specialSessionDescription"
+                        placeholder="Describe the special session..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                <div class="special-session-form-group full-width">
+
+                    <label for="specialSessionImage">
+                        Session Image
+                    </label>
+
+                    <div class="special-session-image-actions">
+
+                        <input
+                            type="file"
+                            id="specialSessionImage"
+                            accept="image/jpeg,image/png,image/webp,image/avif"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVE -->
+
+                <div class="special-session-form-group full-width">
+
+                    <div class="special-session-status-row">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="specialSessionActive"
+                                checked
+                            >
+
+                            Active
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="special-session-form-group full-width">
+
+                    <div class="special-session-admin-actions">
+
+                        <button
+                            type="submit"
+                            id="saveSpecialSessionBtn"
+                            class="special-session-save-btn"
+                        >
+                            Add Special Session
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="cancelSpecialSessionBtn"
+                            class="special-session-cancel-btn"
+                            style="display:none;"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="specialSessionStatusMessage"
+            class="status-message"
+        ></div>
+
+    </div>
+
+
+    <!-- ========================================================
+         EXISTING SPECIAL SESSIONS
+    ========================================================= -->
+
+    <div
+        id="specialSessionsAdminList"
+        class="special-sessions-admin-list"
+    >
+
+        <div class="loading-message">
+            Loading special sessions...
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================================================
+     CUSTOMER REVIEWS
+============================================================ -->
+
+<section class="reviews-admin-section">
+
+    <div class="reviews-admin-header">
+
+        <h2>
+            Customer Reviews
+        </h2>
+
+        <p>
+            Review customer feedback and approve reviews
+            before they appear on the website.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================================
+         FILTERS
+    ========================================================= -->
+
+    <div class="reviews-filter-row">
+
+        <button
+            type="button"
+            class="reviews-filter-btn active"
+            data-review-filter="pending"
+        >
+            Pending
+        </button>
+
+        <button
+            type="button"
+            class="reviews-filter-btn"
+            data-review-filter="approved"
+        >
+            Approved
+        </button>
+
+        <button
+            type="button"
+            class="reviews-filter-btn"
+            data-review-filter="rejected"
+        >
+            Rejected
+        </button>
+
+        <button
+            type="button"
+            class="reviews-filter-btn"
+            data-review-filter="all"
+        >
+            All
+        </button>
+
+    </div>
+
+
+    <!-- ========================================================
+         STATUS
+    ========================================================= -->
+
+    <div
+        id="reviewsAdminStatusMessage"
+        class="status-message"
+    ></div>
+
+
+    <!-- ========================================================
+         REVIEWS LIST
+    ========================================================= -->
+
+    <div
+        id="reviewsAdminList"
+        class="reviews-admin-list"
+    >
+
+        <div class="loading-message">
+            Loading customer reviews...
+        </div>
+
+    </div>
+
+</section>
+            <!-- =================================================
+                 ADD NEW SERVICE
+            ================================================= -->
+
+            <div class="add-service-wrapper">
+
+                <h2 class="add-service-title">
+                    Add New Service
+                </h2>
+
+                <p class="add-service-subtitle">
+                    Create a new yoga or wellness service for the website.
+                </p>
+
+
+                <form
+                    id="addServiceForm"
+                    class="add-service-form"
+                >
+
+
+                    <!-- SERVICE NAME -->
+
+                    <div class="form-group">
+
+                        <label for="newServiceName">
+                            Service Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newServiceName"
+                            placeholder="Example: Meditation Therapy"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SLUG -->
+
+                    <div class="form-group">
+
+                        <label for="newServiceSlug">
+                            Service Slug
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newServiceSlug"
+                            placeholder="Example: meditation-therapy"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SHORT DESCRIPTION -->
+
+                    <div class="form-group full-width">
+
+                        <label for="newServiceShortDescription">
+                            Short Description
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newServiceShortDescription"
+                            placeholder="Short description shown on the homepage"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full-width">
+
+                        <label for="newServiceDescription">
+                            Full Description
+                        </label>
+
+                        <textarea
+                            id="newServiceDescription"
+                            placeholder="Detailed description of the service"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- BENEFITS -->
+
+                    <div class="form-group full-width">
+
+                        <label for="newServiceBenefits">
+                            Benefits
+                        </label>
+
+                        <textarea
+                            id="newServiceBenefits"
+                            placeholder="Enter the benefits of this service"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+
+                    <div class="form-group">
+
+                        <label for="newServiceImage">
+                            Service Image
+                        </label>
+
+                        <input
+                            type="file"
+                            id="newServiceImage"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                    <!-- DISPLAY ORDER -->
+
+                    <div class="form-group">
+
+                        <label for="newServiceDisplayOrder">
+                            Display Order
+                        </label>
+
+                        <input
+                            type="number"
+                            id="newServiceDisplayOrder"
+                            min="0"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-group full-width">
+
+                        <div class="add-service-status-row">
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="newServiceActive"
+                                    checked
+                                >
+
+                                Active
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="newServiceComingSoon"
+                                >
+
+                                Coming Soon
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CREATE BUTTON -->
+
+                    <div class="form-group full-width">
+
+                        <button
+                            type="submit"
+                            id="createServiceBtn"
+                            class="create-service-btn"
+                        >
+                            Create Service
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 EXISTING SERVICES
+            ================================================= -->
+
+            <div
+                id="servicesAdminGrid"
+                class="services-admin-grid"
+            >
+
+                <div class="loading-message">
+                    Loading services...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+<!-- ============================================================
+     SPECIAL SESSION BOOKINGS
+============================================================= -->
+
+<section
+    class="admin-section"
+    id="specialSessionBookingsSection"
+    style="
+        margin-top:40px;
+        padding:25px;
+        background:#ffffff;
+        border-radius:16px;
+        box-shadow:0 8px 25px rgba(0,0,0,0.06);
+    "
+>
+
+    <div
+        style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:15px;
+            flex-wrap:wrap;
+            margin-bottom:20px;
+        "
+    >
+
+        <div>
+
+            <h2
+                style="
+                    margin:0;
+                    color:#596b3d;
+                "
+            >
+                Special Session Bookings
+            </h2>
+
+            <p
+                style="
+                    margin-top:6px;
+                    color:#777;
+                "
+            >
+                Manage bookings made for Special Sessions.
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="refreshSpecialSessionBookings"
+            style="
+                border:none;
+                padding:10px 18px;
+                border-radius:25px;
+                background:#596b3d;
+                color:white;
+                cursor:pointer;
+                font-weight:600;
+            "
+        >
+            <i class="fa-solid fa-rotate"></i>
+            Refresh
+        </button>
+
+    </div>
+
+
+    <!-- ========================================================
+         FILTERS
+    ========================================================= -->
+
+    <div
+        style="
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-bottom:20px;
+        "
+    >
+
+        <button
+            type="button"
+            class="special-booking-filter active"
+            data-filter="all"
+            style="
+                border:none;
+                padding:9px 16px;
+                border-radius:20px;
+                cursor:pointer;
+            "
+        >
+            All
+        </button>
+
+
+        <button
+            type="button"
+            class="special-booking-filter"
+            data-filter="confirmed"
+            style="
+                border:none;
+                padding:9px 16px;
+                border-radius:20px;
+                cursor:pointer;
+            "
+        >
+            Confirmed
+        </button>
+
+
+        <button
+            type="button"
+            class="special-booking-filter"
+            data-filter="pending"
+            style="
+                border:none;
+                padding:9px 16px;
+                border-radius:20px;
+                cursor:pointer;
+            "
+        >
+            Pending
+        </button>
+
+
+        <button
+            type="button"
+            class="special-booking-filter"
+            data-filter="cancelled"
+            style="
+                border:none;
+                padding:9px 16px;
+                border-radius:20px;
+                cursor:pointer;
+            "
+        >
+            Cancelled
+        </button>
+
+    </div>
+
+
+    <!-- ========================================================
+         LOADING
+    ========================================================= -->
+
+    <div
+        id="specialSessionBookingsLoading"
+        style="
+            display:none;
+            padding:20px;
+            text-align:center;
+            color:#777;
+        "
+    >
+        Loading Special Session bookings...
+    </div>
+
+
+    <!-- ========================================================
+         ERROR
+    ========================================================= -->
+
+    <div
+        id="specialSessionBookingsError"
+        style="
+            display:none;
+            padding:15px;
+            border-radius:10px;
+            background:#fdecec;
+            color:#a33a3a;
+            margin-bottom:15px;
+        "
+    ></div>
+
+
+    <!-- ========================================================
+         TABLE
+    ========================================================= -->
+
+    <div
+        style="
+            overflow-x:auto;
+        "
+    >
+
+        <table
+            style="
+                width:100%;
+                border-collapse:collapse;
+                min-width:900px;
+            "
+        >
+
+            <thead>
+
+                <tr
+                    style="
+                        background:#f7f5ef;
+                        color:#596b3d;
+                    "
+                >
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Booking ID
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Customer
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Special Session
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Session Date
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Amount
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Booking
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Payment
+                    </th>
+
+
+                    <th
+                        style="
+                            padding:13px;
+                            text-align:left;
+                        "
+                    >
+                        Booked On
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="specialSessionBookingsTable"
+            >
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        style="
+                            padding:30px;
+                            text-align:center;
+                            color:#777;
+                        "
+                    >
+                        No Special Session bookings loaded.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/admin-services.js"></script>
+
+</body>
+
+</html>

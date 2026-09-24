@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Manage Bookings | ABH Yogaa Studio</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin-bookings.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           ADMIN SIDEBAR
+        ===================================================== */
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #f7f3eb;
+        }
+
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 205px;
+            background: #71663a;
+            color: #ffffff;
+            padding: 24px 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .admin-sidebar-logo {
+            font-family: Georgia, serif;
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .admin-sidebar-title {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .admin-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .admin-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 13px;
+            border-radius: 7px;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            transition: background 0.2s ease;
+        }
+
+        .admin-sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .admin-sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .admin-sidebar-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .admin-bookings-page {
+            margin-left: 205px;
+            min-height: 100vh;
+            padding: 42px 45px 60px;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .admin-header {
+            text-align: left;
+            margin: 0 0 30px;
+        }
+
+        .admin-header h1 {
+            margin: 0 0 5px;
+            font-family: Georgia, serif;
+            font-size: 34px;
+            font-weight: 500;
+            color: #171717;
+        }
+
+        .admin-header p {
+            margin: 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           FILTERS
+        ===================================================== */
+
+        .booking-filters {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .booking-filters > div {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .booking-filters label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .booking-filters select,
+        .booking-filters input {
+            width: 100%;
+            height: 40px;
+            padding: 0 12px;
+            box-sizing: border-box;
+            border: 1px solid #ddd6c8;
+            border-radius: 7px;
+            background: #ffffff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .booking-filters select:focus,
+        .booking-filters input:focus {
+            border-color: #71663a;
+        }
+
+
+        /* =====================================================
+           BOOKINGS CONTAINER
+        ===================================================== */
+
+        .bookings-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        #bookingsTable {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+        }
+
+        #bookingsTable thead {
+            background: #f5f0e7;
+        }
+
+        #bookingsTable th {
+            padding: 13px 10px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        #bookingsTable td {
+            padding: 14px 10px;
+            border-bottom: 1px solid #eee8dd;
+            font-size: 12px;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        #bookingsTable tbody tr:hover {
+            background: #faf8f3;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .loading-message,
+        .no-bookings {
+            padding: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .error-message {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #f9eaea;
+            color: #a33;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .admin-sidebar {
+                width: 175px;
+                padding: 20px 14px;
+            }
+
+            .admin-bookings-page {
+                margin-left: 175px;
+                padding: 30px 20px 50px;
+            }
+
+            .booking-filters {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .admin-sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+                padding: 18px;
+            }
+
+            .admin-sidebar-title {
+                margin-bottom: 15px;
+            }
+
+            .admin-sidebar-nav {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-sidebar-nav a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .admin-bookings-page {
+                margin-left: 0;
+                padding: 25px 12px 40px;
+            }
+
+            .admin-header h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     ADMIN SIDEBAR
+========================================================= -->
+
+<aside class="admin-sidebar">
+
+    <div class="admin-sidebar-logo">
+        ABH Yogaa<br>
+        Studio
+    </div>
+
+    <div class="admin-sidebar-title">
+        ADMIN PANEL
+    </div>
+
+
+    <nav class="admin-sidebar-nav">
+
+        <a href="admin-dashboard.html">
+
+            <span class="admin-sidebar-icon">
+                📊
+            </span>
+
+            Dashboard
+
+        </a>
+
+
+        <a
+            href="admin-bookings.html"
+            class="active"
+        >
+
+            <span class="admin-sidebar-icon">
+                📋
+            </span>
+
+            Bookings
+
+        </a>
+
+
+        <a href="admin-slots.html">
+
+            <span class="admin-sidebar-icon">
+                🗓️
+            </span>
+
+            Class Slots
+
+        </a>
+
+
+        <a href="admin-services.html">
+
+            <span class="admin-sidebar-icon">
+                🧘
+            </span>
+
+            Services
+
+        </a>
+
+
+        <a href="admin-prices.html">
+
+            <span class="admin-sidebar-icon">
+                💰
+            </span>
+
+            Plans & Prices
+
+        </a>
+
+
+        <a
+            href="index.html"
+            target="_blank"
+        >
+
+            <span class="admin-sidebar-icon">
+                🌐
+            </span>
+
+            View Website
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="admin-bookings-page">
+
+
+    <section class="admin-header">
+
+        <h1>
+            Manage Bookings
+        </h1>
+
+        <p>
+            View and manage customer bookings.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTERS
+    ====================================================== -->
+
+    <section class="booking-filters">
+
+        <div>
+
+            <label for="statusFilter">
+                Booking Status
+            </label>
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All
+                </option>
+
+                <option value="confirmed">
+                    Confirmed
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label for="paymentFilter">
+                Payment Status
+            </label>
+
+            <select id="paymentFilter">
+
+                <option value="all">
+                    All
+                </option>
+
+                <option value="paid">
+                    Paid
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="failed">
+                    Failed
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label for="searchBooking">
+                Search
+            </label>
+
+            <input
+                type="text"
+                id="searchBooking"
+                placeholder="Name, phone or email"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOOKINGS TABLE
+    ====================================================== -->
+
+    <section class="bookings-container">
+
+        <div
+            id="loadingMessage"
+            class="loading-message"
+        >
+            Loading bookings...
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="error-message"
+            style="display:none;"
+        ></div>
+
+
+        <div class="table-wrapper">
+
+            <table id="bookingsTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Contact
+                        </th>
+
+                        <th>
+                            Service
+                        </th>
+
+                        <th>
+                            Class Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Plan
+                        </th>
+
+                        <th>
+                            Booking
+                        </th>
+
+                        <th>
+                            Payment
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Booked On
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="bookingsBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div
+            id="noBookings"
+            class="no-bookings"
+            style="display:none;"
+        >
+
+            No bookings found.
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase-config.js"></script>
+
+<script src="js/admin-bookings.js"></script>
+
+
+</body>
+
+</html>

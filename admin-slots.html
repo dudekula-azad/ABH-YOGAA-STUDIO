@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
+
+    <title>Manage Class Slots | ABH Yogaa Studio</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        .admin-slot-section {
+            padding: 140px 6% 80px;
+            min-height: 100vh;
+        }
+
+        .admin-slot-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .admin-slot-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .admin-slot-header h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 48px;
+            color: #596b3d;
+            margin-bottom: 10px;
+        }
+
+        .admin-slot-header p {
+            color: #666;
+        }
+
+        /* CREATE SLOT */
+
+        .slot-form-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .slot-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #596b3d;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .create-slot-btn {
+            grid-column: 1 / -1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(
+                90deg,
+                #a47b24,
+                #596b3d
+            );
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .create-slot-btn:hover {
+            opacity: 0.9;
+        }
+
+        .create-slot-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* UPCOMING SLOTS */
+
+        .slots-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .slots-wrapper h2 {
+            font-family: "Cormorant Garamond", serif;
+            color: #596b3d;
+            margin-bottom: 25px;
+        }
+
+        .slots-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .slots-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .slots-table th {
+            text-align: left;
+            padding: 15px;
+            background: #f5f0e8;
+            color: #596b3d;
+        }
+
+        .slots-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .slot-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: #edf6e8;
+            color: #45652f;
+        }
+
+        .delete-slot-btn {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #fdecec;
+            color: #a33a3a;
+            cursor: pointer;
+        }
+
+        .delete-slot-btn:hover {
+            opacity: 0.8;
+        }
+
+        .empty-slots {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #edf6e8;
+            color: #45652f;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fdecec;
+            color: #a33a3a;
+        }
+
+        @media (max-width: 700px) {
+
+            .slot-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width,
+            .create-slot-btn {
+                grid-column: auto;
+            }
+
+            .admin-slot-header h1 {
+                font-size: 38px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                ABH YOGAA STUDIO
+            </div>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="services.html">Services</a>
+                </li>
+
+                <li>
+                    <a href="admin-services.html">Services Admin</a>
+                </li>
+
+                <li>
+                    <a href="admin-prices.html">Prices</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <section class="admin-slot-section">
+
+        <div class="admin-slot-container">
+
+            <div class="admin-slot-header">
+
+                <h1>Manage Class Slots</h1>
+
+                <p>
+                    Create and manage class slots for today and upcoming days.
+                </p>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- CREATE SLOT -->
+            <!-- ================================================= -->
+
+            <div class="slot-form-wrapper">
+
+                <form
+                    id="slotForm"
+                    class="slot-form"
+                >
+
+                    <div class="form-group">
+
+                        <label for="serviceSelect">
+                            Service
+                        </label>
+
+                        <select
+                            id="serviceSelect"
+                            required
+                        >
+
+                            <option value="">
+                                Select Service
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="slotDate">
+                            Class Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="slotDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="startTime">
+                            Start Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="startTime"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="endTime">
+                            End Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="endTime"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="capacity">
+                            Capacity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="capacity"
+                            <div class="form-group">
+                                <label for="meetingLink">
+                                    Online Meeting Link
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="meetingLink"
+                                    placeholder="https://meet.google.com/..."
+                                    autocomplete="off"
+                                >
+
+                                <small>
+                                    Required for online classes. Leave empty for offline classes.
+                                </small>
+                            </div>
+                            min="1"
+                            value="10"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="create-slot-btn"
+                        id="createSlotBtn"
+                    >
+                        Create Class Slot
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="statusMessage"
+                    class="status-message"
+                ></div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- EXISTING SLOTS -->
+            <!-- ================================================= -->
+
+            <div class="slots-wrapper">
+
+                <h2>
+                    Upcoming Class Slots
+                </h2>
+
+
+                <div class="slots-table-wrapper">
+
+                    <table class="slots-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Service
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Time
+                                </th>
+
+                                <th>
+                                    Capacity
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="slotsTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty-slots"
+                                >
+                                    Loading slots...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/admin-slots.js"></script>
+
+</body>
+
+</html>
