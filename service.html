@@ -7,7 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
 
-    <title>Service | ABH Yogaa Studio</title>
+    <title>Yoga Classes in Anantapur | ABH Yogaa Studio</title>
+
+    <meta name="description" content="Explore yoga and wellness services at ABH Yogaa Studio in Anantapur, Andhra Pradesh. View service details, benefits, class plans and booking information.">
+
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Yoga Classes in Anantapur | ABH Yogaa Studio">
+    <meta property="og:description" content="Explore yoga and wellness services at ABH Yogaa Studio in Anantapur, Andhra Pradesh.">
+    <meta property="og:site_name" content="ABH Yogaa Studio">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Yoga Classes in Anantapur | ABH Yogaa Studio">
+    <meta name="twitter:description" content="Explore yoga and wellness services at ABH Yogaa Studio in Anantapur, Andhra Pradesh.">
 
     <link rel="stylesheet" href="css/hatha.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -431,9 +444,6 @@
 
                     <select id="mode">
 
-                        <option>
-                            Offline (Studio)
-                        </option>
 
                         <option>
                             Online (Live Classes)
@@ -667,79 +677,8 @@
                 </h2>
 
                 <p class="payment-subtitle">
-                    Choose your preferred payment method
+                    Secure payment powered by Razorpay
                 </p>
-
-
-                <!-- UPI -->
-
-                <label class="payment-card active">
-
-                    <div class="payment-left">
-
-                        <h3>
-                            📱 UPI Apps
-                        </h3>
-
-                        <p>
-                            Google Pay • PhonePe • Paytm • BHIM
-                        </p>
-
-                    </div>
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        checked>
-
-                </label>
-
-
-                <!-- CARD -->
-
-                <label class="payment-card">
-
-                    <div class="payment-left">
-
-                        <h3>
-                            💳 Credit / Debit Card
-                        </h3>
-
-                        <p>
-                            Visa • Mastercard • RuPay
-                        </p>
-
-                    </div>
-
-                    <input
-                        type="radio"
-                        name="payment">
-
-                </label>
-
-
-                <!-- NET BANKING -->
-
-                <label class="payment-card">
-
-                    <div class="payment-left">
-
-                        <h3>
-                            🏦 Net Banking
-                        </h3>
-
-                        <p>
-                            50+ Banks Supported
-                        </p>
-
-                    </div>
-
-                    <input
-                        type="radio"
-                        name="payment">
-
-                </label>
-
 
                 <!-- PAYMENT TOTAL -->
 
@@ -909,8 +848,64 @@
 
     function showServiceError(title, message) {
 
-        document.title =
-            title + " | ABH Yogaa Studio";
+        document.title = `${service.name} in Anantapur | ABH Yogaa Studio`;
+
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute(
+                "content",
+                `Explore ${service.name} at ABH Yogaa Studio in Anantapur, Andhra Pradesh. View class details, benefits, plans and booking information.`
+            );
+        }
+
+        const canonicalUrl = `https://abhyogaastudio.com/service.html?slug=${encodeURIComponent(service.slug)}`;
+
+        let canonical = document.querySelector('link[rel="canonical"]');
+
+        if (!canonical) {
+            canonical = document.createElement("link");
+            canonical.setAttribute("rel", "canonical");
+            document.head.appendChild(canonical);
+        }
+
+        canonical.setAttribute("href", canonicalUrl);
+
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) {
+            ogTitle.setAttribute(
+                "content",
+                `${service.name} in Anantapur | ABH Yogaa Studio`
+            );
+        }
+
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        if (ogDescription) {
+            ogDescription.setAttribute(
+                "content",
+                `Explore ${service.name} at ABH Yogaa Studio in Anantapur, Andhra Pradesh. View class details, benefits, plans and booking information.`
+            );
+        }
+
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+            ogUrl.setAttribute("content", canonicalUrl);
+        }
+
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle) {
+            twitterTitle.setAttribute(
+                "content",
+                `${service.name} in Anantapur | ABH Yogaa Studio`
+            );
+        }
+
+        const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDescription) {
+            twitterDescription.setAttribute(
+                "content",
+                `Explore ${service.name} at ABH Yogaa Studio in Anantapur, Andhra Pradesh.`
+            );
+        }
 
         const name =
             document.getElementById("serviceName");
