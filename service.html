@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-
+    <!-- ================= FONT AWESOME ================= -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/images/abh-yogaa-favicon.png">
@@ -11,8 +14,6 @@
     <title>Yoga Classes in Anantapur | ABH Yogaa Studio</title>
 
     <meta name="description" content="Explore yoga and wellness services at ABH Yogaa Studio in Anantapur, Andhra Pradesh. View service details, benefits, class plans and booking information.">
-
-    <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Yoga Classes in Anantapur | ABH Yogaa Studio">
@@ -73,7 +74,11 @@
 
     <div class="overlay">
 
-        <h1 id="serviceName">
+        <span id="heroLabel">
+            Loading...
+        </span>
+
+        <h1 id="heroTitle">
             Loading...
         </h1>
 
@@ -81,14 +86,15 @@
             Loading service information...
         </p>
 
-        <a href="#book">
+        <a
+            href="#book"
+            id="heroButton">
             Book Your Class
         </a>
 
     </div>
 
 </section>
-
 
 <!-- ================= ABOUT ================= -->
 
@@ -99,7 +105,7 @@
         <div class="about-image">
 
             <img
-                id="serviceImage"
+                id="aboutImage"
                 src=""
                 alt="Yoga Service"
                 style="display:none;">
@@ -123,7 +129,7 @@
 
         <div class="about-content">
 
-            <span>
+            <span id="aboutLabel">
                 ABH Yogaa Studio
             </span>
 
@@ -182,7 +188,49 @@
     </div>
 
 </section>
+<!-- ================= AUDIENCE ================= -->
 
+<section
+    class="audience reveal"
+    id="audience">
+
+    <div class="audience-container">
+
+        <div class="audience-content">
+
+            <span id="audienceLabel">
+                Who Can Join
+            </span>
+
+            <h2 id="audienceTitle">
+                Who Is This Service For?
+            </h2>
+
+            <p id="audienceDescription">
+                Discover who can benefit from this service.
+            </p>
+
+            <div
+                class="audience-grid"
+                id="audienceGrid">
+            </div>
+
+        </div>
+
+
+        <div class="audience-image">
+
+            <img
+                id="audienceImage"
+                src=""
+                alt="Service Audience"
+                style="display:none;">
+
+        </div>
+
+    </div>
+
+</section>
 
 <!-- ================= BOOK CLASS ================= -->
 
@@ -243,7 +291,8 @@
                     <input
                         type="text"
                         id="name"
-                        placeholder="Enter your full name">
+                        placeholder="Enter your full name"
+                        required>
 
                 </div>
 
@@ -259,7 +308,8 @@
                     <input
                         type="tel"
                         id="phone"
-                        placeholder="+91 XXXXX XXXXX">
+                        placeholder="+91 XXXXX XXXXX"
+                        required>
 
                 </div>
 
@@ -275,7 +325,8 @@
                     <input
                         type="email"
                         id="email"
-                        placeholder="example@gmail.com">
+                        placeholder="example@gmail.com"
+                        required>
 
                 </div>
 
@@ -430,7 +481,8 @@
                     <input
                         type="date"
                         id="endDate"
-                        readonly>
+                        readonly
+                        tabindex="-1">
 
                 </div>
 
@@ -848,8 +900,7 @@
 
 
     function showServiceError(title, message) {
-
-        document.title = `${service.name} in Anantapur | ABH Yogaa Studio`;
+        document.title = `${title} | ABH Yogaa Studio`;
 
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
@@ -993,7 +1044,28 @@
                     image_url,
                     is_active,
                     is_coming_soon,
-                    display_order
+                    display_order,
+
+                    hero_label,
+                    hero_title,
+                    hero_description,
+                    hero_image_url,
+                    hero_button_text,
+
+                    about_label,
+                    about_title,
+                    about_description,
+                    about_image_url,
+
+                    audience_label,
+                    audience_title,
+                    audience_description,
+                    audience_image_url,
+
+                    booking_label,
+                    booking_title,
+                    booking_description,
+                    booking_image_url
                 `)
                 .eq("slug", slug)
                 .eq("is_active", true)
@@ -1013,6 +1085,87 @@
                 );
 
                 return;
+
+            }
+            // ============================================================
+            // LOAD DATABASE BENEFITS
+            // ============================================================
+
+            const {
+                data: serviceBenefits,
+                error: benefitsError
+            } = await db
+                .from("service_benefits")
+                .select(`
+                    id,
+                    icon,
+                    title,
+                    description,
+                    display_order,
+                    is_active
+                `)
+                .eq(
+                    "service_id",
+                    service.id
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .order(
+                    "display_order",
+                    {
+                        ascending: true
+                    }
+                );
+
+            if (benefitsError) {
+
+                console.error(
+                    "Service benefits loading error:",
+                    benefitsError
+                );
+
+            }
+
+
+            // ============================================================
+            // LOAD DATABASE AUDIENCE ITEMS
+            // ============================================================
+
+            const {
+                data: serviceAudience,
+                error: audienceError
+            } = await db
+                .from("service_audiences")
+                .select(`
+                    id,
+                    icon,
+                    title,
+                    display_order,
+                    is_active
+                `)
+                .eq(
+                    "service_id",
+                    service.id
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .order(
+                    "display_order",
+                    {
+                        ascending: true
+                    }
+                );
+
+            if (audienceError) {
+
+                console.error(
+                    "Service audience loading error:",
+                    audienceError
+                );
 
             }
 
@@ -1052,10 +1205,44 @@
 
             }
 
+            /*
+            * HERO LABEL
+            */
+
+            const heroLabel =
+                document.getElementById(
+                    "heroLabel"
+                );
+
+            if (heroLabel) {
+
+                heroLabel.textContent =
+                    service.hero_label ||
+                    "";
+
+            }
+
 
             /*
-             * SHORT DESCRIPTION
-             */
+            * HERO TITLE
+            */
+
+            const heroTitle =
+                document.getElementById(
+                    "heroTitle"
+                );
+
+            if (heroTitle) {
+
+                heroTitle.textContent =
+                    service.hero_title ||
+                    service.name ||
+                    "";
+
+            }
+            /*
+            * HERO / SHORT DESCRIPTION
+            */
 
             const shortDescription =
                 document.getElementById(
@@ -1065,16 +1252,49 @@
             if (shortDescription) {
 
                 shortDescription.textContent =
+                    service.hero_description ||
                     service.short_description ||
                     service.description ||
                     "";
 
             }
+            /*
+            * HERO BUTTON
+            */
 
+            const heroButton =
+                document.getElementById(
+                    "heroButton"
+                );
+
+            if (heroButton) {
+
+                heroButton.textContent =
+                    service.hero_button_text ||
+                    "Book Your Class";
+
+            }
+
+/*
+* ABOUT LABEL
+*/
+
+const aboutLabel =
+    document.getElementById(
+        "aboutLabel"
+    );
+
+if (aboutLabel) {
+
+    aboutLabel.textContent =
+        service.about_label ||
+        "ABH Yogaa Studio";
+
+}
 
             /*
-             * ABOUT TITLE
-             */
+            * ABOUT TITLE
+            */
 
             const aboutTitle =
                 document.getElementById(
@@ -1084,16 +1304,15 @@
             if (aboutTitle) {
 
                 aboutTitle.textContent =
-                    "What is " +
-                    service.name +
-                    "?";
+                    service.about_title ||
+                    "";
 
             }
 
 
             /*
-             * DESCRIPTION
-             */
+            * ABOUT DESCRIPTION
+            */
 
             const description =
                 document.getElementById(
@@ -1103,16 +1322,149 @@
             if (description) {
 
                 description.textContent =
+                    service.about_description ||
                     service.description ||
                     service.short_description ||
-                    "Learn more about this service at ABH Yogaa Studio.";
+                    "";
+
+            }
+
+            /*
+            * AUDIENCE SECTION
+            */
+
+            const audienceLabel =
+                document.getElementById(
+                    "audienceLabel"
+                );
+
+            const audienceTitle =
+                document.getElementById(
+                    "audienceTitle"
+                );
+
+            const audienceDescription =
+                document.getElementById(
+                    "audienceDescription"
+                );
+
+            const audienceImage =
+                document.getElementById(
+                    "audienceImage"
+                );
+
+            const audienceGrid =
+                document.getElementById(
+                    "audienceGrid"
+                );
+
+
+            /*
+            * AUDIENCE TEXT
+            */
+
+            if (audienceLabel) {
+
+                audienceLabel.textContent =
+                    service.audience_label ||
+                    "Who Can Join";
+
+            }
+
+
+            if (audienceTitle) {
+
+                audienceTitle.textContent =
+                    service.audience_title ||
+                    "Who Is This Service For?";
+
+            }
+
+
+            if (audienceDescription) {
+
+                audienceDescription.textContent =
+                    service.audience_description ||
+                    "";
 
             }
 
 
             /*
-             * BOOKING TITLE
-             */
+            * AUDIENCE IMAGE
+            */
+
+            if (
+                audienceImage &&
+                service.audience_image_url
+            ) {
+
+                audienceImage.src =
+                    service.audience_image_url;
+
+                audienceImage.alt =
+                    service.name;
+
+                audienceImage.style.display =
+                    "block";
+
+            }
+
+
+            /*
+            * AUDIENCE ITEMS
+            */
+
+            if (audienceGrid) {
+
+                const audiences =
+                    (serviceAudience || [])
+                        .filter(
+                            item =>
+                                item.is_active !== false
+                        );
+
+                if (audiences.length === 0) {
+
+                    audienceGrid.innerHTML = "";
+
+                } else {
+
+                    audienceGrid.innerHTML =
+                        audiences
+                            .map(item => {
+
+                                const icon =
+                                    item.icon ||
+                                    "fa-solid fa-circle-check";
+
+                                return `
+                                    <div class="audience-card">
+
+                                        <div class="icon">
+                                            <i class="${escapeHtml(icon)}"></i>
+                                        </div>
+
+                                        <h3>
+                                            ${escapeHtml(
+                                                item.title || ""
+                                            )}
+                                        </h3>
+
+                                    </div>
+                                `;
+
+                            })
+                            .join("");
+
+                }
+
+            }
+
+
+            /*
+            * BOOKING TITLE
+            */
 
             const bookingTitle =
                 document.getElementById(
@@ -1122,16 +1474,15 @@
             if (bookingTitle) {
 
                 bookingTitle.textContent =
-                    "Book Your " +
-                    service.name +
-                    " Class";
+                    service.booking_title ||
+                    "";
 
             }
 
 
             /*
-             * BOOKING DESCRIPTION
-             */
+            * BOOKING DESCRIPTION
+            */
 
             const bookingDescription =
                 document.getElementById(
@@ -1141,22 +1492,24 @@
             if (bookingDescription) {
 
                 bookingDescription.textContent =
-                    "Reserve your spot today and begin your " +
-                    service.name +
-                    " journey with ABH Yogaa Studio.";
+                    service.booking_description ||
+                    "";
 
             }
 
 
             /*
-             * SERVICE IMAGE
-             *
-             * Uses ONLY image_url stored in database.
-             */
+            * DATABASE-DRIVEN SERVICE IMAGES
+            */
 
             const image =
                 document.getElementById(
                     "serviceImage"
+                );
+
+            const aboutImage =
+                document.getElementById(
+                    "aboutImage"
                 );
 
             const fallback =
@@ -1175,60 +1528,113 @@
                 );
 
 
-            if (service.image_url) {
+            /*
+            * HERO IMAGE
+            */
 
-                if (image) {
+            const heroImage =
+                service.hero_image_url ||
+                service.image_url ||
+                "";
 
-                    image.src =
-                        service.image_url;
+            if (image && heroImage) {
 
-                    image.alt =
-                        service.name;
+                image.src =
+                    heroImage;
 
-                    image.style.display =
-                        "block";
+                image.alt =
+                    service.name;
 
-                }
+                image.style.display =
+                    "block";
 
+            }
 
-                if (fallback) {
+            const heroSection =
+                document.getElementById(
+                    "serviceHero"
+                );
 
-                    fallback.style.display =
-                        "none";
+            if (
+                heroSection &&
+                heroImage
+            ) {
 
-                }
+                heroSection.style.backgroundImage =
+                    `url("${heroImage}")`;
 
-
-                if (bookingImage) {
-
-                    bookingImage.src =
-                        service.image_url;
-
-                    bookingImage.alt =
-                        service.name;
-
-                }
+            }
 
 
-                if (bookingImageContainer) {
+            if (fallback && heroImage) {
 
-                    bookingImageContainer.style.display =
-                        "block";
+                fallback.style.display =
+                    "none";
 
-                }
+            }
+
+/*
+* ABOUT IMAGE
+*/
+
+const finalAboutImage =
+    service.about_image_url ||
+    service.image_url ||
+    "";
+
+if (
+    aboutImage &&
+    finalAboutImage
+) {
+
+    aboutImage.src =
+        finalAboutImage;
+
+    aboutImage.alt =
+        service.name;
+
+    aboutImage.style.display =
+        "block";
+
+}
+
+            /*
+            * BOOKING IMAGE
+            */
+
+            const finalBookingImage =
+                service.booking_image_url ||
+                service.image_url ||
+                "";
+
+            if (
+                bookingImage &&
+                finalBookingImage
+            ) {
+
+                bookingImage.src =
+                    finalBookingImage;
+
+                bookingImage.alt =
+                    service.name;
+
+            }
+
+
+            if (
+                bookingImageContainer &&
+                finalBookingImage
+            ) {
+
+                bookingImageContainer.style.display =
+                    "block";
 
             }
 
 
             /*
-             * BENEFITS
-             */
-
-            const benefits =
-                normalizeBenefits(
-                    service.benefits
-                );
-
+            * DATABASE-DRIVEN BENEFITS
+            */
 
             const benefitsGrid =
                 document.getElementById(
@@ -1238,74 +1644,62 @@
 
             if (benefitsGrid) {
 
+                const benefits =
+                    (serviceBenefits || [])
+                        .filter(
+                            benefit =>
+                                benefit.is_active !== false
+                        );
+
+
                 if (benefits.length === 0) {
 
-                    benefitsGrid.innerHTML = `
-
-                        <div class="benefit-card">
-
-                            <div class="icon">
-                                🧘
-                            </div>
-
-                            <h3>
-                                Wellness
-                            </h3>
-
-                            <p>
-                                Experience the benefits of guided
-                                practice at ABH Yogaa Studio.
-                            </p>
-
-                        </div>
-
-                    `;
+                    benefitsGrid.innerHTML = "";
 
                 } else {
 
                     benefitsGrid.innerHTML =
-                        benefits.map(
-                            (benefit, index) => {
+                        benefits
+                            .map(
+                                benefit => {
 
-                                const icons = [
-                                    "🧘",
-                                    "🌿",
-                                    "❤️",
-                                    "💪",
-                                    "😊",
-                                    "✨"
-                                ];
+                                    const icon =
+                                        benefit.icon ||
+                                        "fa-solid fa-circle-check";
 
-                                const icon =
-                                    icons[
-                                        index %
-                                        icons.length
-                                    ];
+                                    return `
 
-                                return `
+                                        <div class="benefit-card">
 
-                                    <div class="benefit-card">
+                                            <div class="icon">
 
-                                        <div class="icon">
-                                            ${icon}
+                                                <i class="${escapeHtml(
+                                                    icon
+                                                )}"></i>
+
+                                            </div>
+
+                                            <h3>
+                                                ${escapeHtml(
+                                                    benefit.title ||
+                                                    ""
+                                                )}
+                                            </h3>
+
+                                            <p>
+                                                ${escapeHtml(
+                                                    benefit.description ||
+                                                    ""
+                                                )}
+                                            </p>
+
                                         </div>
 
-                                        <h3>
-                                            ${escapeHtml(benefit)}
-                                        </h3>
+                                    `;
 
-                                        <p>
-                                            Enjoy this benefit
-                                            through regular guided
-                                            practice.
-                                        </p>
-
-                                    </div>
-
-                                `;
-
-                            }
-                        ).join("");
+                                }
+                            )
+                            .join("");
 
                 }
 
@@ -1399,6 +1793,7 @@
 <!-- EXISTING BOOKING SYSTEM -->
 
 <script src="js/script.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 
 </body>

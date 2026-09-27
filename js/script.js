@@ -1664,9 +1664,7 @@ if (bookingForm) {
                 !startDate ||
                 !endDate
             ) {
-
                 return;
-
             }
 
 
@@ -1674,8 +1672,7 @@ if (bookingForm) {
                 !startDate.value
             ) {
 
-                endDate.value =
-                    "";
+                endDate.value = "";
 
                 return;
 
@@ -1686,16 +1683,14 @@ if (bookingForm) {
                 planSelect.value;
 
 
-            let days =
-                0;
+            let months = 0;
 
 
             if (
                 plan === "one_month"
             ) {
 
-                days =
-                    30;
+                months = 1;
 
             }
 
@@ -1704,38 +1699,57 @@ if (bookingForm) {
                 plan === "three_months"
             ) {
 
-                days =
-                    90;
+                months = 3;
 
             }
 
 
             else {
 
-                endDate.value =
-                    "";
+                endDate.value = "";
 
                 return;
 
             }
 
 
+            // ---------------------------------------------
+            // USE CALENDAR MONTHS
+            // ---------------------------------------------
+
+            const parts =
+                startDate.value.split("-");
+
+
+            const year =
+                Number(parts[0]);
+
+            const month =
+                Number(parts[1]) - 1;
+
+            const day =
+                Number(parts[2]);
+
+
             const date =
                 new Date(
-                    `${startDate.value}T00:00:00`
+                    year,
+                    month,
+                    day
                 );
 
 
-            date.setDate(
-                date.getDate() +
-                days
+            date.setMonth(
+                date.getMonth() + months
             );
 
 
+            // ---------------------------------------------
+            // FORMAT YYYY-MM-DD
+            // ---------------------------------------------
+
             endDate.value =
-                formatDate(
-                    date
-                );
+                formatDate(date);
 
         }
 
@@ -3149,6 +3163,86 @@ if (proceedBtn) {
         "click",
         async function () {
 
+            // =================================================
+            // REQUIRED CUSTOMER DETAILS
+            // =================================================
+
+            const nameInput =
+                document.getElementById("name");
+
+            const phoneInput =
+                document.getElementById("phone");
+
+            const emailInput =
+                document.getElementById("email");
+
+
+            if (
+                !nameInput ||
+                !nameInput.value.trim()
+            ) {
+
+                alert(
+                    "Please enter your full name."
+                );
+
+                nameInput?.focus();
+
+                return;
+
+            }
+
+
+            if (
+                !phoneInput ||
+                !phoneInput.value.trim()
+            ) {
+
+                alert(
+                    "Please enter your phone number."
+                );
+
+                phoneInput?.focus();
+
+                return;
+
+            }
+
+
+            if (
+                !emailInput ||
+                !emailInput.value.trim()
+            ) {
+
+                alert(
+                    "Please enter your email address."
+                );
+
+                emailInput?.focus();
+
+                return;
+
+            }
+
+
+            // =================================================
+            // EMAIL FORMAT
+            // =================================================
+
+            if (
+                !emailInput.checkValidity()
+            ) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                emailInput.focus();
+
+                return;
+
+            }
+
             if (paymentProcessing) {
 
                 return;
@@ -3232,6 +3326,20 @@ if (proceedBtn) {
 
 
             // =================================================
+            // MEMBERSHIP END DATE VALIDATION
+            // =================================================
+
+            if (
+                plan === "one_month" ||
+                plan === "three_months"
+            ) {
+
+                calculateEndDate();
+
+            }
+
+
+            // =================================================
             // PRICE
             // =================================================
 
@@ -3274,7 +3382,10 @@ if (proceedBtn) {
 
                 paymentAmount.innerText =
                     "₹" +
-                    amount.toFixed(2);
+                    amount.toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
 
             }
 
@@ -3289,7 +3400,10 @@ if (proceedBtn) {
 
                 payAmount.innerText =
                     "₹" +
-                    amount.toFixed(2);
+                    amount.toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
 
             }
 

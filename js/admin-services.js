@@ -739,6 +739,38 @@ function renderServices(services) {
         actions.appendChild(
             saveButton
         );
+        // ----------------------------------------------------
+        // FULL CONTENT EDIT BUTTON
+        // ----------------------------------------------------
+
+        const fullContentButton =
+            document.createElement(
+                "button"
+            );
+
+        fullContentButton.type =
+            "button";
+
+        fullContentButton.className =
+            "admin-btn full-content-btn";
+
+        fullContentButton.textContent =
+            "Edit Full Content";
+
+        fullContentButton.addEventListener(
+            "click",
+            () => {
+
+                openFullServiceEditor(
+                    service.id
+                );
+
+            }
+        );
+
+        actions.appendChild(
+            fullContentButton
+        );
 
 
         // ----------------------------------------------------
@@ -2186,6 +2218,13 @@ if (addServiceForm) {
                 // --------------------------------------------
 
                 await loadServices();
+                // --------------------------------------------
+                // OPEN FULL CONTENT EDITOR
+                // --------------------------------------------
+
+                await openFullServiceEditor(
+                    createdService.id
+                );
 
 
             }
@@ -7139,3 +7178,3380 @@ document.addEventListener(
     await loadServices();
 
 })();
+
+// ============================================================
+// FULL SERVICE CONTENT EDITOR
+// ============================================================
+
+// ============================================================
+// OPEN FULL SERVICE EDITOR
+// ============================================================
+
+let fullServiceEditorServiceId = null;
+
+
+async function openFullServiceEditor(
+    serviceId
+) {
+
+    fullServiceEditorServiceId =
+        serviceId;
+
+
+    // --------------------------------------------------------
+    // CREATE EDITOR
+    // --------------------------------------------------------
+
+    createFullServiceEditor();
+
+
+    const modal =
+        document.getElementById(
+            "fullServiceEditorModal"
+        );
+
+
+    modal.style.display =
+        "flex";
+
+
+    const status =
+        document.getElementById(
+            "fullServiceEditorStatus"
+        );
+
+
+    status.textContent =
+        "Loading service content...";
+
+
+    status.className =
+        "full-service-editor-status";
+
+
+    try {
+
+        // ----------------------------------------------------
+        // LOAD SERVICE
+        // ----------------------------------------------------
+
+        const {
+            data: service,
+            error: serviceError
+        } = await db
+
+            .from("services")
+
+            .select(`
+                id,
+                name,
+                slug,
+                short_description,
+                description,
+                benefits,
+                image_url,
+                is_active,
+                is_coming_soon,
+                display_order,
+
+                hero_label,
+                hero_title,
+                hero_description,
+                hero_image_url,
+                hero_button_text,
+
+                about_label,
+                about_title,
+                about_description,
+                about_image_url,
+
+                audience_label,
+                audience_title,
+                audience_description,
+                audience_image_url,
+
+                booking_label,
+                booking_title,
+                booking_description,
+                booking_image_url
+            `)
+
+            .eq(
+                "id",
+                serviceId
+            )
+
+            .single();
+
+
+        if (serviceError) {
+            throw serviceError;
+        }
+
+
+        // ----------------------------------------------------
+        // LOAD BENEFITS
+        // ----------------------------------------------------
+
+        const {
+            data: benefits,
+            error: benefitsError
+        } = await db
+
+            .from("service_benefits")
+
+            .select(`
+                id,
+                icon,
+                title,
+                description,
+                display_order,
+                is_active
+            `)
+
+            .eq(
+                "service_id",
+                serviceId
+            )
+
+            .order(
+                "display_order",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (benefitsError) {
+            throw benefitsError;
+        }
+
+
+        // ----------------------------------------------------
+        // LOAD AUDIENCE ITEMS
+        // ----------------------------------------------------
+
+        const {
+            data: audience,
+            error: audienceError
+        } = await db
+
+            .from("service_audiences")
+
+            .select(`
+                id,
+                icon,
+                title,
+                display_order,
+                is_active
+            `)
+
+            .eq(
+                "service_id",
+                serviceId
+            )
+
+            .order(
+                "display_order",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (audienceError) {
+            throw audienceError;
+        }
+
+
+        // ----------------------------------------------------
+        // FILL EDITOR
+        // ----------------------------------------------------
+        window.currentFullServiceEditorService =
+            service;
+        fillFullServiceEditor(
+            service,
+            benefits || [],
+            audience || []
+        );
+
+
+        status.textContent =
+            "";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Full service editor error:",
+            error
+        );
+
+
+        status.textContent =
+            error.message ||
+            "Unable to load service content.";
+
+
+        status.className =
+            "full-service-editor-status error";
+
+    }
+
+}
+
+// ============================================================
+// CREATE FULL SERVICE EDITOR
+// ============================================================
+
+function createFullServiceEditor() {
+
+    let modal =
+        document.getElementById(
+            "fullServiceEditorModal"
+        );
+
+
+    if (modal) {
+        return;
+    }
+
+
+    modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.id =
+        "fullServiceEditorModal";
+
+
+    modal.innerHTML = `
+
+        <div class="full-service-editor-overlay">
+
+            <div class="full-service-editor-panel">
+
+                <div class="full-service-editor-header">
+
+                    <h2>
+                        Edit Full Service Content
+                    </h2>
+
+                    <button
+                        type="button"
+                        onclick="closeFullServiceEditor()"
+                        class="full-service-editor-close">
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="fullServiceEditorStatus"
+                    class="full-service-editor-status">
+                </div>
+
+
+                <div class="full-service-editor-body">
+
+
+                    <!-- ================= HERO ================= -->
+
+                    <h3>
+                        Hero Section
+                    </h3>
+
+
+                    <label>
+                        Hero Label
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceHeroLabel">
+
+
+                    <label>
+                        Hero Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceHeroTitle">
+
+
+                    <label>
+                        Hero Description
+                    </label>
+
+                    <textarea
+                        id="serviceHeroDescription">
+                    </textarea>
+
+
+                    <label>
+                        Hero Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="serviceHeroImageFile"
+                        accept="image/jpeg,image/png,image/webp,image/avif">
+
+                    <div
+                        id="serviceHeroImagePreview"
+                        class="full-service-image-preview">
+                    </div>
+
+                    <label>
+                        Hero Button Text
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceHeroButton">
+
+
+                    <!-- ================= ABOUT ================= -->
+
+                    <h3>
+                        About Section
+                    </h3>
+
+
+                    <label>
+                        About Label
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceAboutLabel">
+
+
+                    <label>
+                        About Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceAboutTitle">
+
+
+                    <label>
+                        About Description
+                    </label>
+
+                    <textarea
+                        id="serviceAboutDescription">
+                    </textarea>
+
+
+                    <label>
+                        About Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="serviceAboutImageFile"
+                        accept="image/jpeg,image/png,image/webp,image/avif">
+
+                    <div
+                        id="serviceAboutImagePreview"
+                        class="full-service-image-preview">
+                    </div>
+
+
+                    <!-- ================= AUDIENCE ================= -->
+
+                    <h3>
+                        Who Can Join Section
+                    </h3>
+
+
+                    <label>
+                        Audience Label
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceAudienceLabel">
+
+
+                    <label>
+                        Audience Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceAudienceTitle">
+
+
+                    <label>
+                        Audience Description
+                    </label>
+
+                    <textarea
+                        id="serviceAudienceDescription">
+                    </textarea>
+
+
+                    <label>
+                        Audience Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="serviceAudienceImageFile"
+                        accept="image/jpeg,image/png,image/webp,image/avif">
+
+                    <div
+                        id="serviceAudienceImagePreview"
+                        class="full-service-image-preview">
+                    </div>
+
+
+                    <h3>
+                        Audience Items
+                    </h3>
+
+
+                    <div
+                        id="serviceAudienceItems">
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="full-editor-add-btn"
+                        onclick="addAudienceEditorRow()">
+                        + Add Audience Item
+                    </button>
+
+
+                    <!-- ================= BENEFITS ================= -->
+
+                    <h3>
+                        Benefits
+                    </h3>
+
+
+                    <div
+                        id="serviceBenefitsItems">
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="full-editor-add-btn"
+                        onclick="addBenefitEditorRow()">
+                        + Add Benefit
+                    </button>
+
+
+                    <!-- ================= BOOKING ================= -->
+
+                    <h3>
+                        Booking Section
+                    </h3>
+
+
+                    <label>
+                        Booking Label
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceBookingLabel">
+
+
+                    <label>
+                        Booking Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceBookingTitle">
+
+
+                    <label>
+                        Booking Description
+                    </label>
+
+                    <textarea
+                        id="serviceBookingDescription">
+                    </textarea>
+
+
+                    <label>
+                        Booking Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="serviceBookingImageFile"
+                        accept="image/jpeg,image/png,image/webp,image/avif">
+
+                    <div
+                        id="serviceBookingImagePreview"
+                        class="full-service-image-preview">
+                    </div>
+
+                </div>
+
+
+                <div class="full-service-editor-footer">
+
+                    <button
+                        type="button"
+                        onclick="closeFullServiceEditor()">
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="saveFullServiceEditor()">
+                        Save Full Content
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+    document
+        .getElementById("serviceHeroImageFile")
+        ?.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    this.files &&
+                    this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                const service =
+                    window.currentFullServiceEditorService;
+
+                if (!service) {
+
+                    alert(
+                        "Service information is not available."
+                    );
+
+                    return;
+                }
+
+                await uploadFullServiceHeroImage(
+                    service,
+                    file
+                );
+
+            }
+        );
+    document
+        .getElementById("serviceAboutImageFile")
+        ?.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    this.files &&
+                    this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                const service =
+                    window.currentFullServiceEditorService;
+
+                if (!service) {
+
+                    alert(
+                        "Service information is not available."
+                    );
+
+                    return;
+                }
+
+                await uploadFullServiceAboutImage(
+                    service,
+                    file
+                );
+
+            }
+        );
+    document
+        .getElementById("serviceAudienceImageFile")
+        ?.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    this.files &&
+                    this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                const service =
+                    window.currentFullServiceEditorService;
+
+                if (!service) {
+
+                    alert(
+                        "Service information is not available."
+                    );
+
+                    return;
+                }
+
+                await uploadFullServiceAudienceImage(
+                    service,
+                    file
+                );
+
+            }
+        );
+    document
+        .getElementById("serviceBookingImageFile")
+        ?.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    this.files &&
+                    this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                const service =
+                    window.currentFullServiceEditorService;
+
+                if (!service) {
+
+                    alert(
+                        "Service information is not available."
+                    );
+
+                    return;
+                }
+
+                await uploadFullServiceBookingImage(
+                    service,
+                    file
+                );
+
+            }
+        );
+
+    addFullServiceEditorStyles();
+
+}
+
+
+
+// ============================================================
+// UPLOAD HERO IMAGE
+// ============================================================
+
+async function uploadFullServiceHeroImage(
+    service,
+    file
+) {
+
+    if (!db) {
+        return;
+    }
+
+    if (!service || !service.id) {
+        alert("Service information is missing.");
+        return;
+    }
+
+    if (!file) {
+        return;
+    }
+
+
+    // --------------------------------------------------------
+    // VALIDATE FILE TYPE
+    // --------------------------------------------------------
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+
+        alert(
+            "Please choose a JPG, PNG, WEBP or AVIF image."
+        );
+
+        return;
+    }
+
+
+    // --------------------------------------------------------
+    // VALIDATE FILE SIZE
+    // --------------------------------------------------------
+
+    const maxSize =
+        5 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+
+        alert(
+            "Hero image must be smaller than 5 MB."
+        );
+
+        return;
+    }
+
+
+    const preview =
+        document.getElementById(
+            "serviceHeroImagePreview"
+        );
+
+
+    if (preview) {
+
+        preview.innerHTML = `
+            <div class="full-service-image-uploading">
+                Uploading hero image...
+            </div>
+        `;
+
+    }
+
+
+    try {
+
+        // ----------------------------------------------------
+        // CREATE FILE NAME
+        // ----------------------------------------------------
+
+        const extension =
+            getFileExtension(
+                file.name
+            );
+
+        const fileName =
+            `${service.slug}-hero-${Date.now()}.${extension}`;
+
+
+        const filePath =
+            `${service.slug}/hero/${fileName}`;
+
+
+        // ----------------------------------------------------
+        // UPLOAD TO SUPABASE STORAGE
+        // ----------------------------------------------------
+
+        const {
+            error: uploadError
+        } = await db
+
+            .storage
+
+            .from(STORAGE_BUCKET)
+
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false,
+
+                    contentType:
+                        file.type
+                }
+            );
+
+
+        if (uploadError) {
+
+            console.error(
+                "Hero image upload error:",
+                uploadError
+            );
+
+            throw uploadError;
+        }
+
+
+        // ----------------------------------------------------
+        // GET PUBLIC URL
+        // ----------------------------------------------------
+
+        const {
+            data: publicUrlData
+        } = db
+
+            .storage
+
+            .from(STORAGE_BUCKET)
+
+            .getPublicUrl(
+                filePath
+            );
+
+
+        const publicUrl =
+            publicUrlData &&
+            publicUrlData.publicUrl;
+
+
+        if (!publicUrl) {
+
+            throw new Error(
+                "Hero image uploaded but public URL could not be created."
+            );
+
+        }
+
+
+        // ----------------------------------------------------
+        // SAVE URL TO DATABASE
+        // ----------------------------------------------------
+
+        const {
+            error: updateError
+        } = await db
+
+            .from("services")
+
+            .update({
+                hero_image_url:
+                    publicUrl
+            })
+
+            .eq(
+                "id",
+                service.id
+            );
+
+
+        if (updateError) {
+
+            console.error(
+                "Hero image database update error:",
+                updateError
+            );
+
+            throw updateError;
+        }
+
+
+        // ----------------------------------------------------
+        // UPDATE PREVIEW
+        // ----------------------------------------------------
+
+        if (preview) {
+
+            preview.innerHTML = "";
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                publicUrl;
+
+            image.alt =
+                `${service.name} Hero Image`;
+
+            image.loading =
+                "lazy";
+
+            preview.appendChild(
+                image
+            );
+
+        }
+
+
+        // ----------------------------------------------------
+        // UPDATE LOCAL SERVICE DATA
+        // ----------------------------------------------------
+
+        service.hero_image_url =
+            publicUrl;
+
+
+        console.log(
+            "Hero image uploaded successfully:",
+            publicUrl
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected hero image upload error:",
+            error
+        );
+
+
+        if (preview) {
+
+            preview.innerHTML = `
+                <div class="full-service-image-upload-error">
+                    Unable to upload hero image.
+                </div>
+            `;
+
+        }
+
+        alert(
+            error.message ||
+            "Unable to upload hero image."
+        );
+
+    }
+
+}
+async function uploadFullServiceAudienceImage(service, file) {
+
+    if (!file) {
+        return;
+    }
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+        alert(
+            "Please select a JPG, PNG, WEBP, or AVIF image."
+        );
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert(
+            "Image size must be less than 5 MB."
+        );
+        return;
+    }
+
+    try {
+
+        const extension =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+        const filePath =
+            `${service.slug}/audience/${service.slug}-audience-${Date.now()}.${extension}`;
+
+        const {
+            error: uploadError
+        } = await supabase
+            .storage
+            .from(STORAGE_BUCKET)
+            .upload(
+                filePath,
+                file,
+                {
+                    upsert: false,
+                    contentType: file.type
+                }
+            );
+
+        if (uploadError) {
+            throw uploadError;
+        }
+
+        const {
+            data: publicUrlData
+        } = supabase
+            .storage
+            .from(STORAGE_BUCKET)
+            .getPublicUrl(filePath);
+
+        const imageUrl =
+            publicUrlData.publicUrl;
+
+        const {
+            error: updateError
+        } = await supabase
+            .from("services")
+            .update({
+                audience_image_url:
+                    imageUrl
+            })
+            .eq(
+                "id",
+                service.id
+            );
+
+        if (updateError) {
+            throw updateError;
+        }
+
+        service.audience_image_url =
+            imageUrl;
+
+        const preview =
+            document.getElementById(
+                "serviceAudienceImagePreview"
+            );
+
+        if (preview) {
+
+            preview.innerHTML = "";
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                imageUrl;
+
+            image.alt =
+                `${service.name} Audience Image`;
+
+            image.loading =
+                "lazy";
+
+            preview.appendChild(
+                image
+            );
+        }
+
+        alert(
+            "Audience image uploaded successfully."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Audience image upload error:",
+            error
+        );
+
+        alert(
+            "Failed to upload Audience image. Please try again."
+        );
+    }
+}
+
+// ============================================================
+// UPLOAD ABOUT IMAGE
+// ============================================================
+
+async function uploadFullServiceAboutImage(
+    service,
+    file
+) {
+
+    if (!db) {
+        return;
+    }
+
+    if (!service || !service.id) {
+        alert("Service information is missing.");
+        return;
+    }
+
+    if (!file) {
+        return;
+    }
+
+    // --------------------------------------------------------
+    // VALIDATE FILE TYPE
+    // --------------------------------------------------------
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+
+        alert(
+            "Please choose a JPG, PNG, WEBP or AVIF image."
+        );
+
+        return;
+    }
+
+    // --------------------------------------------------------
+    // VALIDATE FILE SIZE
+    // --------------------------------------------------------
+
+    const maxSize =
+        5 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+
+        alert(
+            "About image must be smaller than 5 MB."
+        );
+
+        return;
+    }
+
+    const preview =
+        document.getElementById(
+            "serviceAboutImagePreview"
+        );
+
+    if (preview) {
+
+        preview.innerHTML = `
+            <div class="full-service-image-uploading">
+                Uploading about image...
+            </div>
+        `;
+
+    }
+
+    try {
+
+        // ----------------------------------------------------
+        // CREATE FILE NAME
+        // ----------------------------------------------------
+
+        const extension =
+            getFileExtension(
+                file.name
+            );
+
+        const fileName =
+            `${service.slug}-about-${Date.now()}.${extension}`;
+
+        const filePath =
+            `${service.slug}/about/${fileName}`;
+
+        // ----------------------------------------------------
+        // UPLOAD TO SUPABASE STORAGE
+        // ----------------------------------------------------
+
+        const {
+            error: uploadError
+        } = await db
+
+            .storage
+
+            .from(STORAGE_BUCKET)
+
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false,
+
+                    contentType:
+                        file.type
+                }
+            );
+
+        if (uploadError) {
+
+            console.error(
+                "About image upload error:",
+                uploadError
+            );
+
+            throw uploadError;
+        }
+
+        // ----------------------------------------------------
+        // GET PUBLIC URL
+        // ----------------------------------------------------
+
+        const {
+            data: publicUrlData
+        } = db
+
+            .storage
+
+            .from(STORAGE_BUCKET)
+
+            .getPublicUrl(
+                filePath
+            );
+
+        const publicUrl =
+            publicUrlData &&
+            publicUrlData.publicUrl;
+
+        if (!publicUrl) {
+
+            throw new Error(
+                "About image uploaded but public URL could not be created."
+            );
+
+        }
+
+        // ----------------------------------------------------
+        // SAVE URL TO DATABASE
+        // ----------------------------------------------------
+
+        const {
+            error: updateError
+        } = await db
+
+            .from("services")
+
+            .update({
+                about_image_url:
+                    publicUrl
+            })
+
+            .eq(
+                "id",
+                service.id
+            );
+
+        if (updateError) {
+
+            console.error(
+                "About image database update error:",
+                updateError
+            );
+
+            throw updateError;
+        }
+
+        // ----------------------------------------------------
+        // UPDATE PREVIEW
+        // ----------------------------------------------------
+
+        if (preview) {
+
+            preview.innerHTML = "";
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                publicUrl;
+
+            image.alt =
+                `${service.name} About Image`;
+
+            image.loading =
+                "lazy";
+
+            preview.appendChild(
+                image
+            );
+
+        }
+
+        // ----------------------------------------------------
+        // UPDATE LOCAL SERVICE DATA
+        // ----------------------------------------------------
+
+        service.about_image_url =
+            publicUrl;
+
+        console.log(
+            "About image uploaded successfully:",
+            publicUrl
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected about image upload error:",
+            error
+        );
+
+        if (preview) {
+
+            preview.innerHTML = `
+                <div class="full-service-image-upload-error">
+                    Unable to upload about image.
+                </div>
+            `;
+
+        }
+
+        alert(
+            error.message ||
+            "Unable to upload about image."
+        );
+
+    }
+
+}
+// ============================================================
+// UPLOAD FULL SERVICE AUDIENCE IMAGE
+// ============================================================
+
+async function uploadFullServiceAudienceImage(
+    service,
+    file
+) {
+
+    if (!db) {
+        return;
+    }
+
+    if (!file) {
+        return;
+    }
+
+
+    // --------------------------------------------------------
+    // VALIDATE IMAGE
+    // --------------------------------------------------------
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif"
+    ];
+
+    if (
+        !allowedTypes.includes(
+            file.type
+        )
+    ) {
+
+        alert(
+            "Please select a JPG, PNG, WEBP or AVIF image."
+        );
+
+        return;
+    }
+
+
+    if (
+        file.size >
+        5 * 1024 * 1024
+    ) {
+
+        alert(
+            "Image must be smaller than 5 MB."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        // ----------------------------------------------------
+        // FILE EXTENSION
+        // ----------------------------------------------------
+
+        const extension =
+            getFileExtension(
+                file.name
+            );
+
+
+        // ----------------------------------------------------
+        // STORAGE PATH
+        // ----------------------------------------------------
+
+        const filePath =
+            `${service.slug}/audience/${service.slug}-audience-${Date.now()}.${extension}`;
+
+
+        // ----------------------------------------------------
+        // UPLOAD
+        // ----------------------------------------------------
+
+        const {
+            error: uploadError
+        } = await db
+            .storage
+            .from(STORAGE_BUCKET)
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false,
+
+                    contentType:
+                        file.type
+                }
+            );
+
+
+        if (uploadError) {
+
+            console.error(
+                "Audience image upload error:",
+                uploadError
+            );
+
+            alert(
+                uploadError.message ||
+                "Unable to upload audience image."
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // PUBLIC URL
+        // ----------------------------------------------------
+
+        const {
+            data: publicUrlData
+        } = db
+            .storage
+            .from(STORAGE_BUCKET)
+            .getPublicUrl(
+                filePath
+            );
+
+
+        const publicUrl =
+            publicUrlData.publicUrl;
+
+
+        if (!publicUrl) {
+
+            alert(
+                "Image uploaded but public URL could not be created."
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // UPDATE DATABASE
+        // ----------------------------------------------------
+
+        const {
+            error: updateError
+        } = await db
+            .from("services")
+            .update({
+                audience_image_url:
+                    publicUrl
+            })
+            .eq(
+                "id",
+                service.id
+            );
+
+
+        if (updateError) {
+
+            console.error(
+                "Audience image database update error:",
+                updateError
+            );
+
+            alert(
+                updateError.message ||
+                "Image uploaded but database update failed."
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // UPDATE LOCAL SERVICE
+        // ----------------------------------------------------
+
+        service.audience_image_url =
+            publicUrl;
+
+
+        // ----------------------------------------------------
+        // UPDATE PREVIEW
+        // ----------------------------------------------------
+
+        const preview =
+            document.getElementById(
+                "serviceAudienceImagePreview"
+            );
+
+        if (preview) {
+
+            preview.innerHTML = "";
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                publicUrl;
+
+            image.alt =
+                `${service.name} Audience Image`;
+
+            image.loading =
+                "lazy";
+
+            preview.appendChild(
+                image
+            );
+
+        }
+
+
+        alert(
+            "Audience image uploaded successfully."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected audience image upload error:",
+            error
+        );
+
+        alert(
+            "Something went wrong while uploading the audience image."
+        );
+
+    }
+
+}
+
+async function uploadFullServiceBookingImage(
+    service,
+    file
+) {
+
+    if (!file) {
+        return;
+    }
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+
+        alert(
+            "Please select a JPG, PNG, WEBP, or AVIF image."
+        );
+
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+
+        alert(
+            "Booking image must be smaller than 5 MB."
+        );
+
+        return;
+    }
+
+    try {
+
+        const extension =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+        const filePath =
+            `${service.slug}/booking/${service.slug}-booking-${Date.now()}.${extension}`;
+
+        const {
+            error: uploadError
+        } = await db.storage
+            .from(STORAGE_BUCKET)
+            .upload(
+                filePath,
+                file,
+                {
+                    upsert: false,
+                    contentType: file.type
+                }
+            );
+
+        if (uploadError) {
+            throw uploadError;
+        }
+
+        const {
+            data: publicUrlData
+        } = db.storage
+            .from(STORAGE_BUCKET)
+            .getPublicUrl(
+                filePath
+            );
+
+        const publicUrl =
+            publicUrlData?.publicUrl;
+
+        if (!publicUrl) {
+            throw new Error(
+                "Unable to generate Booking image URL."
+            );
+        }
+
+        const {
+            error: updateError
+        } = await db
+            .from("services")
+            .update({
+                booking_image_url:
+                    publicUrl
+            })
+            .eq(
+                "id",
+                service.id
+            );
+
+        if (updateError) {
+            throw updateError;
+        }
+
+        service.booking_image_url =
+            publicUrl;
+
+        const preview =
+            document.getElementById(
+                "serviceBookingImagePreview"
+            );
+
+        if (preview) {
+
+            preview.innerHTML = "";
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                publicUrl;
+
+            image.alt =
+                `${service.name} Booking Image`;
+
+            image.loading =
+                "lazy";
+
+            preview.appendChild(
+                image
+            );
+        }
+
+        alert(
+            "Booking image uploaded successfully."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Booking image upload error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Failed to upload Booking image."
+        );
+    }
+}
+// ============================================================
+// FILL FULL SERVICE EDITOR
+// ============================================================
+
+function fillFullServiceEditor(
+    service,
+    benefits,
+    audience
+) {
+
+    const setValue = (
+        id,
+        value
+    ) => {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+
+            element.value =
+                value || "";
+
+        }
+
+    };
+
+
+    // --------------------------------------------------------
+    // HERO
+    // --------------------------------------------------------
+
+    setValue(
+        "serviceHeroLabel",
+        service.hero_label
+    );
+
+    setValue(
+        "serviceHeroTitle",
+        service.hero_title
+    );
+
+    setValue(
+        "serviceHeroDescription",
+        service.hero_description
+    );
+
+    // --------------------------------------------------------
+    // HERO IMAGE
+    // --------------------------------------------------------
+
+    const heroPreview =
+        document.getElementById(
+            "serviceHeroImagePreview"
+        );
+
+    if (heroPreview) {
+
+        heroPreview.innerHTML = "";
+
+        if (service.hero_image_url) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                service.hero_image_url;
+
+            image.alt =
+                `${service.name} Hero Image`;
+
+            image.loading =
+                "lazy";
+
+            heroPreview.appendChild(
+                image
+            );
+
+        }
+
+    }
+
+    setValue(
+        "serviceHeroButton",
+        service.hero_button_text
+    );
+
+
+    // --------------------------------------------------------
+    // ABOUT
+    // --------------------------------------------------------
+
+    setValue(
+        "serviceAboutLabel",
+        service.about_label
+    );
+
+    setValue(
+        "serviceAboutTitle",
+        service.about_title
+    );
+
+    setValue(
+        "serviceAboutDescription",
+        service.about_description
+    );
+
+    const aboutPreview =
+        document.getElementById(
+            "serviceAboutImagePreview"
+        );
+
+    if (aboutPreview) {
+
+        aboutPreview.innerHTML = "";
+
+        if (service.about_image_url) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                service.about_image_url;
+
+            image.alt =
+                `${service.name} About Image`;
+
+            image.loading =
+                "lazy";
+
+            aboutPreview.appendChild(
+                image
+            );
+
+        }
+
+    }
+
+
+    // --------------------------------------------------------
+    // AUDIENCE SECTION
+    // --------------------------------------------------------
+
+    setValue(
+        "serviceAudienceLabel",
+        service.audience_label
+    );
+
+    setValue(
+        "serviceAudienceTitle",
+        service.audience_title
+    );
+
+    setValue(
+        "serviceAudienceDescription",
+        service.audience_description
+    );
+
+const audiencePreview =
+    document.getElementById(
+        "serviceAudienceImagePreview"
+    );
+
+if (audiencePreview) {
+
+    audiencePreview.innerHTML = "";
+
+    if (service.audience_image_url) {
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+        image.src =
+            service.audience_image_url;
+
+        image.alt =
+            `${service.name} Audience Image`;
+
+        image.loading =
+            "lazy";
+
+        audiencePreview.appendChild(
+            image
+        );
+
+    }
+
+}
+
+
+    // --------------------------------------------------------
+    // BENEFITS
+    // --------------------------------------------------------
+
+    const benefitsContainer =
+        document.getElementById(
+            "serviceBenefitsItems"
+        );
+
+
+    if (benefitsContainer) {
+
+        benefitsContainer.innerHTML =
+            "";
+
+
+        (benefits || []).forEach(
+            benefit => {
+
+                addBenefitEditorRow(
+                    benefit
+                );
+
+            }
+        );
+
+    }
+
+
+    // --------------------------------------------------------
+    // AUDIENCE ITEMS
+    // --------------------------------------------------------
+
+    const audienceContainer =
+        document.getElementById(
+            "serviceAudienceItems"
+        );
+
+
+    if (audienceContainer) {
+
+        audienceContainer.innerHTML =
+            "";
+
+
+        (audience || []).forEach(
+            item => {
+
+                addAudienceEditorRow(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+    // --------------------------------------------------------
+    // BOOKING
+    // --------------------------------------------------------
+
+    setValue(
+        "serviceBookingLabel",
+        service.booking_label
+    );
+
+    setValue(
+        "serviceBookingTitle",
+        service.booking_title
+    );
+
+    setValue(
+        "serviceBookingDescription",
+        service.booking_description
+    );
+
+    const bookingPreview =
+        document.getElementById(
+            "serviceBookingImagePreview"
+        );
+
+    if (bookingPreview) {
+
+        bookingPreview.innerHTML = "";
+
+        if (service.booking_image_url) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                service.booking_image_url;
+
+            image.alt =
+                `${service.name} Booking Image`;
+
+            image.loading =
+                "lazy";
+
+            bookingPreview.appendChild(
+                image
+            );
+
+        }
+
+    }
+
+}
+// ============================================================
+// ADD BENEFIT EDITOR ROW
+// ============================================================
+
+function addBenefitEditorRow(
+    benefit = {}
+) {
+
+    const container =
+        document.getElementById(
+            "serviceBenefitsItems"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "full-editor-repeat-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            class="benefit-icon"
+            placeholder="Font Awesome icon class"
+            value="${escapeServiceEditorValue(
+                benefit.icon || ""
+            )}">
+
+
+        <input
+            type="text"
+            class="benefit-title"
+            placeholder="Benefit title"
+            value="${escapeServiceEditorValue(
+                benefit.title || ""
+            )}">
+
+
+        <textarea
+            class="benefit-description"
+            placeholder="Benefit description">${escapeServiceEditorValue(
+                benefit.description || ""
+            )}</textarea>
+
+
+        <input
+            type="number"
+            class="benefit-order"
+            placeholder="Order"
+            value="${benefit.display_order ?? 0}">
+
+
+        <label class="benefit-active">
+
+            <input
+                type="checkbox"
+                class="benefit-active-checkbox"
+                ${benefit.is_active !== false
+                    ? "checked"
+                    : ""}>
+
+            Active
+
+        </label>
+
+
+        <button
+            type="button"
+            class="full-editor-remove-btn">
+
+            Remove
+
+        </button>
+
+    `;
+
+
+    const removeButton =
+        row.querySelector(
+            ".full-editor-remove-btn"
+        );
+
+
+    removeButton.addEventListener(
+        "click",
+        () => {
+
+            row.remove();
+
+        }
+    );
+
+
+    container.appendChild(
+        row
+    );
+
+}
+
+
+// ============================================================
+// ADD AUDIENCE EDITOR ROW
+// ============================================================
+
+function addAudienceEditorRow(
+    audience = {}
+) {
+
+    const container =
+        document.getElementById(
+            "serviceAudienceItems"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "full-editor-repeat-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            class="audience-icon"
+            placeholder="Font Awesome icon class"
+            value="${escapeServiceEditorValue(
+                audience.icon || ""
+            )}">
+
+
+        <input
+            type="text"
+            class="audience-title"
+            placeholder="Audience item title"
+            value="${escapeServiceEditorValue(
+                audience.title || ""
+            )}">
+
+
+        <input
+            type="number"
+            class="audience-order"
+            placeholder="Order"
+            value="${audience.display_order ?? 0}">
+
+
+        <label class="audience-active">
+
+            <input
+                type="checkbox"
+                class="audience-active-checkbox"
+                ${audience.is_active !== false
+                    ? "checked"
+                    : ""}>
+
+            Active
+
+        </label>
+
+
+        <button
+            type="button"
+            class="full-editor-remove-btn">
+
+            Remove
+
+        </button>
+
+    `;
+
+
+    const removeButton =
+        row.querySelector(
+            ".full-editor-remove-btn"
+        );
+
+
+    removeButton.addEventListener(
+        "click",
+        () => {
+
+            row.remove();
+
+        }
+    );
+
+
+    container.appendChild(
+        row
+    );
+
+}
+
+
+// ============================================================
+// ESCAPE EDITOR VALUE
+// ============================================================
+
+function escapeServiceEditorValue(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+// ============================================================
+// SAVE FULL SERVICE EDITOR
+// ============================================================
+
+async function saveFullServiceEditor() {
+
+    if (!db || !fullServiceEditorServiceId) {
+        return;
+    }
+
+
+    const status =
+        document.getElementById(
+            "fullServiceEditorStatus"
+        );
+
+
+    status.textContent =
+        "Saving...";
+
+
+    status.className =
+        "full-service-editor-status";
+
+
+    try {
+
+        // ----------------------------------------------------
+        // SERVICE CONTENT
+        // ----------------------------------------------------
+
+        const serviceUpdates = {
+
+            hero_label:
+                document.getElementById(
+                    "serviceHeroLabel"
+                ).value.trim(),
+
+            hero_title:
+                document.getElementById(
+                    "serviceHeroTitle"
+                ).value.trim(),
+
+            hero_description:
+                document.getElementById(
+                    "serviceHeroDescription"
+                ).value.trim(),
+
+            hero_image_url:
+                window.currentFullServiceEditorService
+                    ?.hero_image_url || null,
+
+            hero_button_text:
+                document.getElementById(
+                    "serviceHeroButton"
+                ).value.trim(),
+
+            about_label:
+                document.getElementById(
+                    "serviceAboutLabel"
+                ).value.trim(),
+
+            about_title:
+                document.getElementById(
+                    "serviceAboutTitle"
+                ).value.trim(),
+
+            about_description:
+                document.getElementById(
+                    "serviceAboutDescription"
+                ).value.trim(),
+
+            about_image_url:
+                window.currentFullServiceEditorService
+                    ?.about_image_url || null,
+
+            audience_label:
+                document.getElementById(
+                    "serviceAudienceLabel"
+                ).value.trim(),
+
+            audience_title:
+                document.getElementById(
+                    "serviceAudienceTitle"
+                ).value.trim(),
+
+            audience_description:
+                document.getElementById(
+                    "serviceAudienceDescription"
+                ).value.trim(),
+
+            audience_image_url:
+                window.currentFullServiceEditorService
+                    ?.audience_image_url || null,
+
+            booking_label:
+                document.getElementById(
+                    "serviceBookingLabel"
+                ).value.trim(),
+
+            booking_title:
+                document.getElementById(
+                    "serviceBookingTitle"
+                ).value.trim(),
+
+            booking_description:
+                document.getElementById(
+                    "serviceBookingDescription"
+                ).value.trim(),
+
+            booking_image_url:
+                window.currentFullServiceEditorService
+                    ?.booking_image_url || null,
+
+        };
+
+
+        // ----------------------------------------------------
+        // UPDATE SERVICE
+        // ----------------------------------------------------
+
+        const {
+            error: serviceError
+        } = await db
+
+            .from("services")
+
+            .update(
+                serviceUpdates
+            )
+
+            .eq(
+                "id",
+                fullServiceEditorServiceId
+            );
+
+
+        if (serviceError) {
+            throw serviceError;
+        }
+
+
+        // ----------------------------------------------------
+        // BENEFITS
+        // ----------------------------------------------------
+
+        const benefitsContainer =
+            document.getElementById(
+                "serviceBenefitsItems"
+            );
+
+
+        const benefitRows =
+            benefitsContainer
+                ? [
+                    ...benefitsContainer
+                        .querySelectorAll(
+                            ".full-editor-repeat-row"
+                        )
+                ]
+                : [];
+
+
+        // Remove existing benefits
+        const {
+            error: deleteBenefitsError
+        } = await db
+
+            .from("service_benefits")
+
+            .delete()
+
+            .eq(
+                "service_id",
+                fullServiceEditorServiceId
+            );
+
+
+        if (deleteBenefitsError) {
+            throw deleteBenefitsError;
+        }
+
+
+        const benefitsToInsert =
+            benefitRows
+                .map(
+                    (row, index) => ({
+
+                        service_id:
+                            fullServiceEditorServiceId,
+
+                        icon:
+                            row.querySelector(
+                                ".benefit-icon"
+                            )?.value.trim() || null,
+
+                        title:
+                            row.querySelector(
+                                ".benefit-title"
+                            )?.value.trim() || null,
+
+                        description:
+                            row.querySelector(
+                                ".benefit-description"
+                            )?.value.trim() || null,
+
+                        display_order:
+                            Number(
+                                row.querySelector(
+                                    ".benefit-order"
+                                )?.value || index
+                            ),
+
+                        is_active:
+                            row.querySelector(
+                                ".benefit-active-checkbox"
+                            )?.checked !== false
+
+                    })
+                )
+                .filter(
+                    item =>
+                        item.title ||
+                        item.description
+                );
+
+
+        if (
+            benefitsToInsert.length > 0
+        ) {
+
+            const {
+                error
+            } = await db
+
+                .from("service_benefits")
+
+                .insert(
+                    benefitsToInsert
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+        // ----------------------------------------------------
+        // AUDIENCE ITEMS
+        // ----------------------------------------------------
+
+        const audienceContainer =
+            document.getElementById(
+                "serviceAudienceItems"
+            );
+
+
+        const audienceRows =
+            audienceContainer
+                ? [
+                    ...audienceContainer
+                        .querySelectorAll(
+                            ".full-editor-repeat-row"
+                        )
+                ]
+                : [];
+
+
+        // Remove existing audience items
+        const {
+            error: deleteAudienceError
+        } = await db
+
+            .from("service_audiences")
+
+            .delete()
+
+            .eq(
+                "service_id",
+                fullServiceEditorServiceId
+            );
+
+
+        if (deleteAudienceError) {
+            throw deleteAudienceError;
+        }
+
+
+        const audienceToInsert =
+            audienceRows
+                .map(
+                    (row, index) => ({
+
+                        service_id:
+                            fullServiceEditorServiceId,
+
+                        icon:
+                            row.querySelector(
+                                ".audience-icon"
+                            )?.value.trim() || null,
+
+                        title:
+                            row.querySelector(
+                                ".audience-title"
+                            )?.value.trim() || null,
+
+                        display_order:
+                            Number(
+                                row.querySelector(
+                                    ".audience-order"
+                                )?.value || index
+                            ),
+
+                        is_active:
+                            row.querySelector(
+                                ".audience-active-checkbox"
+                            )?.checked !== false
+
+                    })
+                )
+                .filter(
+                    item =>
+                        item.title
+                );
+
+
+        if (
+            audienceToInsert.length > 0
+        ) {
+
+            const {
+                error
+            } = await db
+
+                .from("service_audiences")
+
+                .insert(
+                    audienceToInsert
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+        // ----------------------------------------------------
+        // SUCCESS
+        // ----------------------------------------------------
+
+        status.textContent =
+            "Full service content saved successfully.";
+
+        status.className =
+            "full-service-editor-status success";
+
+
+        showStatus(
+            "Full service content saved successfully.",
+            "success"
+        );
+
+
+        setTimeout(
+            () => {
+
+                closeFullServiceEditor();
+
+            },
+            1000
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Full service save error:",
+            error
+        );
+
+
+        status.textContent =
+            error.message ||
+            "Unable to save full service content.";
+
+
+        status.className =
+            "full-service-editor-status error";
+
+    }
+
+}
+// ============================================================
+// CLOSE FULL SERVICE EDITOR
+// ============================================================
+
+function closeFullServiceEditor() {
+
+    const modal =
+        document.getElementById(
+            "fullServiceEditorModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+
+    fullServiceEditorServiceId =
+        null;
+
+}
+// ============================================================
+// FULL SERVICE EDITOR STYLES
+// ============================================================
+
+function addFullServiceEditorStyles() {
+
+    if (
+        document.getElementById(
+            "fullServiceEditorStyles"
+        )
+    ) {
+        return;
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "fullServiceEditorStyles";
+
+
+    style.textContent = `
+
+        #fullServiceEditorModal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 99999;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .full-service-editor-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.65
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .full-service-editor-panel {
+
+            position: relative;
+
+            width: min(
+                1000px,
+                100%
+            );
+
+            max-height: 92vh;
+
+            background: #ffffff;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+        }
+
+
+        .full-service-editor-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 20px 24px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            background: #fafafa;
+
+        }
+
+
+        .full-service-editor-header h2 {
+
+            margin: 0;
+
+            font-size: 22px;
+
+        }
+
+
+        .full-service-editor-close {
+
+            width: 38px;
+
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #eeeeee;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+        }
+
+
+        .full-service-editor-body {
+
+            padding: 24px;
+
+            overflow-y: auto;
+
+        }
+
+
+        .full-service-editor-body h3 {
+
+            margin-top: 28px;
+
+            margin-bottom: 14px;
+
+            padding-bottom: 8px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .full-service-editor-body h3:first-child {
+
+            margin-top: 0;
+
+        }
+
+
+        .full-service-editor-body label {
+
+            display: block;
+
+            margin-top: 14px;
+
+            margin-bottom: 6px;
+
+            font-weight: 600;
+
+        }
+
+
+        .full-service-editor-body input,
+
+        .full-service-editor-body textarea {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 11px 12px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+        }
+
+
+        .full-service-editor-body textarea {
+
+            min-height: 110px;
+
+            resize: vertical;
+
+        }
+
+
+        .full-editor-repeat-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1.4fr
+                2fr
+                90px
+                auto
+                auto;
+
+            gap: 10px;
+
+            align-items: start;
+
+            padding: 14px;
+
+            margin-bottom: 12px;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            background: #fafafa;
+
+        }
+
+
+        .full-editor-repeat-row textarea {
+
+            min-height: 70px;
+
+        }
+
+
+        .benefit-active,
+
+        .audience-active {
+
+            display: flex !important;
+
+            align-items: center;
+
+            gap: 5px;
+
+            white-space: nowrap;
+
+            margin: 10px 0 0 !important;
+
+            font-weight: 500 !important;
+
+        }
+
+
+        .benefit-active input,
+
+        .audience-active input {
+
+            width: auto;
+
+        }
+
+
+        .full-editor-add-btn {
+
+            margin-top: 8px;
+
+            padding: 10px 16px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            background: #eeeeee;
+
+            font-weight: 600;
+
+        }
+
+
+        .full-editor-remove-btn {
+
+            padding: 9px 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            font-weight: 600;
+
+        }
+
+
+        .full-service-editor-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding: 16px 24px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+            background: #fafafa;
+
+        }
+
+
+        .full-service-editor-footer button {
+
+            padding: 11px 18px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+        }
+
+
+        .full-service-editor-footer button:last-child {
+
+            background: #222222;
+
+            color: #ffffff;
+
+        }
+
+
+        .full-service-editor-status {
+
+            padding: 0 24px;
+
+            font-size: 14px;
+
+        }
+
+
+        .full-service-editor-status.success {
+
+            color: #15803d;
+
+        }
+
+
+        .full-service-editor-status.error {
+
+            color: #b91c1c;
+
+        }
+
+
+        @media (
+            max-width: 800px
+        ) {
+
+            .full-editor-repeat-row {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 600px
+        ) {
+
+            #fullServiceEditorModal {
+
+                padding: 8px;
+
+            }
+
+
+            .full-service-editor-panel {
+
+                max-height: 96vh;
+
+                border-radius: 10px;
+
+            }
+
+
+            .full-service-editor-body {
+
+                padding: 16px;
+
+            }
+
+
+            .full-service-editor-footer {
+
+                padding: 12px 16px;
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+}
+// ============================================================
+// FULL SERVICE EDITOR STYLES
+// ============================================================
+
+function addFullServiceEditorStyles() {
+
+    if (
+        document.getElementById(
+            "fullServiceEditorStyles"
+        )
+    ) {
+        return;
+    }
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+    style.id =
+        "fullServiceEditorStyles";
+
+    style.textContent = `
+
+        #fullServiceEditorModal {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+        }
+
+        .full-service-editor-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .full-service-editor-panel {
+            width: min(1000px, 100%);
+            max-height: 92vh;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-service-editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .full-service-editor-header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .full-service-editor-close {
+            border: none;
+            background: transparent;
+            font-size: 30px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .full-service-editor-status {
+            padding: 10px 24px;
+            min-height: 20px;
+            font-size: 14px;
+        }
+
+        .full-service-editor-status.success {
+            color: #15803d;
+        }
+
+        .full-service-editor-status.error {
+            color: #dc2626;
+        }
+
+        .full-service-editor-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .full-service-editor-body h3 {
+            margin-top: 24px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .full-service-editor-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .full-service-editor-body label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .full-service-editor-body input[type="text"],
+        .full-service-editor-body input[type="number"],
+        .full-service-editor-body textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .full-service-editor-body textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .full-editor-repeat-row {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #f9fafb;
+        }
+
+        .full-editor-repeat-row input,
+        .full-editor-repeat-row textarea {
+            margin-bottom: 8px;
+        }
+
+        .full-editor-repeat-row textarea {
+            min-height: 70px;
+        }
+
+        .benefit-active,
+        .audience-active {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500 !important;
+        }
+
+        .benefit-active-checkbox,
+        .audience-active-checkbox {
+            width: auto !important;
+        }
+
+        .full-editor-add-btn,
+        .full-editor-remove-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 9px 14px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .full-editor-add-btn {
+            margin-top: 4px;
+        }
+
+        .full-editor-remove-btn {
+            margin-top: 6px;
+        }
+
+        .full-service-editor-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .full-service-editor-footer button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+
+            .full-service-editor-overlay {
+                padding: 10px;
+            }
+
+            .full-service-editor-panel {
+                max-height: 96vh;
+            }
+
+            .full-service-editor-body {
+                padding: 16px;
+            }
+
+            .full-service-editor-header {
+                padding: 14px 16px;
+            }
+
+            .full-service-editor-footer {
+                padding: 12px 16px;
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(
+        style
+    );
+
+}

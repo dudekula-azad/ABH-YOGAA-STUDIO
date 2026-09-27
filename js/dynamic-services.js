@@ -327,49 +327,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 // SERVICE PAGE MAPPING
 // ============================================================
 
+// ============================================================
+// SERVICE PAGE ROUTING
+// ============================================================
+
 function getServicePage(service) {
 
-    const pages = {
+    // All active services now use the single
+    // database-driven service page.
 
-        "hatha-yoga":
-            "hatha.html",
-
-        "ashtanga-yoga":
-            "ashtanga.html",
-
-        "prenatal-yoga":
-            "prenatal.html",
-
-        "postnatal-yoga":
-            "postnatal.html",
-
-        "fertility-yoga":
-            "fertility.html",
-
-        "kids-yoga":
-            "kids.html",
-
-        "garbh-sanskar":
-            "garbhsanskar.html",
-
-        "infant-massage":
-            "infant.html",
-
-        "breastfeeding-education":
-            "breastfeeding.html",
-
-        "labor-management":
-            "labor.html",
-
-        "pilates":
-            "services.html"
-    };
-
-
-    return pages[service.slug] ||
-        `service.html?slug=${encodeURIComponent(
-            service.slug
-        )}`;
+    return `service.html?slug=${encodeURIComponent(
+        service.slug
+    )}`;
 }
 
 

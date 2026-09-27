@@ -651,80 +651,12 @@
                     Our Services
                 </h3>
 
-                <ul>
+                <ul id="footerServicesList">
 
                     <li>
-                        <a href="hatha.html">
-                            Hatha Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="ashtanga.html">
-                            Ashtanga Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="prenatal.html">
-                            Prenatal Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="postnatal.html">
-                            Postnatal Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="fertility.html">
-                            Fertility Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="kids.html">
-                            Kids Yoga
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="garbhsanskar.html">
-                            Garbh Sanskar
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="infant.html">
-                            Infant Massage
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="breastfeeding.html">
-                            Breastfeeding Education
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="labor.html">
-                            Labor Management
-                        </a>
-                    </li>
-
-                    <li>
-
-                        <span class="footer-coming-soon">
-
-                            Pilates
-
-                            <span>
-                                (Coming Soon)
-                            </span>
-
+                        <span>
+                            Loading services...
                         </span>
-
                     </li>
 
                 </ul>
@@ -791,6 +723,187 @@
     <!-- Dynamic homepage services -->
 
     <script src="js/dynamic-services.js"></script>
+
+<script>
+/* ============================================================
+   DYNAMIC FOOTER SERVICES
+   ============================================================ */
+
+async function loadFooterServices() {
+
+    const footerList =
+        document.getElementById("footerServicesList");
+
+    if (!footerList) {
+        return;
+    }
+
+    const db =
+        window.supabaseClient;
+
+    if (!db) {
+
+        footerList.innerHTML = `
+            <li>
+                <span>
+                    Services unavailable
+                </span>
+            </li>
+        `;
+
+        return;
+    }
+
+    try {
+
+        const {
+            data: services,
+            error
+        } = await db
+            .from("services")
+            .select(`
+                id,
+                name,
+                slug,
+                is_active,
+                is_coming_soon,
+                display_order
+            `)
+            .eq("is_active", true)
+            .order(
+                "display_order",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "Footer services error:",
+                error
+            );
+
+            footerList.innerHTML = `
+                <li>
+                    <span>
+                        Unable to load services
+                    </span>
+                </li>
+            `;
+
+            return;
+        }
+
+
+        if (!services || services.length === 0) {
+
+            footerList.innerHTML = `
+                <li>
+                    <span>
+                        No services available
+                    </span>
+                </li>
+            `;
+
+            return;
+        }
+
+
+        footerList.innerHTML =
+            services
+                .map(service => {
+
+                    const name =
+                        String(
+                            service.name || "Yoga Service"
+                        )
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/"/g, "&quot;")
+                        .replace(/'/g, "&#039;");
+
+
+                    const slug =
+                        encodeURIComponent(
+                            service.slug || ""
+                        );
+
+
+                    /*
+                    =================================================
+                    COMING SOON SERVICE
+                    =================================================
+                    */
+
+                    if (service.is_coming_soon) {
+
+                        return `
+                            <li>
+
+                                <span class="footer-coming-soon">
+
+                                    ${name}
+
+                                    <span>
+                                        (Coming Soon)
+                                    </span>
+
+                                </span>
+
+                            </li>
+                        `;
+
+                    }
+
+
+                    /*
+                    =================================================
+                    ACTIVE SERVICE
+                    =================================================
+                    */
+
+                    return `
+                        <li>
+
+                            <a
+                                href="service.html?slug=${slug}"
+                            >
+                                ${name}
+                            </a>
+
+                        </li>
+                    `;
+
+                })
+                .join("");
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unexpected footer services error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   START FOOTER SERVICES
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadFooterServices
+);
+
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", updateProfileNavigation);
