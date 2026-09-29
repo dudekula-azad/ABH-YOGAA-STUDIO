@@ -1060,6 +1060,27 @@
 
                 }
 
+                // Hide the session after its scheduled end time
+                const sessionEnd = new Date(
+                    `${data.session_date}T${data.end_time}+05:30`
+                );
+
+                const now = new Date();
+
+                if (now >= sessionEnd) {
+                    container.className = "special-error";
+
+                    container.innerHTML = `
+                        <h2>
+                            Special Session Ended
+                        </h2>
+                        <p>
+                            This special session has already ended.
+                        </p>
+                    `;
+
+                    return;
+                }
 
                 specialSession =
                     data;

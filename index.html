@@ -1324,12 +1324,26 @@ async function loadHomepageSpecialSessions() {
             return;
         }
 
+            // Remove sessions that have already ended
+            const now = new Date();
+
+            const activeSessions = (data || []).filter(session => {
+                if (!session.session_date || !session.end_time) {
+                    return true;
+                }
+
+                const sessionEnd = new Date(
+                    `${session.session_date}T${session.end_time}+05:30`
+                );
+
+                return now < sessionEnd;
+            });
 
         /* =====================================================
            NO ACTIVE SESSIONS
         ===================================================== */
 
-        if (!data || data.length === 0) {
+        if (!activeSessions || activeSessions.length === 0) {
 
             section.style.display = "none";
 
@@ -1347,7 +1361,7 @@ async function loadHomepageSpecialSessions() {
            CREATE SESSION CARDS
         ===================================================== */
 
-        data.forEach(session => {
+        activeSessions.forEach(session => {
 
             const card =
                 document.createElement("div");
