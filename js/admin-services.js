@@ -3429,6 +3429,7 @@ async function loadSpecialSessions() {
                 start_time,
                 end_time,
                 image_url,
+                meeting_link,
                 price,
                 capacity,
                 is_active,
@@ -3983,6 +3984,11 @@ function editSpecialSession(
     ).value =
         session.capacity ?? "";
 
+    document.getElementById(
+        "specialSessionMeetingLink"
+    ).value =
+        session.meeting_link || "";
+
 
     document.getElementById(
         "specialSessionDescription"
@@ -4177,6 +4183,30 @@ async function saveSpecialSession(
             ).value
         );
 
+    const meetingLink =
+        document.getElementById(
+            "specialSessionMeetingLink"
+        ).value.trim();
+
+    if (!meetingLink) {
+        showSpecialSessionStatus(
+            "Please enter the Zoom meeting link.",
+            "error"
+        );
+
+        return;
+    }
+
+    try {
+        new URL(meetingLink);
+    } catch (error) {
+        showSpecialSessionStatus(
+            "Please enter a valid meeting link.",
+            "error"
+        );
+
+        return;
+    }
 
     const isActive =
         document.getElementById(
@@ -4479,6 +4509,9 @@ async function saveSpecialSession(
             image_url:
                 imageUrl || null,
 
+            meeting_link:
+                meetingLink,
+
             price,
 
             capacity,
@@ -4602,6 +4635,9 @@ async function saveSpecialSession(
 
                     image_url:
                         imageUrl || null,
+
+                    meeting_link:
+                        meetingLink,
 
                     price,
 

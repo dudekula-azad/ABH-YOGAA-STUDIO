@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Join Special Session | ABH Yogaa Studio</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f3ed,
+                    #e9eee2
+                );
+
+            color: #333;
+        }
+
+        .join-container {
+            width: 90%;
+            max-width: 520px;
+
+            background: #ffffff;
+
+            padding: 45px 35px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.10);
+        }
+
+        .logo {
+            font-size: 24px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            color: #596b3d;
+
+            margin-bottom: 25px;
+        }
+
+        .icon {
+            font-size: 55px;
+
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+
+            color: #596b3d;
+
+            font-size: 30px;
+        }
+
+        .message {
+            color: #666;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+        .session-info {
+            display: none;
+
+            margin: 20px 0;
+
+            padding: 18px;
+
+            background: #f5f7f1;
+
+            border-radius: 12px;
+
+            text-align: left;
+        }
+
+        .session-info p {
+            margin: 8px 0;
+        }
+
+        .session-info strong {
+            color: #596b3d;
+        }
+
+        .join-button {
+            display: none;
+
+            width: 100%;
+
+            padding: 15px 20px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #596b3d;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #46552f;
+        }
+
+        .error {
+            display: none;
+
+            color: #a33a3a;
+
+            background: #fff1f1;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.5;
+        }
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            color: #596b3d;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        .loading {
+            color: #666;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="join-container">
+
+        <div class="logo">
+            ABH YOGAA STUDIO
+        </div>
+
+
+        <div
+            id="icon"
+            class="icon"
+        >
+            🔐
+        </div>
+
+
+        <h1 id="title">
+            Verifying Access...
+        </h1>
+
+
+        <p
+            id="message"
+            class="message loading"
+        >
+            Please wait while we verify your booking.
+        </p>
+
+
+        <div
+            id="sessionInfo"
+            class="session-info"
+        >
+
+            <p>
+                <strong>Session:</strong>
+                <span id="sessionTitle"></span>
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                <span id="sessionDate"></span>
+            </p>
+
+            <p>
+                <strong>Time:</strong>
+                <span id="sessionTime"></span>
+            </p>
+
+        </div>
+
+
+        <a
+            id="joinButton"
+            class="join-button"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            🎥 Join Session
+        </a>
+
+
+        <div
+            id="errorBox"
+            class="error"
+        ></div>
+
+
+        <a
+            href="index.html"
+            class="back-button"
+        >
+            ← Back to ABH Yogaa Studio
+        </a>
+
+    </div>
+
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <!-- YOUR SUPABASE CONFIG -->
+
+    <script src="js/supabase-config.js"></script>
+
+
+    <script>
+
+        /*
+         * =====================================================
+         * GET SPECIAL SESSION ID
+         * =====================================================
+         */
+
+        function getSpecialSessionId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return params.get(
+                "id"
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * SHOW ERROR
+         * =====================================================
+         */
+
+        function showError(message) {
+
+            document.getElementById(
+                "icon"
+            ).textContent = "⚠️";
+
+
+            document.getElementById(
+                "title"
+            ).textContent = "Access Denied";
+
+
+            document.getElementById(
+                "message"
+            ).style.display = "none";
+
+
+            const errorBox =
+                document.getElementById(
+                    "errorBox"
+                );
+
+
+            errorBox.textContent =
+                message;
+
+
+            errorBox.style.display =
+                "block";
+
+        }
+
+
+        /*
+         * =====================================================
+         * FORMAT DATE
+         * =====================================================
+         */
+
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "Not available";
+            }
+
+            const date =
+                new Date(
+                    dateString + "T00:00:00"
+                );
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * VERIFY ACCESS
+         * =====================================================
+         */
+
+        async function verifyJoinAccess() {
+
+            try {
+
+                const sessionId =
+                    getSpecialSessionId();
+
+
+                /*
+                 * No session ID
+                 */
+
+                if (!sessionId) {
+
+                    showError(
+                        "No special session was specified."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Make sure Supabase client exists
+                 */
+
+                if (
+                    !window.supabaseClient
+                ) {
+
+                    showError(
+                        "Supabase is not configured correctly."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Check login
+                 */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } =
+                    await window.supabaseClient
+                        .auth
+                        .getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    showError(
+                        "Please log in to your ABH Yogaa Studio account before joining this session."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Call protected Edge Function
+                 */
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.supabaseClient
+                        .functions
+                        .invoke(
+                            "join-special-session",
+                            {
+                                body: {
+                                    special_session_id:
+                                        Number(
+                                            sessionId
+                                        )
+                                }
+                            }
+                        );
+
+
+                /*
+                 * Edge Function error
+                 */
+
+                if (error) {
+
+                    console.error(
+                        "Join function error:",
+                        error
+                    );
+
+                    showError(
+                        "We could not verify your session access. Please try again."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Backend rejected access
+                 */
+
+                if (
+                    !data ||
+                    !data.success
+                ) {
+
+                    showError(
+                        data?.error ||
+                        "You are not authorized to join this session."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * SUCCESS
+                 */
+
+                const session =
+                    data.session;
+
+
+                /*
+                 * Display session information
+                 */
+
+                document.getElementById(
+                    "icon"
+                ).textContent = "🎥";
+
+
+                document.getElementById(
+                    "title"
+                ).textContent =
+                    "You're Ready to Join!";
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "Your booking has been verified. You can now join the Special Session.";
+
+
+                document.getElementById(
+                    "message"
+                ).classList.remove(
+                    "loading"
+                );
+
+
+                document.getElementById(
+                    "sessionTitle"
+                ).textContent =
+                    session.title ||
+                    "Special Session";
+
+
+                document.getElementById(
+                    "sessionDate"
+                ).textContent =
+                    formatDate(
+                        session.session_date
+                    );
+
+
+                document.getElementById(
+                    "sessionTime"
+                ).textContent =
+                    `${session.start_time} - ${session.end_time}`;
+
+
+                document.getElementById(
+                    "sessionInfo"
+                ).style.display =
+                    "block";
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * meeting_link comes from the
+                 * protected Edge Function.
+                 *
+                 * It is NOT stored in this page.
+                 */
+
+                const joinButton =
+                    document.getElementById(
+                        "joinButton"
+                    );
+
+
+                joinButton.href =
+                    data.meeting_link;
+
+
+                joinButton.style.display =
+                    "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected join error:",
+                    error
+                );
+
+                showError(
+                    "Something went wrong while verifying your access."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * =====================================================
+         * START
+         * =====================================================
+         */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            verifyJoinAccess
+        );
+
+    </script>
+
+</body>
+
+</html>
